@@ -1,0 +1,253 @@
+% Intended LaTeX compiler: pdflatex
+\documentclass[12pt,a4paper]{article}
+
+% --- Configuración de Idioma y Caracteres ---
+\usepackage[spanish, es-tabla]{babel} % es-tabla hace que diga Tabla en vez de Cuadro
+\usepackage[utf8]{inputenc}           % Imprescindible para tildes y ñ
+\usepackage[T1]{fontenc}              % Mejora la renderización de fuentes con acentos
+
+% --- Paquetes de Diseño y Utilidades ---
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+
+% --- Configuración de Página ---
+\geometry{left=2.00cm, right=2.50cm, top=2.50cm, bottom=2.00cm}
+\setstretch{1.5}
+
+% --- Encabezado y Pie de Página ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Programación Web}
+\lhead{ESPE}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{1.0pt}
+
+\begin{document}
+
+% =============================================================================
+% PORTADA
+% =============================================================================
+\begin{titlepage}
+\begin{center}
+    \includegraphics[width=5cm]{espe.jpeg} 
+    \vspace*{0.5cm}
+    
+    {\large \textbf{DEPARTAMENTO DE CIENCIAS DE LA COMPUTACIÓN}}\\[1cm]
+    
+    {\large \textbf{PROGRAMACIÓN WEB}}\\[2cm]
+    
+    {\large \textbf{ESPECIFICACIÓN DE REQUISITOS DE SOFTWARE IEEE-830}}\\[1cm]
+    
+    {\large \textbf{Título del Proyecto:}}\\[0.5cm]
+    {\Large \textbf{Arquitectura Base y Sistema de Control de Accesos Web}}\\[1.5cm]
+    
+    \begin{center}
+    \textbf{Nombre:} \\
+    Alexis Viteri \\[0.5cm]
+    
+    \textbf{NRC:} 30713\\[0.5cm]
+    
+    \textbf{Docente:} Ing. Kleber Aguilar\\[0.5cm]
+    
+    \textbf{Fecha:} \today
+    \end{center}
+\end{center}
+\end{titlepage}
+
+\newpage
+
+% =============================================================================
+% ÍNDICE Y PRELIMINARES
+% =============================================================================
+\tableofcontents
+\newpage
+
+% =============================================================================
+% SECCIÓN 1: INTRODUCCIÓN
+% =============================================================================
+\section{Introducción}
+\label{sec:introduccion}
+
+En esta sección se proporcionará una introducción a todo el documento de Especificación de Requisitos Software (ERS). Consta de varias subsecciones: propósito, ámbito del sistema, definiciones, referencias y visión general del documento.
+
+\subsection{Propósito}
+\label{sec:proposito}
+
+En esta subsección se definirá el propósito del documento ERS y se especificará a quién va dirigido.
+
+\subsection{Ámbito del sistema}
+\label{sec:ambito_sistema}
+
+En esta subsección:
+\begin{itemize}
+    \item Se podrá dar un nombre al futuro sistema (p.ej. MiSistema).
+    \item Se explicará lo que el sistema hará y lo que no hará.
+    \item Se describirán los beneficios, objetivos y metas que se espera alcanzar con el futuro sistema.
+    \item Se referenciarán todos aquellos documentos de nivel superior (p.ej. en industria de sistemas, que incluyen hardware y software, debería mantenerse la consistencia con el documento de especificaciones de requisitos globales del sistema, si existe).
+\end{itemize}
+
+\subsection{Definiciones, Acrónimos y Abreviaturas}
+\label{sec:definiciones}
+
+En esta subsección se definirán todos los términos, acrónimos y abreviaturas utilizadas en la ERS.
+
+\subsection{Referencias}
+\label{sec:referencias}
+
+En esta subsección se mostrará una lista completa de todos los documentos referenciados en la ERS.
+
+\subsection{Visión general del documento}
+\label{sec:vision_general}
+
+Esta subsección describe brevemente los contenidos y la organización del resto de la ERS.
+
+
+% =============================================================================
+% SECCIÓN 2: DESCRIPCIÓN GENERAL
+% =============================================================================
+\section{Descripción general del documento}
+\label{sec:descripcion_general}
+
+En esta sección se describen todos aquellos factores que afectan al producto y a sus requisitos. No se describen los requisitos, sino su contexto. Esto permitirá definir con detalle los requisitos en la sección 3, haciendo que sean más fáciles de entender.
+
+Normalmente, esta sección consta de las siguientes subsecciones: Perspectiva del producto, funciones del producto, características de los usuarios, restricciones, factores que se asumen y futuros requisitos.
+
+\subsection{Perspectiva del producto}
+\label{sec:perspectiva_producto}
+
+Esta subsección debe relacionar el futuro sistema (producto software) con otros productos. Si el producto es totalmente independiente de otros productos, también debe especificarse aquí. Si la ERS define un producto que es parte de un sistema mayor, esta subsección relacionará los requisitos del sistema mayor con la funcionalidad del producto aquí descrito. Se recomienda utilizar diagramas de bloques.
+
+\subsection{Funciones del producto}
+\label{sec:funciones_producto}
+
+En esta subsección de la ERS se mostrará un resumen, a grandes rasgos, de las funciones del futuro sistema. Por ejemplo, en una ERS para un programa de contabilidad, esta subsección mostrará que el sistema soportará el mantenimiento de cuentas, mostrará el estado de las cuentas y facilitará la facturación, sin mencionar el enorme detalle que cada una de estas funciones requiere.
+
+Las funciones deberán mostrarse de forma organizada, y pueden utilizarse gráficos, siempre y cuando dichos gráficos reflejen las relaciones entre funciones y no el diseño del sistema.
+
+\subsection{Características de los usuarios}
+\label{sec:caracteristicas_usuarios}
+
+Esta subsección describirá las características generales de los usuarios del producto, incluyendo nivel educacional, experiencia y experiencia técnica.
+
+\subsection{Restricciones}
+\label{sec:restricciones}
+
+Esta subsección describirá aquellas limitaciones que se imponen sobre los desarrolladores del producto:
+\begin{itemize}
+    \item Políticas de la empresa.
+    \item Limitaciones del hardware.
+    \item Interfaces con otras aplicaciones.
+    \item Operaciones paralelas.
+    \item Funciones de auditoría.
+    \item Funciones de control.
+    \item Lenguaje(s) de programación.
+    \item Protocolos de comunicación.
+    \item Requisitos de habilidad.
+    \item Criticalidad de la aplicación.
+    \item Consideraciones acerca de la seguridad.
+\end{itemize}
+
+\subsection{Suposiciones y dependencias}
+\label{sec:suposiciones_dependencias}
+
+Esta subsección de la ERS describirá aquellos factores que, si cambian, pueden afectar a los requisitos. Por ejemplo, los requisitos pueden presuponer una cierta organización de ciertas unidades de la empresa, o pueden presuponer que el sistema correrá sobre cierto sistema operativo. Si cambian dichos detalles en la organización de la empresa, o si cambian ciertos detalles técnicos, como el sistema operativo, puede ser necesario revisar y cambiar los requisitos.
+
+\subsection{Requisitos futuros}
+\label{sec:requisitos_futuros}
+
+Esta subsección esbozará futuras mejoras al sistema, que podrán analizarse e implementarse en el futuro.   
+
+
+% =============================================================================
+% SECCIÓN 3: REQUISITOS ESPECÍFICOS
+% =============================================================================
+\section{Requisitos específicos}
+\label{sec:requisitos_especificos}
+
+Esta sección contiene los requisitos a un nivel de detalle suficiente como para permitir a los diseñadores diseñar un sistema que satisfaga estos requisitos, y demuestren si el sistema satisface, o no, los requisitos. Todo requisito aquí especificado describirá comportamientos externos del sistema, perceptibles por parte de los usuarios, operadores y otros sistemas. Esta es la sección más larga e importante de la ERS. Deberán aplicarse los siguientes principios:
+
+\begin{itemize}
+    \item El documento debería ser perfectamente legible por personas de muy distintas formaciones e intereses.
+    \item Deberán referenciarse aquellos documentos relevantes que poseen alguna influencia sobre los requisitos.
+    \item Todo requisito deberá ser unívocamente identificable mediante algún código o sistema de numeración adecuado.
+    \item Lo ideal, aunque en la práctica no siempre realizable, es que los requisitos posean las siguientes características: 
+    \begin{itemize}
+        \item \textbf{Corrección:} La ERS es correcta si y sólo si todo requisito que figura aquí (y que será implementado en el sistema) refleja alguna necesidad real.
+        \item \textbf{No ambiguos:} Cada requisito tiene una sola interpretación. Para eliminar la ambigüedad inherente al lenguaje natural, se deberán utilizar gráficos o notaciones formales.
+        \item \textbf{Completos:} Todos los requisitos relevantes han sido incluidos en la ERS.
+        \item \textbf{Consistentes:} Los requisitos no pueden ser contradictorios.
+        \item \textbf{Clasificados:} Los requisitos pueden clasificarse por importancia (esenciales, condicionales u opcionales) o por estabilidad.
+        \item \textbf{Verificables:} Un requisito es verificable si existe un proceso finito y no costoso para demostrar que cumple con él.
+        \item \textbf{Modificables:} La ERS se encuentra estructurada de forma que los cambios puedan realizarse de forma fácil, completa y consistente.
+        \item \textbf{Trazables:} Se conoce el origen de cada requisito (trazabilidad hacia atrás) y su destino en los componentes (trazabilidad hacia adelante).
+    \end{itemize}
+\end{itemize}
+
+\subsection{Interfaces externas}
+\label{sec:interfaces_externas}
+
+Se describirán los requisitos que afecten a la interfaz de usuario, interfaz con otros sistemas (hardware y software) e interfaces de comunicaciones.
+
+\subsection{Funciones}
+\label{sec:funciones_especificas}
+
+Esta subsección deberá especificar todas aquellas acciones (funciones) que deberá llevar a cabo el software. Normalmente son aquellas acciones expresables como "el sistema deberá ...".
+
+El estándar de IEEE 830 permite organizar esta subsección de múltiples formas:
+\begin{itemize}
+    \item \textbf{Por tipos de usuarios:} Requisitos funcionales clasificados según el rol o tareas del usuario.
+    \item \textbf{Por objetos:} Detalle de atributos y funciones para entidades del mundo real reflejadas en el sistema.
+    \item \textbf{Por estímulos:} Especificación de estímulos recibidos y las funciones relacionadas.
+    \item \textbf{Por jerarquía funcional:} Jerarquía de funciones que comparten entradas, salidas o datos internos.
+\end{itemize}
+
+\subsection{Requisitos de rendimiento}
+\label{sec:rendimiento}
+
+Se detallarán los requisitos relacionados con la carga que se espera tenga que soportar el sistema (usuarios simultáneos, transacciones por segundo, etc.) y los requisitos de datos (volumen de registros esperados).
+
+\subsection{Restricciones de diseño}
+\label{sec:restricciones_diseno}
+
+Todo aquello que restrinja las decisiones relativas al diseño de la aplicación: estándares, limitaciones de hardware, etc.
+
+\subsection{Atributos del sistema}
+\label{sec:atributos_sistema}
+
+Se detallarán los atributos de calidad (fiabilidad, mantenibilidad, portabilidad y seguridad). Especificar roles autorizados y mecanismos de control de acceso (\emph{login}/\emph{password}).
+
+\subsection{Otros requisitos}
+\label{sec:otros_requisitos}
+
+Cualquier otro requisito que no encaje en otra sección.
+
+\newpage
+
+
+% =============================================================================
+% APÉNDICES
+% =============================================================================
+\section{Apéndices}
+\label{sec:apendices}
+
+Puede contener todo tipo de información relevante para la ERS pero que, propiamente, no forme parte de ella. Por ejemplo:
+\begin{enumerate}
+    \item Formatos de entrada/salida de datos, por pantalla o en listados.
+    \item Resultados de análisis de costes.
+    \item Restricciones acerca del lenguaje de programación.
+\end{enumerate}
+
+\end{document}
