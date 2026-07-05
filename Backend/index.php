@@ -1,25 +1,16 @@
 <?php
 // Backend/index.php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
 
-require_once 'config/conexion.php';
-require_once 'controllers/AuthController.php';
+// Usamos __DIR__ para asegurarnos de que la ruta sea absoluta desde la carpeta Backend
+require_once __DIR__ . '/config/conexion.php';
 
-// Capturar la acción que envía el frontend (ej: index.php?action=login)
-$action = $_GET['action'] ?? '';
-
-$authController = new AuthController();
-
-switch ($action) {
-    case 'login':
-        $authController->login();
-        break;
-    case 'logout':
-        $authController->logout();
-        break;
-    default:
-        http_response_code(404);
-        echo json_encode(["message" => "Ruta no encontrada."]);
-        break;
+try {
+    $db = Database::getInstance();
+    $conn = $db->getConnection();
+    
+    echo "<h1>Conexión Exitosa</h1>";
+    echo "Estado del servidor: " . $conn->host_info;
+    
+} catch (Exception $e) {
+    echo "<h1>Error en el flujo:</h1> " . $e->getMessage();
 }

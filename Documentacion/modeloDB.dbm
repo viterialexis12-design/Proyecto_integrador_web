@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.2.2" use-changelog="false" max-obj-count="4"
+	 gen-disabled-objs-code="false" show-sys-schemas-rects="true"
+	 last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<table name="usuario" layers="0" collapse-mode="2" max-obj-count="16" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="140" y="60"/>
+	<column name="id_usuario" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="nombre1" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="nombre2" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="apellido1" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="apellido2">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="fecha_nacimiento" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="cedula" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="telefono" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="correo">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="username" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="clave" not-null="true">
+		<type name="varchar" length="60"/>
+	</column>
+	<column name="estado" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="foto_perfil">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="usuario_pk" type="pk-constr" table="public.usuario">
+		<columns names="id_usuario" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_rol_rol" index="12"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="rol_fk" index="1"/>
+		<object name="usuario_uq" index="2"/>
+	</customidxs></table>
+
+<table name="rol" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="680" y="60"/>
+	<column name="id_rol" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="descripcion">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="rol_pk" type="pk-constr" table="public.rol">
+		<columns names="id_rol" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="permiso" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="420"/>
+	<column name="id_permiso" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="nombre_permiso" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="descripcion">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="permiso_pk" type="pk-constr" table="public.permiso">
+		<columns names="id_permiso" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_rol_rol" index="3"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="rol_fk" index="0"/>
+	</customidxs></table>
+
+<relationship name="usuario_has_one_rol" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#9658c8"
+	 src-table="public.rol"
+	 dst-table="public.usuario"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rol_has_many_permiso" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#75c91e"
+	 src-table="public.rol"
+	 dst-table="public.permiso"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
