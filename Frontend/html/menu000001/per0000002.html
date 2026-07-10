@@ -1,0 +1,40 @@
+<div class="modulo-container">
+    <div class="modulo-header">
+        <h2>✏️ Modificar Cuenta de Usuario</h2>
+        <p>Busca un usuario por nombre, cédula o username para actualizar su información.</p>
+    </div>
+
+    <div class="buscador-modulo-container" style="position: relative; margin-bottom: 25px;">
+        <label for="txtBuscarParaEditar" style="font-weight: bold; display: block; margin-bottom: 5px;">Seleccione el usuario a modificar:</label>
+        <input type="text" id="txtBuscarParaEditar" placeholder="🔍 Escribe cédula, nombre o username..." style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+        
+        <div id="listaSugerenciasEditar" style="position: absolute; width: 100%; background: white; border: 1px solid #ccc; border-top: none; border-radius: 0 0 4px 4px; z-index: 100; max-height: 200px; overflow-y: auto; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+    </div>
+
+    <div id="contenedorFormEditar" style="display: none; border-top: 2px solid #e2e8f0; padding-top: 20px;">
+        <form id="formEditarUsuario" class="form-grid" autocomplete="off">
+            <input type="hidden" id="txtEditIdUsuario" name="id_usuario">
+
+            <div class="form-section-title">Datos Personales</div>
+            <div class="form-group"><label>Primer Nombre *</label><input type="text" id="txtEditNombre1" name="nombre1"></div>
+            <div class="form-group"><label>Segundo Nombre</label><input type="text" id="txtEditNombre2" name="nombre2"></div>
+            <div class="form-group"><label>Primer Apellido *</label><input type="text" id="txtEditApellido1" name="apellido1" ></div>
+            <div class="form-group"><label>Segundo Apellido</label><input type="text" id="txtEditApellido2" name="apellido2"></div>
+            <div class="form-group"><label>Cédula *</label><input type="text" id="txtEditCedula" name="cedula" required></div>
+            <div class="form-group"><label>Fecha de Nacimiento</label><input type="date" id="txtEditFechaNac" name="fecha_nacimiento"></div>
+            <div class="form-group"><label>Teléfono</label><input type="tel" id="txtEditTelefono" name="telefono"></div>
+            <div class="form-group"><label>Correo *</label><input type="email" id="txtEditCorreo" name="correo" ></div>
+
+            <div class="form-section-title">Credenciales de Acceso</div>
+            <div class="form-group"><label>Username *</label><input type="text" id="txtEditUsername" name="username"></div>
+            <div class="form-group"><label>Nueva Contraseña <span style="font-weight:normal; font-size:0.8rem; color:#7f8c8d;">(Opcional)</span></label><input type="password" id="txtEditClave" name="clave" placeholder="••••••••"></div>
+            <div class="form-group"><label>Rol *</label><select id="cmbEditRol" name="id_rol" required><option value="">-- Seleccione un Rol --</option></select></div>
+            <div class="form-group"><label>Estado</label><select id="cmbEditEstado" name="estado"><option value="A">Activo</option><option value="I">Inactivo</option></select></div>
+
+            <div class="form-actions">
+                <button type="button" id="btnCancelarEditarUsuario" class="btn btn-secondary">Limpiar / Cancelar</button>
+                <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

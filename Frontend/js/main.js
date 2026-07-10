@@ -1,59 +1,108 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const sessionData = localStorage.getItem('userSession');
-    if (!sessionData) {
-        window.location.href = '../index.html';
+// 1. FUNCIÓN GLOBAL DE NAVEGACIÓN (Se dispara al dar clic en el botón con onclick)
+function navegarA(vista) {
+    console.log("-> Navegando hacia:", vista);
+    const nuevaUrl = `${window.location.pathname}?view=${vista}`;
+    window.history.pushState({}, '', nuevaUrl);
+    router();
+}
+
+// 2. ENRUTADOR PRINCIPAL
+function router() {
+    const contentView = document.getElementById("content-view");
+    if (!contentView) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const view = urlParams.get('view');
+
+    const inicioWelcome = document.getElementById("inicio-welcome");
+
+    if (!view) {
+        if (inicioWelcome) inicioWelcome.style.display = "block";
+        contentView.innerHTML = "";
         return;
     }
 
-    const usuario = JSON.parse(sessionData);
-    document.getElementById('welcomeMessage').innerText = `Hola, ${usuario.nombre} (${usuario.rol})`;
+    // CASO 2: Si hay una vista activa (?view=...), ocultamos por completo la sección de bienvenida anterior
+    if (inicioWelcome) inicioWelcome.style.display = "none";
 
-    const opcionesMenu = [
-        { id: 'inicio', texto: 'Inicio', permiso: 'ver_dashboard', render: renderInicio },
-        { id: 'usuarios', texto: 'Gestión de Usuarios', permiso: 'crear_usuarios', render: renderUsuarios },
-        { id: 'reportes', texto: 'Reportes Estadísticos', permiso: 'ver_reportes', render: renderReportes }
-    ];
+    const vistasIndependientes = {
+        'login': 'Frontend/html/login.html',
+        'menu': 'Frontend/html/menu.html',
+        'permiso': 'Frontend/html/permiso.html',
+        'principal': 'Frontend/html/principal.html',
+        'rol': 'Frontend/html/rol.html',
+        'usuario': 'Frontend/html/usuario.html'
+    };
 
-    const menuContenedor = document.getElementById('dynamicMenu');
-    
-    opcionesMenu.forEach(opcion => {
-        if (usuario.permisos.includes(opcion.permiso)) {
-            const link = document.createElement('a');
-            link.href = '#';
-            link.innerText = opcion.texto;
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                opcion.render(); 
+    const rutaArchivo = vistasIndependientes[view];
+
+    if (rutaArchivo) {
+        fetch(rutaArchivo)
+            .then(response => {
+                if (!response.ok) throw new Error("No se pudo encontrar el archivo HTML");
+                return response.text();
+            })
+            .then(html => {
+                contentView.innerHTML = html;
+                ejecutarScriptsDeVista(view); // Aquí se activa el submit del login
+            })
+            .catch(error => {
+                contentView.innerHTML = `<h2>⚠️ Error 404</h2><p>No se pudo cargar la vista.</p>`;
+                console.error("Error en Fetch:", error);
             });
-            menuContenedor.appendChild(link);
-        }
-    });
+    } else {
+        contentView.innerHTML = `<h2>⚠️ Vista no válida</h2>`;
+    }
+}
+// 3. EVENTO AL CARGAR LA PÁGINA
+document.addEventListener("DOMContentLoaded", () => {
+    const appContainer = document.getElementById("app");
+    if (appContainer) appContainer.style.display = "block";
 
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-        localStorage.removeItem('userSession');
-        window.location.href = '../index.html';
+    // Verificar el estado de la Base de Datos
+    verificarEstadoBD();
+
+    // Cargar la vista si el usuario entra directo con un enlace largo (ej: ?view=login)
+    router();
+
+    // Escuchar las flechas de navegación
+    window.addEventListener("popstate", () => {
+        router();
     });
 });
 
+// 4. VERIFICACIÓN BD
+function verificarEstadoBD() {
+    const statusLabel = document.getElementById("serverStatus");
+    if (!statusLabel) return;
 
-function renderInicio() {
-    document.getElementById('mainContent').innerHTML = `
-        <h2>Inicio</h2>
-        <p>Bienvenido al sistema académico.</p>
-    `;
+    fetch("Backend/config/test_conexion.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                statusLabel.textContent = "Conectado 🟢";
+                statusLabel.style.color = "#2ecc71";
+            } else {
+                statusLabel.textContent = "Desconectado 🔴";
+                statusLabel.style.color = "#e74c3c";
+            }
+        })
+        .catch(() => {
+            statusLabel.textContent = "Error de Conexión ⚠️";
+            statusLabel.style.color = "#f1c40f";
+        });
 }
 
-function renderUsuarios() {
-    document.getElementById('mainContent').innerHTML = `
-        <h2>Gestión de Usuarios</h2>
-        <p>Aquí puedes crear, editar y asignar roles a los usuarios.</p>
-        <button class="btn">Nuevo Usuario</button>
-        `;
-}
-
-function renderReportes() {
-    document.getElementById('mainContent').innerHTML = `
-        <h2>Reportes del Sistema</h2>
-        <p>Visualización de logs de acceso y estadísticas.</p>
-    `;
+// 5. DISPARADOR DE SCRIPTS
+function ejecutarScriptsDeVista(view) {
+    if (view === 'login') {
+        if (typeof inicializarLogin === 'function') inicializarLogin();
+    }
+    else if (view === 'principal') { // 👈 Registramos la inicialización de la pantalla principal
+        if (typeof inicializarPrincipal === 'function') {
+            inicializarPrincipal();
+        } else {
+            console.error("Error: La función inicializarPrincipal() no está disponible.");
+        }
+    }
 }

@@ -1,24 +1,28 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Panel de Control</title>
-    <link rel="stylesheet" href="../css/estilos.css">
-</head>
-<body>
-    <div class="dashboard-layout">
-        <aside class="sidebar">
-            <h3 id="welcomeMessage">Bienvenido</h3>
-            <nav id="dynamicMenu">
-                </nav>
-            <button id="logoutBtn">Cerrar Sesión</button>
-        </aside>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="user-profile">
+            <img src="Frontend/img/Foto_perfil.png" alt="Perfil" class="avatar-menu">
+            <h3 id="dashNombreUsuario">Cargando...</h3>
+            <span class="role-badge" id="dashRolUsuario">Rol</span>
+        </div>
+        
+        <nav class="sidebar-menu" id="menuDinamico">
+            </nav>
 
-        <main class="main-content" id="mainContent">
-            <h2>Selecciona una opción del menú</h2>
-        </main>
-    </div>
+        <div class="sidebar-footer">
+            <button id="btnCerrarSesion" class="btn btn-secondary">Cerrar Sesión</button>
+        </div>
+    </aside>
 
-    <script src="../js/main.js"></script>
-</body>
-</html>
+    <main class="dashboard-content">
+        <header class="content-header">
+            <h2 id="seccionActualTitle">Panel de Control General</h2>
+        </header>
+        <section class="content-body" id="vistaModulolContainer">
+            <div class="welcome-card">
+                <h3>¡Bienvenido al Sistema de Gestión Integrado!</h3>
+                <p>Selecciona una opción del menú lateral para comenzar a administrar los recursos.</p>
+            </div>
+        </section>
+    </main>
+</div>
