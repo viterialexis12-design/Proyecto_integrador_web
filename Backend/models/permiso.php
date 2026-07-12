@@ -3,25 +3,26 @@ class Permiso {
     private $conexion;
     private $tabla = "permiso";
 
-    // ─── PROPIEDADES REALES DE LA BD ──────────────────────────────────
-    public $id_permiso;
-    public $nombre_permiso;
-    public $descripcion;
-    public $codigo_menu;
-    public $estado;
+    // Mapeo adaptado a la tabla intermedia pura
+    public $id;
+    public $id_rol;
+    public $id_menu;
 
     public function __construct($db) {
         $this->conexion = $db;
     }
 
     /**
-     * Obtiene todos los permisos con el nombre de su menú contenedor
+     * Obtiene la lista de asignaciones vigentes entre roles y menús
      */
     public function obtenerTodos() {
-        $query = "SELECT p.id_permiso, p.nombre_permiso, p.descripcion, p.codigo_menu, p.estado, m.nombre AS nombre_menu
+        $query = "SELECT p.id, p.id_rol, p.id_menu, 
+                         r.nombre AS nombre_rol, 
+                         m.nombre AS nombre_menu
                   FROM " . $this->tabla . " p
-                  LEFT JOIN menu m ON p.codigo_menu = m.codigo_menu
-                  ORDER BY p.id_permiso DESC";
+                  INNER JOIN rol r ON p.id_rol = r.id
+                  INNER JOIN menu m ON p.id_menu = m.id
+                  ORDER BY p.id DESC";
                   
         $stmt = $this->conexion->prepare($query);
         $stmt->execute();
@@ -29,65 +30,51 @@ class Permiso {
     }
 
     /**
-     * Registra un nuevo permiso autogenerando el código consecutivo (PER0000001...)
+     * Crea la asignación (vínculo) entre un rol y un menú
      */
     public function crear() {
-        // Generador secuencial para el ID del permiso
-        $queryId = "SELECT IFNULL(MAX(CAST(SUBSTRING(id_permiso, 4) AS UNSIGNED)), 0) + 1 AS siguiente 
-                    FROM " . $this->tabla;
-        $stmtId = $this->conexion->prepare($queryId);
-        $stmtId->execute();
-        $row = $stmtId->fetch(PDO::FETCH_ASSOC);
-        $this->id_permiso = "PER" . str_pad($row['siguiente'], 7, "0", STR_PAD_LEFT);
-
-        $query = "INSERT INTO " . $this->tabla . " (id_permiso, nombre_permiso, descripcion, codigo_menu, estado) 
-                  VALUES (:id_permiso, :nombre_permiso, :descripcion, :codigo_menu, 1)"; // 1 = Activo
+        // Al tener un UNIQUE KEY (id_rol, id_menu), usamos un condicional para evitar duplicados manuales o errores fatales
+        $query = "INSERT INTO " . $this->tabla . " (id_rol, id_menu) 
+                  VALUES (:id_rol, :id_menu)";
 
         $stmt = $this->conexion->prepare($query);
 
-        // Limpieza de datos
-        $this->nombre_permiso = htmlspecialchars(strip_tags($this->nombre_permiso));
-        $this->descripcion    = htmlspecialchars(strip_tags($this->descripcion));
-        $this->codigo_menu    = htmlspecialchars(strip_tags($this->codigo_menu));
+        $this->id_rol  = intval($this->id_rol);
+        $this->id_menu = intval($this->id_menu);
 
-        $stmt->bindParam(':id_permiso', $this->id_permiso);
-        $stmt->bindParam(':nombre_permiso', $this->nombre_permiso);
-        $stmt->bindParam(':descripcion', $this->descripcion);
-        $stmt->bindParam(':codigo_menu', $this->codigo_menu);
+        $stmt->bindParam(':id_rol', $this->id_rol);
+        $stmt->bindParam(':id_menu', $this->id_menu);
 
         return $stmt->execute();
     }
 
     /**
-     * Modifica las propiedades de un permiso existente
+     * Modifica una asignación existente (cambiar el rol o el menú asignado)
      */
     public function actualizar() {
         $query = "UPDATE " . $this->tabla . " 
-                  SET nombre_permiso = :nombre_permiso, descripcion = :descripcion, codigo_menu = :codigo_menu, estado = :estado 
-                  WHERE id_permiso = :id_permiso";
+                  SET id_rol = :id_rol, id_menu = :id_menu 
+                  WHERE id = :id";
 
         $stmt = $this->conexion->prepare($query);
 
-        $this->id_permiso     = htmlspecialchars(strip_tags($this->id_permiso));
-        $this->nombre_permiso = htmlspecialchars(strip_tags($this->nombre_permiso));
-        $this->descripcion    = htmlspecialchars(strip_tags($this->descripcion));
-        $this->codigo_menu    = htmlspecialchars(strip_tags($this->codigo_menu));
-        $this->estado         = intval($this->estado);
+        $this->id      = intval($this->id);
+        $this->id_rol  = intval($this->id_rol);
+        $this->id_menu = intval($this->id_menu);
 
-        $stmt->bindParam(':id_permiso', $this->id_permiso);
-        $stmt->bindParam(':nombre_permiso', $this->nombre_permiso);
-        $stmt->bindParam(':descripcion', $this->descripcion);
-        $stmt->bindParam(':codigo_menu', $this->codigo_menu);
-        $stmt->bindParam(':estado', $this->estado);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':id_rol', $this->id_rol);
+        $stmt->bindParam(':id_menu', $this->id_menu);
 
         return $stmt->execute();
     }
 
     /**
-     * Desactivación lógica segura (estado = 0)
+     * En una tabla asociativa intermedia no suele haber "desactivación lógica". 
+     * Se elimina el registro completo para remover el acceso (Eliminación Física).
      */
-    public function desactivarLogico($id) {
-        $query = "UPDATE " . $this->tabla . " SET estado = 0 WHERE id_permiso = :id";
+    public function eliminar($id) {
+        $query = "DELETE FROM " . $this->tabla . " WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();

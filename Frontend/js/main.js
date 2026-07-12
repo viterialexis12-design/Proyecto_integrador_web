@@ -27,11 +27,7 @@ function router() {
 
     const vistasIndependientes = {
         'login': 'Frontend/html/login.html',
-        'menu': 'Frontend/html/menu.html',
-        'permiso': 'Frontend/html/permiso.html',
         'principal': 'Frontend/html/principal.html',
-        'rol': 'Frontend/html/rol.html',
-        'usuario': 'Frontend/html/usuario.html'
     };
 
     const rutaArchivo = vistasIndependientes[view];

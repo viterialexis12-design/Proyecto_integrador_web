@@ -7,8 +7,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 header('Content-Type: application/json; charset=UTF-8');
 
-// Guardián de seguridad opcional (verifica que haya iniciado sesión)
-if (!isset($_SESSION['id_usuario'])) {
+// Guardián de seguridad (verifica que haya iniciado sesión)
+if (!isset($_SESSION['id'])) { // Ajustado si normalizaste el ID en tu sesión de usuario
     ob_clean();
     http_response_code(401);
     echo json_encode(["status" => "error", "message" => "Acceso denegado. Sesión inválida."]);
@@ -69,18 +69,18 @@ try {
 
         // --- CASO B: ACTUALIZAR ROL ---
         if ($accion === 'EDITAR') {
-            $id_rol = $_POST['id_rol'] ?? null;
+            $id = $_POST['id'] ?? null; // Cambiado de id_rol a id
             $nombre = $_POST['nombre'] ?? null;
             $descripcion = $_POST['descripcion'] ?? null;
             $estado = $_POST['estado'] ?? 1;
 
-            if (!$id_rol || !$nombre) {
+            if (!$id || !$nombre) {
                 ob_clean();
                 echo json_encode(["status" => "error", "message" => "Faltan datos obligatorios para la edición."]);
                 exit;
             }
 
-            $rolModel->id_rol = $id_rol;
+            $rolModel->id = $id; // Cambiado asignación de propiedad a ->id
             $rolModel->nombre = $nombre;
             $rolModel->descripcion = $descripcion;
             $rolModel->estado = $estado;
@@ -97,15 +97,15 @@ try {
 
         // --- CASO C: INACTIVAR ROL (BORRADO LÓGICO) ---
         if ($accion === 'DESACTIVAR') {
-            $id_rol = $_POST['id_rol'] ?? null;
+            $id = $_POST['id'] ?? null; // Cambiado de id_rol a id
 
-            if (!$id_rol) {
+            if (!$id) {
                 ob_clean();
                 echo json_encode(["status" => "error", "message" => "ID de rol inválido o inexistente."]);
                 exit;
             }
 
-            if ($rolModel->desactivarLogico($id_rol)) {
+            if ($rolModel->desactivarLogico($id)) { // Pasamos la nueva variable $id
                 ob_clean();
                 echo json_encode(["status" => "success", "message" => "El rol ha sido inhabilitado correctamente."]);
             } else {

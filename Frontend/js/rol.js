@@ -1,10 +1,3 @@
-/**
- * ==========================================================================
- * LÓGICA DE CONTROL PARA EL CRUD DE ROLES (roles.js)
- * ==========================================================================
- */
-
-// --- 1. VER ROLES (per0000005) ---
 function inicializarVerRoles() {
     const tbody = document.getElementById("tbodyRoles");
     const btnRefrescar = document.getElementById("btnRefrescarRoles");
@@ -37,7 +30,6 @@ function inicializarVerRoles() {
             const tr = document.createElement("tr");
             const estado = r.estado === 1 ? '<span style="color:green; font-weight:bold;">Activo</span>' : '<span style="color:red; font-weight:bold;">Inactivo</span>';
             tr.innerHTML = `
-                <td style="padding: 12px 15px;">${r.id_rol}</td>
                 <td style="padding: 12px 15px;"><b>${r.nombre}</b></td>
                 <td style="padding: 12px 15px;">${r.descripcion || '<em style="color:#aaa;">Sin descripción</em>'}</td>
                 <td style="padding: 12px 15px;">${estado}</td>
@@ -58,7 +50,6 @@ function inicializarVerRoles() {
     cargarTabla();
 }
 
-// --- 2. CREAR ROL (per0000006) ---
 function inicializarCrearRol() {
     const form = document.getElementById("formCrearRol");
     const btnCancelar = document.getElementById("btnCancelarCrearRol");
@@ -82,8 +73,7 @@ function inicializarCrearRol() {
     if (btnCancelar) btnCancelar.onclick = () => form.reset();
 }
 
-// --- 3. ACTUALIZAR ROL (per0000007) ---
-function inicializarEditarRol() {
+function inicializarActualizarRol() {
     const form = document.getElementById("formEditarRol");
     const txtBuscar = document.getElementById("txtBuscarParaEditarRol");
     const sugerencias = document.getElementById("listaSugerenciasEditarRol");
@@ -141,8 +131,7 @@ function inicializarEditarRol() {
     }
 }
 
-// --- 4. BORRAR/INACTIVAR ROL (per0000008) ---
-function inicializarEliminarRol() {
+function inicializarBorrarRol() {
     const btnConfirmar = document.getElementById("btnConfirmarEliminarRol");
     const txtBuscar = document.getElementById("txtBuscarParaEliminarRol");
     const sugerencias = document.getElementById("listaSugerenciasEliminarRol");

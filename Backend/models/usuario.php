@@ -3,8 +3,8 @@ class Usuario {
     private $conexion;
     private $tabla = "usuario";
 
-    // Propiedades del objeto Usuario
-    public $id_usuario;
+    // Propiedades del objeto Usuario (Actualizado: id_usuario -> id)
+    public $id;
     public $nombre1;
     public $nombre2;
     public $apellido1;
@@ -29,7 +29,7 @@ class Usuario {
      */
     public function leerTodos() {
         $query = "SELECT 
-                    u.id_usuario, 
+                    u.id, 
                     u.nombre1, 
                     u.nombre2, 
                     u.apellido1, 
@@ -41,34 +41,35 @@ class Usuario {
                     u.id_rol,
                     r.nombre AS nombre_rol
                   FROM " . $this->tabla . " u
-                  LEFT JOIN rol r ON u.id_rol = r.id_rol
-                  ORDER BY u.id_usuario DESC";
+                  LEFT JOIN rol r ON u.id_rol = r.id
+                  ORDER BY u.id DESC";
 
         $stmt = $this->conexion->prepare($query);
         $stmt->execute();
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function obtenerTodos() {
-    // Ajusta los nombres de las columnas a los reales de tu base de datos si varían
-    $query = "SELECT 
-                u.id_usuario, 
-                u.nombre1, 
-                u.apellido1, 
-                u.cedula, 
-                u.correo, 
-                u.username, 
-                u.estado, 
-                r.nombre AS nombre_rol
-              FROM usuario u
-              LEFT JOIN rol r ON u.id_rol = r.id_rol
-              ORDER BY u.id_usuario DESC";
 
-    $stmt = $this->conexion->prepare($query);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-/**
+    public function obtenerTodos() {
+        $query = "SELECT 
+                    u.id, 
+                    u.nombre1, 
+                    u.apellido1, 
+                    u.cedula, 
+                    u.correo, 
+                    u.username, 
+                    u.estado, 
+                    r.nombre AS nombre_rol
+                  FROM usuario u
+                  LEFT JOIN rol r ON u.id_rol = r.id
+                  ORDER BY u.id DESC";
+
+        $stmt = $this->conexion->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Registra un nuevo usuario en la base de datos
      */
     public function crear() {
@@ -89,27 +90,24 @@ class Usuario {
         $stmt->bindParam(':telefono', $this->telefono);
         $stmt->bindParam(':correo', $this->correo);
         $stmt->bindParam(':username', $this->username);
-        $stmt->bindParam(':clave', $this->clave); // 🔐 Llega hasheada en SHA-256
+        $stmt->bindParam(':clave', $this->clave);
         $stmt->bindParam(':id_rol', $this->id_rol);
         $stmt->bindParam(':estado', $this->estado);
 
-        if ($stmt->execute()) {
-            return true;
-        }
-        return false;
+        return $stmt->execute();
     }
 
     /**
      * Obtiene un usuario específico por su ID
      */
     public function obtenerPorId($id) {
-        $query = "SELECT * FROM " . $this->tabla . " WHERE id_usuario = :id LIMIT 1";
+        $query = "SELECT * FROM " . $this->tabla . " WHERE id = :id LIMIT 1";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
+    
     /**
      * Actualiza los datos de un usuario existente
      */
@@ -118,7 +116,7 @@ class Usuario {
                     nombre1 = :nombre1, nombre2 = :nombre2, apellido1 = :apellido1, apellido2 = :apellido2,
                     cedula = :cedula, fecha_nacimiento = :fecha_nacimiento, telefono = :telefono, 
                     correo = :correo, username = :username, clave = :clave, id_rol = :id_rol, estado = :estado
-                  WHERE id_usuario = :id_usuario";
+                  WHERE id = :id";
 
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(':nombre1', $this->nombre1);
@@ -133,17 +131,16 @@ class Usuario {
         $stmt->bindParam(':clave', $this->clave);
         $stmt->bindParam(':id_rol', $this->id_rol);
         $stmt->bindParam(':estado', $this->estado);
-        $stmt->bindParam(':id_usuario', $this->id_usuario);
+        $stmt->bindParam(':id', $this->id);
 
         return $stmt->execute();
     }
 
     /**
-     * Desactivación lógica (Borrado empresarial poniendo estado en 'I' o '0')
+     * Desactivación lógica (Borrado empresarial poniendo estado en 0)
      */
     public function desactivarLogico($id) {
-        // Cámbialo a '0' si tu columna maneja enteros en lugar de caracteres ('I')
-        $query = "UPDATE " . $this->tabla . " SET estado = '0' WHERE id_usuario = :id";
+        $query = "UPDATE " . $this->tabla . " SET estado = 0 WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();

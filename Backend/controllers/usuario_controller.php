@@ -7,8 +7,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 header('Content-Type: application/json; charset=UTF-8');
 
-// 1. Guardián de seguridad silencioso
-if (!isset($_SESSION['id_usuario'])) {
+// 1. Guardián de seguridad silencioso (ID normalizado)
+if (!isset($_SESSION['id'])) {
     ob_clean();
     http_response_code(401);
     echo json_encode(["status" => "error", "message" => "Acceso denegado. Sesión inválida."]);
@@ -46,7 +46,7 @@ try {
     }
 
     // 3. PROCESAR PETICIÓN DE CREACIÓN (POST)
-    if ($metodo === 'POST') {
+    if ($metodo === 'POST' && (!isset($_POST['accion']) || ($_POST['accion'] !== 'EDITAR' && $_POST['accion'] !== 'DESACTIVAR'))) {
         
         // Capturar los campos enviados desde el formulario
         $nombre1       = $_POST['nombre1'] ?? null;
@@ -60,7 +60,7 @@ try {
         $username      = $_POST['username'] ?? null;
         $clave_limpia  = $_POST['clave'] ?? null;
         $id_rol        = $_POST['id_rol'] ?? null;
-        $estado        = $_POST['estado'] ?? 'A';
+        $estado        = $_POST['estado'] ?? 1; // Adaptado a tinyint(1) (1 = Activo)
 
         // Validaciones básicas de campos obligatorios
         if (!$nombre1 || !$apellido1 || !$cedula || !$correo || !$username || !$clave_limpia || !$id_rol) {
@@ -82,7 +82,7 @@ try {
         $usuarioModel->telefono = $telefono;
         $usuarioModel->correo = $correo;
         $usuarioModel->username = $username;
-        $usuarioModel->clave = $clave_hasheada; // 🔐 Guardamos el hash de 60 caracteres
+        $usuarioModel->clave = $clave_hasheada; 
         $usuarioModel->id_rol = $id_rol;
         $usuarioModel->estado = $estado;
 
@@ -103,24 +103,25 @@ try {
         exit;
     }
 
-    $metodo = $_SERVER['REQUEST_METHOD'];
-    $usuarioModel = new Usuario($conexion);
-
-    // --- PROCESAR ACTUALIZACIÓN (MÉTODO POST O PUT) ---
-    // Nota: Como enviamos FormData desde JS, usaremos POST simulando actualización
+    // --- PROCESAR ACTUALIZACIÓN (MÉTODO POST SIMULANDO EDICIÓN) ---
     if ($metodo === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'EDITAR') {
         
-        $id_usuario = $_POST['id_usuario'] ?? null;
-        if (!$id_usuario) {
+        $id = $_POST['id'] ?? null; // Cambiado de id_usuario a id
+        if (!$id) {
             ob_clean();
             echo json_encode(["status" => "error", "message" => "ID de usuario requerido."]);
             exit;
         }
 
         // Cargar datos actuales para no perder la clave si viene vacía
-        $usuarioActual = $usuarioModel->obtenerPorId($id_usuario);
+        $usuarioActual = $usuarioModel->obtenerPorId($id);
+        if (!$usuarioActual) {
+            ob_clean();
+            echo json_encode(["status" => "error", "message" => "El usuario no existe."]);
+            exit;
+        }
         
-        $usuarioModel->id_usuario = $id_usuario;
+        $usuarioModel->id        = $id; // Cambiado a propiedad ->id
         $usuarioModel->nombre1   = $_POST['nombre1'] ?? '';
         $usuarioModel->nombre2   = $_POST['nombre2'] ?? null;
         $usuarioModel->apellido1 = $_POST['apellido1'] ?? '';
@@ -129,7 +130,7 @@ try {
         $usuarioModel->correo    = $_POST['correo'] ?? '';
         $usuarioModel->username  = $_POST['username'] ?? '';
         $usuarioModel->id_rol    = $_POST['id_rol'] ?? null;
-        $usuarioModel->estado    = $_POST['estado'] ?? 'A';
+        $usuarioModel->estado    = $_POST['estado'] ?? 1; // Adaptado a tinyint(1)
         $usuarioModel->fecha_nacimiento = !empty($_POST['fecha_nacimiento']) ? $_POST['fecha_nacimiento'] : null;
         $usuarioModel->telefono  = $_POST['telefono'] ?? null;
 
@@ -152,16 +153,16 @@ try {
 
     // --- PROCESAR DESACTIVACIÓN LÓGICA (BORRAR) ---
     if ($metodo === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'DESACTIVAR') {
-        $id_usuario = $_POST['id_usuario'] ?? null;
+        $id = $_POST['id'] ?? null; // Cambiado de id_usuario a id
 
-        if (!$id_usuario) {
+        if (!$id) {
             ob_clean();
             echo json_encode(["status" => "error", "message" => "ID de usuario inválido."]);
             exit;
         }
 
         // Ejecutar el cambio de estado en el modelo
-        if ($usuarioModel->desactivarLogico($id_usuario)) {
+        if ($usuarioModel->desactivarLogico($id)) {
             ob_clean();
             echo json_encode(["status" => "success", "message" => "Usuario desactivado del sistema correctamente."]);
         } else {

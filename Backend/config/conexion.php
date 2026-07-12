@@ -1,6 +1,6 @@
 <?php
 $host     = 'localhost';
-$db_name  = 'proyecto_pw'; 
+$db_name  = 'Proyecto_pw1'; 
 $username = 'root';        
 $password = 'adminadmin'; // <-- Tu contraseña real de AppServ
 

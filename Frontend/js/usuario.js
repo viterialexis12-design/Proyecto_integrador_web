@@ -126,7 +126,7 @@ function prepararEliminacionUsuario(idUsuario) {
 // ==========================================================================
 // 💡 NUEVA LOGICA PARA EDITAR CON BUSCADOR PROPIO (per0000002.html)
 // ==========================================================================
-function inicializarEditarUsuario() {
+function inicializarActualizarUsuario() {
     const form = document.getElementById("formEditarUsuario");
     const cmbRol = document.getElementById("cmbEditRol");
     const btnCancelar = document.getElementById("btnCancelarEditarUsuario");

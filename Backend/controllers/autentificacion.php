@@ -30,7 +30,7 @@ if (empty($username) || empty($password)) {
 
 try {
     // Buscar al usuario en la base de datos
-    $stmt = $conexion->prepare("SELECT id_usuario, username, clave, estado, id_rol FROM usuario WHERE username = :username LIMIT 1");
+    $stmt = $conexion->prepare("SELECT id, username, clave, estado, id_rol FROM usuario WHERE username = :username LIMIT 1");
     $stmt->execute([':username' => $username]);
     $usuario = $stmt->fetch();
 
@@ -43,7 +43,7 @@ try {
         // Verificar la contraseña con Bcrypt
         if (password_verify($password, $usuario['clave'])) {
             
-            $_SESSION['id_usuario'] = $usuario['id_usuario'];
+            $_SESSION['id'] = $usuario['id'];
             $_SESSION['username']   = $usuario['username'];
             $_SESSION['id_rol']     = $usuario['id_rol'];
             

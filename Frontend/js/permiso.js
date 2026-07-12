@@ -144,7 +144,7 @@ function inicializarCrearPermiso() {
 }
 
 // --- 3. EDITAR PERMISO (per0000015) ---
-function inicializarEditarPermiso() {
+function inicializarActualizarPermiso() {
     const form = document.getElementById("formEditarPermiso");
     const txtBuscar = document.getElementById("txtBuscarParaEditarPermiso");
     const sugerencias = document.getElementById("listaSugerenciasEditarPermiso");

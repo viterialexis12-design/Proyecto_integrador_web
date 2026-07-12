@@ -7,8 +7,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 header('Content-Type: application/json; charset=UTF-8');
 
-// Guardián de sesión activo
-if (!isset($_SESSION['id_usuario'])) {
+// Guardián de sesión unificado
+if (!isset($_SESSION['id'])) {
     ob_clean();
     http_response_code(401);
     echo json_encode(["status" => "error", "message" => "Acceso denegado. Sesión inválida o expirada."]);
@@ -24,7 +24,7 @@ try {
     $permisoModel = new Permiso($conexion);
 
     // ==========================================================================
-    // 📁 CONSULTAR PERMISOS (GET)
+    // 📁 CONSULTAR ASIGNACIONES DE PERMISOS (GET)
     // ==========================================================================
     if ($metodo === 'GET') {
         $datos = $permisoModel->obtenerTodos();
@@ -42,83 +42,76 @@ try {
     if ($metodo === 'POST') {
         $accion = $_POST['accion'] ?? '';
 
-        // --- ACCIÓN: REGISTRAR ---
+        // --- ACCIÓN: ASIGNAR MENU A ROL ---
         if ($accion === 'CREAR') {
-            $nombre      = $_POST['nombre_permiso'] ?? null;
-            $descripcion = $_POST['descripcion'] ?? null;
-            $codigo_menu = $_POST['codigo_menu'] ?? null;
+            $id_rol  = $_POST['id_rol'] ?? null;
+            $id_menu = $_POST['id_menu'] ?? null;
 
-            if (!$nombre || !$codigo_menu) {
+            if (!$id_rol || !$id_menu) {
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "El nombre del permiso y el menú contenedor son obligatorios."]);
+                echo json_encode(["status" => "error", "message" => "El rol y el menú son campos obligatorios."]);
                 exit;
             }
 
-            $permisoModel->nombre_permiso = $nombre;
-            $permisoModel->descripcion    = $descripcion;
-            $permisoModel->codigo_menu    = $codigo_menu;
+            $permisoModel->id_rol  = $id_rol;
+            $permisoModel->id_menu = $id_menu;
 
             if ($permisoModel->crear()) {
                 ob_clean();
-                echo json_encode(["status" => "success", "message" => "Permiso registrado exitosamente."]);
+                echo json_encode(["status" => "success", "message" => "Permiso asignado exitosamente."]);
             } else {
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "Error interno al guardar el permiso en el sistema."]);
+                echo json_encode(["status" => "error", "message" => "No se pudo crear la asignación. Verifique si el rol ya cuenta con este menú."]);
             }
             exit;
         }
 
-        // --- ACCIÓN: MODIFICAR ---
+        // --- ACCIÓN: MODIFICAR ASIGNACIÓN ---
         if ($accion === 'EDITAR') {
-            $id_permiso    = $_POST['id_permiso'] ?? null;
-            $nombre        = $_POST['nombre_permiso'] ?? null;
-            $descripcion   = $_POST['descripcion'] ?? null;
-            $codigo_menu   = $_POST['codigo_menu'] ?? null;
-            $estado        = $_POST['estado'] ?? 1;
+            $id      = $_POST['id'] ?? null;
+            $id_rol  = $_POST['id_rol'] ?? null;
+            $id_menu = $_POST['id_menu'] ?? null;
 
-            if (!$id_permiso || !$nombre || !$codigo_menu) {
+            if (!$id || !$id_rol || !$id_menu) {
                 ob_clean();
                 echo json_encode(["status" => "error", "message" => "Faltan datos obligatorios para realizar la actualización."]);
                 exit;
             }
 
-            $permisoModel->id_permiso     = $id_permiso;
-            $permisoModel->nombre_permiso = $nombre;
-            $permisoModel->descripcion    = $descripcion;
-            $permisoModel->codigo_menu    = $codigo_menu;
-            $permisoModel->estado         = $estado;
+            $permisoModel->id      = $id;
+            $permisoModel->id_rol  = $id_rol;
+            $permisoModel->id_menu = $id_menu;
 
             if ($permisoModel->actualizar()) {
                 ob_clean();
-                echo json_encode(["status" => "success", "message" => "Permiso actualizado con éxito."]);
+                echo json_encode(["status" => "success", "message" => "Asignación actualizada con éxito."]);
             } else {
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "No se pudieron registrar las modificaciones."]);
+                echo json_encode(["status" => "error", "message" => "No se pudo actualizar el registro de permisos."]);
             }
             exit;
         }
 
-        // --- ACCIÓN: INACTIVAR ---
-        if ($accion === 'DESACTIVAR') {
-            $id_permiso = $_POST['id_permiso'] ?? null;
+        // --- ACCIÓN: ELIMINAR VÍNCULO (REVOCAR PERMISO) ---
+        if ($accion === 'ELIMINAR' || $accion === 'DESACTIVAR') {
+            $id = $_POST['id'] ?? null;
 
-            if (!$id_permiso) {
+            if (!$id) {
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "ID del permiso requerido para la baja."]);
+                echo json_encode(["status" => "error", "message" => "ID de asignación requerido para procesar el borrado."]);
                 exit;
             }
 
-            if ($permisoModel->desactivarLogico($id_permiso)) {
+            if ($permisoModel->eliminar($id)) {
                 ob_clean();
-                echo json_encode(["status" => "success", "message" => "El permiso ha sido marcado como inactivo (0)."]);
+                echo json_encode(["status" => "success", "message" => "El acceso ha sido revocado de forma exitosa."]);
             } else {
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "Error al intentar cambiar el estado del permiso."]);
+                echo json_encode(["status" => "error", "message" => "Error al intentar eliminar el permiso."]);
             }
             exit;
         }
 
-        // Si la acción no coincide con ninguna declarada
         ob_clean();
         echo json_encode(["status" => "error", "message" => "Acción POST desconocida."]);
         exit;

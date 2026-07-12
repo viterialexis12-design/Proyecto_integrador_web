@@ -7,10 +7,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
 header('Content-Type: application/json; charset=UTF-8');
 
-if (!isset($_SESSION['id_usuario'])) {
+// Verificación unificada de sesión
+if (!isset($_SESSION['id'])) {
     ob_clean();
     http_response_code(401);
-    echo json_encode(["status" => "error", "message" => "Sesión expirada."]);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Sesión expirada o inválida."
+    ]);
     exit;
 }
 
@@ -18,120 +22,205 @@ require_once '../config/conexion.php';
 require_once '../models/menu.php';
 
 try {
+
     global $conexion;
+
     $metodo = $_SERVER['REQUEST_METHOD'];
     $menuModel = new Menu($conexion);
+
     $id_rol = $_SESSION['id_rol'] ?? null;
 
-    // ==========================================================================
-    // 📁 LEER DATOS (GET)
-    // ==========================================================================
+    // ==========================================================
+    // GET
+    // ==========================================================
     if ($metodo === 'GET') {
-        // Distinguimos: ¿Es el CRUD pidiendo todos los menús, o es el Sidebar?
+
         if (isset($_GET['gestion_crud']) && $_GET['gestion_crud'] === 'true') {
-            // Petición desde la pantalla de Administración de Menús
+
             $listaMenus = $menuModel->obtenerTodos();
+
             ob_clean();
             echo json_encode([
                 "status" => "success",
                 "data" => $listaMenus
             ]);
-        } else {
-            // 🔥 Petición normal del Sidebar: Mantiene tu lógica original con username intacto
-            if (!$id_rol) {
-                ob_clean();
-                echo json_encode(["status" => "error", "message" => "No se encontró el rol del usuario."]);
-                exit;
-            }
-            
-            $listaMenus = $menuModel->obtenerPorRol($id_rol);
+            exit;
+        }
+
+        if (!$id_rol) {
             ob_clean();
             echo json_encode([
-                "status" => "success",
-                "usuario" => [
-                    "username" => $_SESSION['username'],
-                    "id_rol"   => $id_rol
-                ],
-                "menus" => $listaMenus,
-                "message" => "Menús y permisos cargados correctamente."
+                "status" => "error",
+                "message" => "No se encontró el rol asociado al usuario."
             ]);
+            exit;
         }
+
+        $listaMenus = $menuModel->obtenerPorRol($id_rol);
+        $nombreRolReal = $menuModel->obtenerRolDeUsuario($_SESSION['id']);
+
+        ob_clean();
+        echo json_encode([
+            "status" => "success",
+            "usuario" => [
+                "username" => $_SESSION['username'],
+                "id_rol"   => $id_rol,
+                "nombre_rol" => $nombreRolReal
+            ],
+            "menus" => $listaMenus,
+            "message" => "Menús cargados correctamente."
+        ]);
         exit;
     }
 
-    // ==========================================================================
-    // 🛠️ ACCIONES DE EDICIÓN / ESCRITURA (POST)
-    // ==========================================================================
+    // ==========================================================
+    // POST
+    // ==========================================================
     if ($metodo === 'POST') {
+
         $accion = $_POST['accion'] ?? '';
 
+        // ------------------------------------------------------
+        // CREAR
+        // ------------------------------------------------------
         if ($accion === 'CREAR') {
+
             $menuModel->nombre = $_POST['nombre'] ?? null;
             $menuModel->descripcion = $_POST['descripcion'] ?? null;
-            $menuModel->id_rol = $_POST['id_rol'] ?? null;
+            $menuModel->url = $_POST['url'] ?? null;
+            $menuModel->estado = $_POST['estado'] ?? 1;
+            $menuModel->id_menuPadre = !empty($_POST['id_menuPadre'])
+                ? $_POST['id_menuPadre']
+                : null;
 
-            if (!$menuModel->nombre || !$menuModel->id_rol) {
+            if (!$menuModel->nombre) {
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "Nombre y Rol son obligatorios."]);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "El nombre del menú es obligatorio."
+                ]);
                 exit;
             }
 
             if ($menuModel->crear()) {
+
                 ob_clean();
-                echo json_encode(["status" => "success", "message" => "Menú guardado correctamente."]);
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Menú registrado correctamente."
+                ]);
+
             } else {
+
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "Error al guardar el menú."]);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "No fue posible registrar el menú."
+                ]);
             }
+
             exit;
         }
 
+        // ------------------------------------------------------
+        // EDITAR
+        // ------------------------------------------------------
         if ($accion === 'EDITAR') {
-            $menuModel->codigo_menu = $_POST['codigo_menu'] ?? null;
+
+            $menuModel->id = $_POST['id'] ?? null;
             $menuModel->nombre = $_POST['nombre'] ?? null;
             $menuModel->descripcion = $_POST['descripcion'] ?? null;
-            $menuModel->id_rol = $_POST['id_rol'] ?? null;
+            $menuModel->url = $_POST['url'] ?? null;
             $menuModel->estado = $_POST['estado'] ?? 1;
+            $menuModel->id_menuPadre = !empty($_POST['id_menuPadre'])
+                ? $_POST['id_menuPadre']
+                : null;
 
-            if (!$menuModel->codigo_menu || !$menuModel->nombre || !$menuModel->id_rol) {
+            if (!$menuModel->id || !$menuModel->nombre) {
+
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "Faltan parámetros obligatorios."]);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "ID y nombre son obligatorios."
+                ]);
                 exit;
             }
 
             if ($menuModel->actualizar()) {
+
                 ob_clean();
-                echo json_encode(["status" => "success", "message" => "Menú actualizado correctamente."]);
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Menú actualizado correctamente."
+                ]);
+
             } else {
+
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "No se pudieron guardar los cambios."]);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "No fue posible actualizar el menú."
+                ]);
             }
+
             exit;
         }
 
+        // ------------------------------------------------------
+        // DESACTIVAR
+        // ------------------------------------------------------
         if ($accion === 'DESACTIVAR') {
-            $codigo_menu = $_POST['codigo_menu'] ?? null;
-            if (!$codigo_menu) {
+
+            $id = $_POST['id'] ?? null;
+
+            if (!$id) {
+
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "Código de menú requerido."]);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "Debe indicar el ID del menú."
+                ]);
                 exit;
             }
 
-            if ($menuModel->desactivarLogico($codigo_menu)) {
+            if ($menuModel->desactivarLogico($id)) {
+
                 ob_clean();
-                echo json_encode(["status" => "success", "message" => "Menú inhabilitado (estado 0)."]);
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Menú desactivado correctamente."
+                ]);
+
             } else {
+
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "No se pudo cambiar el estado."]);
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "No fue posible desactivar el menú."
+                ]);
             }
+
             exit;
         }
+
+        ob_clean();
+        echo json_encode([
+            "status" => "error",
+            "message" => "Acción no válida."
+        ]);
+        exit;
     }
 
 } catch (Exception $e) {
+
     ob_clean();
     http_response_code(500);
-    echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+
+    echo json_encode([
+        "status" => "error",
+        "message" => $e->getMessage()
+    ]);
+
     exit;
 }
 ?>

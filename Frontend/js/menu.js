@@ -4,7 +4,6 @@
  * ==========================================================================
  */
 
-// --- 1. LISTAR MENÚS (per0000013) ---
 function inicializarVerMenus() {
     const tbody = document.getElementById("tbodyMenus");
     const btnRefrescar = document.getElementById("btnRefrescarMenus");
@@ -83,7 +82,7 @@ function inicializarCrearMenu() {
 }
 
 // --- 3. EDITAR MENÚ (per0000015) ---
-function inicializarEditarMenu() {
+function inicializarActualizarMenu() {
     const form = document.getElementById("formEditarMenu");
     const txtBuscar = document.getElementById("txtBuscarParaEditarMenu");
     const sugerencias = document.getElementById("listaSugerenciasEditarMenu");
@@ -142,7 +141,7 @@ function inicializarEditarMenu() {
 }
 
 // --- 4. BORRAR/INACTIVAR MENÚ (per0000016) ---
-function inicializarEliminarMenu() {
+function inicializarBorrarMenu() {
     const btnConfirmar = document.getElementById("btnConfirmarEliminarMenu");
     const txtBuscar = document.getElementById("txtBuscarParaEliminarMenu");
     const sugerencias = document.getElementById("listaSugerenciasEliminarMenu");

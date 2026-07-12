@@ -3,8 +3,8 @@ class Rol {
     private $conexion;
     private $tabla = "rol";
 
-    // Atributos mapeados de la base de datos
-    public $id_rol;
+    // Atributos mapeados de la base de datos (Actualizado: id_rol -> id)
+    public $id;
     public $nombre;
     public $descripcion;
     public $estado;
@@ -17,14 +17,16 @@ class Rol {
      * Obtiene la lista completa de roles ordenada por ID
      */
     public function obtenerTodos() {
-        $query = "SELECT id_rol, nombre, descripcion, estado 
+        // Cambiado id_rol por id
+        $query = "SELECT id, nombre, descripcion, estado 
                   FROM " . $this->tabla . " 
-                  ORDER BY id_rol DESC";
+                  ORDER BY id DESC";
                   
         $stmt = $this->conexion->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     /**
      * Registra un nuevo rol en el sistema
@@ -35,7 +37,7 @@ class Rol {
 
         $stmt = $this->conexion->prepare($query);
 
-        // Limpieza de datos (Sanatize)
+        // Limpieza de datos (Sanitize)
         $this->nombre = htmlspecialchars(strip_tags($this->nombre));
         $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
 
@@ -50,18 +52,19 @@ class Rol {
      * Actualiza los datos de un rol existente
      */
     public function actualizar() {
+        // Cambiado id_rol = :id_rol por id = :id
         $query = "UPDATE " . $this->tabla . " 
                   SET nombre = :nombre, descripcion = :descripcion, estado = :estado 
-                  WHERE id_rol = :id_rol";
+                  WHERE id = :id";
 
         $stmt = $this->conexion->prepare($query);
 
-        $this->id_rol = htmlspecialchars(strip_tags($this->id_rol));
+        $this->id = htmlspecialchars(strip_tags($this->id));
         $this->nombre = htmlspecialchars(strip_tags($this->nombre));
         $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
         $this->estado = htmlspecialchars(strip_tags($this->estado));
 
-        $stmt->bindParam(':id_rol', $this->id_rol);
+        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':nombre', $this->nombre);
         $stmt->bindParam(':descripcion', $this->descripcion);
         $stmt->bindParam(':estado', $this->estado);
@@ -70,10 +73,11 @@ class Rol {
     }
 
     /**
-     * Inactivación lógica del rol (Pasa de 'A' a 'I')
+     * Inactivación lógica del rol (Pasa de 1 a 0)
      */
     public function desactivarLogico($id) {
-        $query = "UPDATE " . $this->tabla . " SET estado = 0 WHERE id_rol= :id";
+        // Cambiado id_rol = :id por id = :id
+        $query = "UPDATE " . $this->tabla . " SET estado = 0 WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
