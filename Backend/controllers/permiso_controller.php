@@ -27,7 +27,24 @@ try {
     // 📁 CONSULTAR ASIGNACIONES DE PERMISOS (GET)
     // ==========================================================================
     if ($metodo === 'GET') {
-        $datos = $permisoModel->obtenerTodos();
+        if (isset($_GET['id_rol_matriz'])) {
+            // Caso 1: Alimentar la matriz de Checkboxes para Edición (Devuelve activos e inactivos cruzados)
+            $id_rol = intval($_GET['id_rol_matriz']);
+            $datos = $permisoModel->obtenerMatrizPorRol($id_rol);
+        } else if (isset($_GET['id_rol'])) {
+            // Caso 2: Visualizar SOLO los accesos que el rol tiene admitidos actualmente
+            $id_rol = intval($_GET['id_rol']);
+            $matrizCompleta = $permisoModel->obtenerMatrizPorRol($id_rol);
+            
+            // Filtramos en caliente para enviar únicamente donde 'tiene_permiso' sea 1
+            $datos = array_values(array_filter($matrizCompleta, function($item) {
+                return intval($item['tiene_permiso']) === 1;
+            }));
+        } else {
+            // Comportamiento global por defecto
+            $datos = $permisoModel->obtenerTodos();
+        }
+
         ob_clean();
         echo json_encode([
             "status" => "success",
@@ -42,7 +59,65 @@ try {
     if ($metodo === 'POST') {
         $accion = $_POST['accion'] ?? '';
 
-        // --- ACCIÓN: ASIGNAR MENU A ROL ---
+        // --- NUEVA ACCIÓN: GUARDAR MATRIZ COMPLETA ---
+        // --- ACCIÓN: GUARDAR MATRIZ COMPLETA ---
+if ($accion === 'GUARDAR_MATRIZ') {
+    $id_rol = intval($_POST['id_rol'] ?? 0);
+    $menus_seleccionados = $_POST['menus'] ?? []; 
+
+    if (!$id_rol) {
+        ob_clean();
+        echo json_encode(["status" => "error", "message" => "El ID de rol es requerido."]);
+        exit;
+    }
+
+    // 🔥 REGLA DE PROTECCIÓN DEFINITIVA EN BACKEND
+    if ($id_rol === 1) {
+        // Obligamos a incluir el padre (4), ver permisos (18) y actualizar permisos (20)
+        $ids_vitales = [4, 18, 20];
+        foreach ($ids_vitales as $id_vital) {
+            if (!in_array($id_vital, $menus_seleccionados)) {
+                $menus_seleccionados[] = $id_vital;
+            }
+        }
+    }
+
+    try {
+        $conexion->beginTransaction();
+        
+        // (El resto de tu lógica para hacer DELETE e INSERT individuales se queda exactamente igual...)
+
+                // 1. Limpiamos todos los permisos vigentes que tenga asignados ese rol
+                $queryDelete = "DELETE FROM permiso WHERE id_rol = :id_rol";
+                $stmtDel = $conexion->prepare($queryDelete);
+                $stmtDel->bindValue(':id_rol', intval($id_rol), PDO::PARAM_INT);
+                $stmtDel->execute();
+
+                // 2. Insertamos únicamente los menús/submenús que se quedaron marcados
+                if (!empty($menus_seleccionados)) {
+                    $queryInsert = "INSERT INTO permiso (id_rol, id_menu) VALUES (:id_rol, :id_menu)";
+                    $stmtIns = $conexion->prepare($queryInsert);
+
+                    foreach ($menus_seleccionados as $id_menu) {
+                        $stmtIns->bindValue(':id_rol', intval($id_rol), PDO::PARAM_INT);
+                        $stmtIns->bindValue(':id_menu', intval($id_menu), PDO::PARAM_INT);
+                        $stmtIns->execute();
+                    }
+                }
+
+                $conexion->commit();
+                ob_clean();
+                echo json_encode(["status" => "success", "message" => "Matriz de permisos actualizada exitosamente."]);
+
+            } catch (Exception $txEx) {
+                $conexion->rollBack(); // Si algo falla en el bucle, revierte todo el cambio
+                ob_clean();
+                echo json_encode(["status" => "error", "message" => "Error transaccional: " . $txEx->getMessage()]);
+            }
+            exit;
+        }
+
+        // --- ACCIÓN: ASIGNAR MENU A ROL (INDIVIDUAL VIEJO) ---
         if ($accion === 'CREAR') {
             $id_rol  = $_POST['id_rol'] ?? null;
             $id_menu = $_POST['id_menu'] ?? null;
@@ -61,12 +136,12 @@ try {
                 echo json_encode(["status" => "success", "message" => "Permiso asignado exitosamente."]);
             } else {
                 ob_clean();
-                echo json_encode(["status" => "error", "message" => "No se pudo crear la asignación. Verifique si el rol ya cuenta con este menú."]);
+                echo json_encode(["status" => "error", "message" => "No se pudo crear la asignación."]);
             }
             exit;
         }
 
-        // --- ACCIÓN: MODIFICAR ASIGNACIÓN ---
+        // --- ACCIÓN: MODIFICAR ASIGNACIÓN (INDIVIDUAL VIEJO) ---
         if ($accion === 'EDITAR') {
             $id      = $_POST['id'] ?? null;
             $id_rol  = $_POST['id_rol'] ?? null;
@@ -92,7 +167,7 @@ try {
             exit;
         }
 
-        // --- ACCIÓN: ELIMINAR VÍNCULO (REVOCAR PERMISO) ---
+        // --- ACCIÓN: ELIMINAR VÍNCULO (INDIVIDUAL VIEJO) ---
         if ($accion === 'ELIMINAR' || $accion === 'DESACTIVAR') {
             $id = $_POST['id'] ?? null;
 

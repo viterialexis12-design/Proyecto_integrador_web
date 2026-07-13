@@ -1,0 +1,26 @@
+<div class="modulo-container" style="width: 100%; box-sizing: border-box;">
+    <div class="modulo-header" style="margin-bottom: 25px;">
+        <h2>➕ Registrar Nuevo Rol</h2>
+        <p style="color: #7f8c8d; margin-top: 0; font-size: 0.95rem;">Define un nuevo perfil de acceso para los usuarios del sistema.</p>
+    </div>
+
+    <form id="formCrearRol" class="form-grid" style="width: 100%; background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e2e8f0; box-sizing: border-box;">
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="txtRolNombre" style="font-weight: bold; display: block; margin-bottom: 5px; font-size: 0.9rem; color: #34495e;">Nombre del Rol *</label>
+            <input type="text" id="txtRolNombre" name="nombre" placeholder="Ej: Supervisor de Inventario" required 
+                   style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="txtRolDescripcion" style="font-weight: bold; display: block; margin-bottom: 5px; font-size: 0.9rem; color: #34495e;">Descripción</label>
+            <textarea id="txtRolDescripcion" name="descripcion" placeholder="Describe brevemente qué acciones puede realizar este rol..." rows="3" 
+                      style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; resize: none;"></textarea>
+        </div>
+
+        <div class="form-actions" style="border-top: 1px solid #eee; padding-top: 15px;">
+            <button type="button" id="btnCancelarCrearRol" class="btn btn-secondary">Limpiar</button>
+            <button type="submit" class="btn btn-primary">💾 Guardar Rol</button>
+        </div>
+    </form>
+</div>

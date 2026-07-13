@@ -1,0 +1,29 @@
+<div class="modulo-container" style="width: 100%;">
+    <div class="modulo-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div>
+            <h2>📁 Módulos y Menús del Sistema</h2>
+            <p>Lista de secciones principales accesibles en la barra lateral (Sidebar) organizadas por jerarquía.</p>
+        </div>
+        <button id="btnRefrescarMenus" class="btn btn-secondary">🔄 Actualizar</button>
+    </div>
+
+    <div class="table-tools" style="margin: 15px 0; width: 100%;">
+        <input type="text" id="txtBuscarMenu" placeholder="🔍 Filtrar por nombre, descripción o padre..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+    </div>
+
+    <div class="table-responsive" style="width: 100%; overflow-x: auto;">
+        <table class="main-table" style="width: 100%; border-collapse: collapse;">
+            <thead style="background-color: #2c3e50; color: white;">
+                <tr>
+                    <th style="padding: 12px; text-align: left;">Nombre del Menú</th>
+                    <th style="padding: 12px; text-align: left;">Descripción</th>
+                    <th style="padding: 12px; text-align: left;">Menú Padre</th>
+                    <th style="padding: 12px; width: 100px; text-align: center;">Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyMenus">
+                <tr><td colspan="4" style="text-align:center; padding:20px;">Cargando menús...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

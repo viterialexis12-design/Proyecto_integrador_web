@@ -3,30 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestión de Usuarios</title>
+    <title>Sistema de Gestión Integral</title>
     <link rel="stylesheet" href="Frontend/css/estilos.css">
+    <style>
+        /* Estilos base de respaldo para asegurar la estética moderna de la bienvenida */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .welcome-card {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .welcome-card h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .welcome-card .subtitle {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: #2563eb;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2rem;
+            padding: 6px 12px;
+            background: #f1f5f9;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Estados dinámicos para el indicador de la BD */
+        .status-online { background: #10b981; box-shadow: 0 0 8px #10b981; }
+        .status-offline { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+        .status-checking { background: #f59e0b; }
+    </style>
 </head>
 <body>
 
-    <div id="app" style="display: none;">
+    <div id="app" style="display: none; width: 100%; justify-content: center; padding: 20px; box-sizing: border-box;">
         
-        <div id="auth-container" class="container">
-            <div id="inicio-welcome">
+        <div id="auth-container" style="width: 100%; display: flex; justify-content: center;">
+            
+            <div id="inicio-welcome" class="welcome-card">
                 <h1>🚀 Sistema de Gestión</h1>
                 <p class="subtitle">Usuarios • Roles • Permisos</p>
-                <div style="margin-bottom: 20px;">
-                    <button id="btnIniciarSesion" class="btn" onclick="navegarA('login')">🔐 Iniciar Sesión</button>
+                
+                <div style="margin-top: 1rem;">
+                    <button id="btnIniciarSesion" class="btn-primary" onclick="navegarA('login')">
+                        🔐 Acceder al Sistema
+                    </button>
                 </div>
-                <div class="status">
-                    <span>🌐 BD Estado: </span>
-                    <span class="server" id="serverStatus">Verificando...</span>
+
+                <div class="status-badge">
+                    <span class="status-dot status-checking" id="statusDot"></span>
+                    <span>BD:</span>
+                    <span id="serverStatus" style="color: #0f172a;">Verificando...</span>
                 </div>
             </div>
 
             <div id="content-view"></div> 
         </div>
 
-        <div id="main-dashboard" style="display: none;"></div>
+        <div id="main-dashboard" style="display: none; width: 100%;"></div>
 
     </div>
 

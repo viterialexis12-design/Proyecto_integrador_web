@@ -1,386 +1,510 @@
-// --- 1. FUNCIÓN PARA EL LISTADO (ver_usuarios.html) ---
 function inicializarVerUsuarios() {
-    const tbody = document.getElementById("tbodyUsuarios");
-    const btnRefrescar = document.getElementById("btnRefrescarUsuarios");
-    const txtBuscar = document.getElementById("txtBuscarUsuario");
+  const tbody = document.getElementById("tbodyUsuarios");
+  const btnRefrescar = document.getElementById("btnRefrescarUsuarios");
+  const txtBuscar = document.getElementById("txtBuscarUsuario");
 
-    function cargarTabla() {
-        if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">⏳ Cargando usuarios...</td></tr>';
+  // Guardaremos los usuarios originales en memoria para un filtrado ultra rápido y preciso
+  let usuariosLocales = [];
 
-        fetch("Backend/controllers/usuario_controller.php")
-            .then(res => res.json())
-            .then(response => {
-                if (response.status === "success") {
-                    renderizarFilas(response.data);
-                } else {
-                    tbody.innerHTML = `<tr><td colspan="8" style="color:red; text-align:center;">${response.message}</td></tr>`;
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                tbody.innerHTML = '<tr><td colspan="8" style="color:red; text-align:center;">Error al conectar con el servidor.</td></tr>';
-            });
+  function cargarTabla() {
+    if (!tbody) return;
+    if (txtBuscar) txtBuscar.value = ""; // Limpiamos el buscador al refrescar
+    tbody.innerHTML =
+      '<tr><td colspan="7" style="text-align:center; padding: 20px; color: #475569;">⏳ Cargando usuarios...</td></tr>';
+
+    fetch("Backend/controllers/usuario_controller.php")
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.status === "success") {
+          usuariosLocales = response.data;
+          renderizarFilas(usuariosLocales);
+        } else {
+          tbody.innerHTML = `<tr><td colspan="7" style="color:#e74c3c; text-align:center; padding: 20px; font-weight: bold;">⚠️ ${response.message}</td></tr>`;
+        }
+      })
+      .catch((err) => {
+        console.error("Error al obtener usuarios:", err);
+        tbody.innerHTML =
+          '<tr><td colspan="7" style="color:#e74c3c; text-align:center; padding: 20px; font-weight: bold;">❌ Error al conectar con el servidor.</td></tr>';
+      });
+  }
+
+  function renderizarFilas(usuarios) {
+    tbody.innerHTML = "";
+    if (usuarios.length === 0) {
+      tbody.innerHTML =
+        '<tr><td colspan="7" style="text-align:center; padding: 20px; color: #7f8c8d;">No se encontraron usuarios registrados.</td></tr>';
+      return;
     }
 
-    function renderizarFilas(usuarios) {
-        tbody.innerHTML = "";
-        if (usuarios.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No hay usuarios registrados.</td></tr>';
-            return;
-        }
+    usuarios.forEach((u, index) => {
+      const tr = document.createElement("tr");
 
-        usuarios.forEach(u => {
-            const tr = document.createElement("tr");
-            const estadoTexto = u.estado === '1' ? '<span style="color:green; font-weight:bold;">Activo</span>' : '<span style="color:red; font-weight:bold;">Inactivo</span>';
-            
-            tr.innerHTML = `
-                <td style="padding: 12px 15px;">${u.id_usuario}</td>
-                <td style="padding: 12px 15px;">${u.nombre1} ${u.apellido1}</td>
-                <td style="padding: 12px 15px;">${u.cedula}</td>
-                <td style="padding: 12px 15px;">${u.correo}</td>
-                <td style="padding: 12px 15px;">${u.username}</td>
-                <td style="padding: 12px 15px;">${u.nombre_rol || 'Sin Rol'}</td>
+      // Estilizado alternado de filas para mejorar la legibilidad (cebra)
+      tr.style.backgroundColor = index % 2 === 0 ? "#ffffff" : "#f8fafc";
+      tr.style.borderBottom = "1px solid #e2e8f0";
+
+      // Tratamiento de valores nulos para construir el nombre de forma limpia
+      const n1 = u.nombre1 ? u.nombre1.trim() : "";
+      const n2 = u.nombre2 ? u.nombre2.trim() : "";
+      const a1 = u.apellido1 ? u.apellido1.trim() : "";
+      const a2 = u.apellido2 ? u.apellido2.trim() : "";
+
+      // Unimos los fragmentos ignorando los nulos o vacíos
+      const nombreCompleto = [n1, n2, a1, a2].filter(Boolean).join(" ");
+
+      const estadoTexto =
+        parseInt(u.estado) === 1
+          ? '<span style="color:#22c55e; background-color: #f0fdf4; padding: 4px 8px; border-radius: 4px; font-weight:bold; font-size: 0.85rem;">Activo</span>'
+          : '<span style="color:#ef4444; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px; font-weight:bold; font-size: 0.85rem;">Inactivo</span>';
+
+      tr.innerHTML = `
+                <td style="padding: 12px 15px; font-weight: bold; color: #64748b;">${u.id}</td>
+                <td style="padding: 12px 15px; color: #1e293b; font-weight: 500;">${nombreCompleto}</td>
+                <td style="padding: 12px 15px; color: #334155;">${u.cedula}</td>
+                <td style="padding: 12px 15px; color: #334155;">${u.correo}</td>
+                <td style="padding: 12px 15px; color: #475569; font-family: monospace;">${u.username}</td>
+                <td style="padding: 12px 15px; color: #334155;"><span style="background-color: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 0.85rem;">${u.nombre_rol || "Sin Rol"}</span></td>
                 <td style="padding: 12px 15px;">${estadoTexto}</td>
             `;
-            tbody.appendChild(tr);
-        });
-    }
+      tbody.appendChild(tr);
+    });
+  }
 
-    // Eventos de la lista
-    if (btnRefrescar) btnRefrescar.onclick = cargarTabla;
-    
-    if (txtBuscar) {
-        txtBuscar.oninput = (e) => {
-            const termino = e.target.value.toLowerCase();
-            const filas = tbody.querySelectorAll("tr");
-            filas.forEach(fila => {
-                const textoFila = fila.textContent.toLowerCase();
-                fila.style.display = textoFila.includes(termino) ? "" : "none";
-            });
-        };
-    }
+  // Evento manual para refrescar la lista
+  if (btnRefrescar) btnRefrescar.onclick = cargarTabla;
 
-    cargarTabla();
+  // Filtro avanzado en memoria (Evita colisiones con las etiquetas HTML de los estados)
+  if (txtBuscar) {
+    txtBuscar.oninput = (e) => {
+      const termino = e.target.value.toLowerCase().trim();
+
+      if (termino === "") {
+        renderizarFilas(usuariosLocales);
+        return;
+      }
+
+      const usuariosFiltrados = usuariosLocales.filter((u) => {
+        const n1 = u.nombre1 ? u.nombre1.toLowerCase() : "";
+        const n2 = u.nombre2 ? u.nombre2.toLowerCase() : "";
+        const a1 = u.apellido1 ? u.apellido1.toLowerCase() : "";
+        const a2 = u.apellido2 ? u.apellido2.toLowerCase() : "";
+        const cedula = u.cedula ? u.cedula.toLowerCase() : "";
+        const username = u.username ? u.username.toLowerCase() : "";
+        const correo = u.correo ? u.correo.toLowerCase() : "";
+
+        return (
+          n1.includes(termino) ||
+          n2.includes(termino) ||
+          a1.includes(termino) ||
+          a2.includes(termino) ||
+          cedula.includes(termino) ||
+          username.includes(termino) ||
+          correo.includes(termino)
+        );
+      });
+
+      renderizarFilas(usuariosFiltrados);
+    };
+  }
+
+  // Ejecución inmediata al cargar el módulo
+  cargarTabla();
 }
 
-// --- 2. FUNCIÓN PARA CREAR (crear_usuario.html) ---
 function inicializarCrearUsuario() {
-    const form = document.getElementById("formCrearUsuario");
-    const cmbRol = document.getElementById("cmbRol");
-    const btnCancelar = document.getElementById("btnCancelarUsuario");
+  const form = document.getElementById("formCrearUsuario");
+  const cmbRol = document.getElementById("cmbRol");
+  const btnCancelar = document.getElementById("btnCancelarUsuario");
 
-    if (cmbRol) {
-        fetch("Backend/controllers/rol_controller.php")
-            .then(res => res.json())
-            .then(response => {
-                if (response.status === "success") {
-                    cmbRol.innerHTML = '<option value="">-- Seleccione un Rol --</option>';
-                    response.data.forEach(rol => {
-                        cmbRol.innerHTML += `<option value="${rol.id_rol}">${rol.nombre}</option>`;
-                    });
-                }
-            });
-    }
+  // Cargar dinámicamente los roles disponibles
+  // Cargar dinámicamente los roles disponibles (Protegido)
+  if (cmbRol) {
+    fetch("Backend/controllers/rol_controller.php")
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.status === "success") {
+          cmbRol.innerHTML =
+            '<option value="">-- Seleccione un Rol --</option>';
 
-    if (form) {
-        form.onsubmit = (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
+          response.data.forEach((rol) => {
+            // Regla de negocio: Si el rol es ID = 1 (Superadministrador),
+            // se omite para evitar que se cree un segundo Superadmin.
+            if (parseInt(rol.id) === 1) {
+              return; // Salta este registro
+            }
 
-            fetch("Backend/controllers/usuario_controller.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "success") {
-                    alert("✅ Usuario registrado con éxito.");
-                    form.reset();
+            cmbRol.innerHTML += `<option value="${rol.id}">${rol.nombre}</option>`;
+          });
+        } else {
+          console.error("No se pudieron cargar los roles:", response.message);
+        }
+      })
+      .catch((err) =>
+        console.error("Error al obtener catálogo de roles:", err),
+      );
+  }
 
-                    cargarVistaModuloGenerica('MENU000001', 'PER0000001');
-                } else {
-                    alert("⚠️ Error: " + data.message);
-                }
-            });
-        };
-    }
+  if (form) {
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
 
-    if (btnCancelar) {
-        btnCancelar.onclick = () => cargarVistaModuloGenerica('MENU000001', 'PER0000001');
-    }
+      // Añadimos explícitamente la acción esperada por el controlador
+      formData.append("accion", "REGISTRAR");
+
+      fetch("Backend/controllers/usuario_controller.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "success") {
+            alert("✅ Usuario registrado con éxito.");
+            form.reset();
+          } else {
+            alert("⚠️ Error: " + data.message);
+          }
+        })
+        .catch((err) => {
+          console.error("Error en la solicitud de registro:", err);
+          alert(
+            "❌ Ocurrió un error al conectar con el servidor. Inténtalo de nuevo.",
+          );
+        });
+    };
+  }
+
+  if (btnCancelar && form) {
+    btnCancelar.onclick = (e) => {
+      e.preventDefault();
+      form.reset();
+    };
+  }
 }
 
-function prepararEdicionUsuario(idUsuario) {
-    // Almacenamos temporalmente en sessionStorage el ID del usuario a editar
-    sessionStorage.setItem("id_usuario_editar", idUsuario);
-    // Saltamos al formulario de edición (PERM0000003)
-    cargarVistaModuloGenerica('MNU0000001', 'PERM000003');
-}
-
-function prepararEliminacionUsuario(idUsuario) {
-    sessionStorage.setItem("id_usuario_eliminar", idUsuario);
-    // Saltamos a la pantalla de confirmación de baja (PERM0000004)
-    cargarVistaModuloGenerica('MNU0000001', 'PERM000004');
-}
-// ==========================================================================
-// 💡 NUEVA LOGICA PARA EDITAR CON BUSCADOR PROPIO (per0000002.html)
-// ==========================================================================
 function inicializarActualizarUsuario() {
-    const form = document.getElementById("formEditarUsuario");
-    const cmbRol = document.getElementById("cmbEditRol");
-    const btnCancelar = document.getElementById("btnCancelarEditarUsuario");
-    
-    const txtBuscar = document.getElementById("txtBuscarParaEditar");
-    const contenedorSugerencias = document.getElementById("listaSugerenciasEditar");
-    const contenedorForm = document.getElementById("contenedorFormEditar");
+  const form = document.getElementById("formEditarUsuario");
+  const cmbRol = document.getElementById("cmbEditRol");
+  const btnCancelar = document.getElementById("btnCancelarEditarUsuario");
 
-    let usuariosLocales = []; // Almacenará la lista temporal para filtrar rápido
+  const txtBuscar = document.getElementById("txtBuscarParaEditar");
+  const contenedorSugerencias = document.getElementById(
+    "listaSugerenciasEditar",
+  );
+  const contenedorForm = document.getElementById("contenedorFormEditar");
 
-    // 1. Cargar roles primero
-    if (cmbRol) {
-        fetch("Backend/controllers/rol_controller.php")
-            .then(res => res.json())
-            .then(response => {
-                if (response.status === "success") {
-                    cmbRol.innerHTML = '<option value="">-- Seleccione un Rol --</option>';
-                    response.data.forEach(rol => {
-                        cmbRol.innerHTML += `<option value="${rol.id_rol}">${rol.nombre}</option>`;
-                    });
-                    // Una vez listos los roles, descargamos el catálogo de usuarios para buscar
-                    cargarCatalogoUsuarios();
-                }
-            });
-    }
+  let usuariosLocales = []; // Cache en memoria de los usuarios para la barra de búsqueda
 
-    function cargarCatalogoUsuarios() {
-        fetch("Backend/controllers/usuario_controller.php")
-            .then(res => res.json())
-            .then(response => {
-                if (response.status === "success") {
-                    usuariosLocales = response.data;
-                }
-            });
-    }
+  // 1. Cargar catálogo de roles dinámicamente
+  if (cmbRol) {
+    fetch("Backend/controllers/rol_controller.php")
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.status === "success") {
+          cmbRol.innerHTML =
+            '<option value="">-- Seleccione un Rol --</option>';
+          response.data.forEach((rol) => {
+            // Ajustado al campo real de tu catálogo: rol.id
+            cmbRol.innerHTML += `<option value="${rol.id}">${rol.nombre}</option>`;
+          });
+          // Cargamos los usuarios una vez que el combo de roles esté listo
+          cargarCatalogoUsuarios();
+        }
+      })
+      .catch((err) => console.error("Error al cargar roles:", err));
+  }
 
-    // 2. Escuchar lo que escribe el usuario en la barra
-    if (txtBuscar) {
-        txtBuscar.oninput = (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            contenedorSugerencias.innerHTML = "";
-            
-            if (query === "") {
-                contenedorSugerencias.style.display = "none";
-                return;
-            }
+  function cargarCatalogoUsuarios() {
+    fetch("Backend/controllers/usuario_controller.php")
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.status === "success") {
+          usuariosLocales = response.data;
+        }
+      })
+      .catch((err) => console.error("Error al cargar usuarios:", err));
+  }
 
-            // Filtrar coincidencias por nombre, apellido, cédula o username
-            const filtrados = usuariosLocales.filter(u => 
-                u.nombre1.toLowerCase().includes(query) || 
-                u.apellido1.toLowerCase().includes(query) || 
-                u.cedula.includes(query) || 
-                u.username.toLowerCase().includes(query)
-            );
+  // 2. Controladores de eventos del buscador en tiempo real
+  if (txtBuscar) {
+    txtBuscar.oninput = (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      contenedorSugerencias.innerHTML = "";
 
-            if (filtrados.length === 0) {
-                contenedorSugerencias.innerHTML = `<div style="padding: 10px; color: #95a5a6; font-style: italic;">No se encontraron resultados</div>`;
-            } else {
-                filtrados.forEach(u => {
-                    const item = document.createElement("div");
-                    item.style.padding = "10px 15px";
-                    item.style.cursor = "pointer";
-                    item.style.borderBottom = "1px solid #f1f5f9";
-                    item.innerHTML = `👤 <b>${u.nombre1} ${u.apellido1}</b> <small style="color:#7f8c8d;">(${u.cedula} - ${u.username})</small>`;
-                    
-                    // Al hacer clic en una sugerencia, rellenamos el formulario y lo mostramos
-                    item.onclick = () => {
-                        txtBuscar.value = `${u.nombre1} ${u.apellido1} (${u.username})`;
-                        contenedorSugerencias.style.display = "none";
-                        cargarUsuarioEnFormulario(u.id_usuario);
-                    };
-                    
-                    // Efecto hover visual
-                    item.onmouseenter = () => item.style.backgroundColor = "#f1f5f9";
-                    item.onmouseleave = () => item.style.backgroundColor = "transparent";
-                    
-                    contenedorSugerencias.appendChild(item);
-                });
-            }
-            contenedorSugerencias.style.display = "block";
-        };
-    }
+      if (query === "") {
+        contenedorSugerencias.style.display = "none";
+        return;
+      }
 
-    function cargarUsuarioEnFormulario(idUsuario) {
-        fetch(`Backend/controllers/usuario_controller.php?id=${idUsuario}`)
-            .then(res => res.json())
-            .then(response => {
-                if (response.status === "success" && response.data) {
-                    const u = response.data;
-                    document.getElementById("txtEditIdUsuario").value = u.id_usuario;
-                    document.getElementById("txtEditNombre1").value = u.nombre1;
-                    document.getElementById("txtEditNombre2").value = u.nombre2 || '';
-                    document.getElementById("txtEditApellido1").value = u.apellido1;
-                    document.getElementById("txtEditApellido2").value = u.apellido2 || '';
-                    document.getElementById("txtEditCedula").value = u.cedula;
-                    document.getElementById("txtEditFechaNac").value = u.fecha_nacimiento || '';
-                    document.getElementById("txtEditTelefono").value = u.telefono || '';
-                    document.getElementById("txtEditCorreo").value = u.correo;
-                    document.getElementById("txtEditUsername").value = u.username;
-                    document.getElementById("cmbEditRol").value = u.id_rol;
-                    document.getElementById("cmbEditEstado").value = u.estado;
+      // Filtrado interactivo considerando campos existentes
+      const filtrados = usuariosLocales.filter(
+        (u) =>
+          (u.nombre1 && u.nombre1.toLowerCase().includes(query)) ||
+          (u.apellido1 && u.apellido1.toLowerCase().includes(query)) ||
+          (u.cedula && u.cedula.includes(query)) ||
+          (u.username && u.username.toLowerCase().includes(query)),
+      );
 
-                    contenedorForm.style.display = "block"; // Desplegamos el formulario
-                }
-            });
-    }
+      if (filtrados.length === 0) {
+        contenedorSugerencias.innerHTML = `<div style="padding: 10px; color: #94a3b8; font-style: italic; font-size:0.9rem;">No se encontraron resultados</div>`;
+      } else {
+        filtrados.forEach((u) => {
+          const item = document.createElement("div");
+          item.style.padding = "10px 15px";
+          item.style.cursor = "pointer";
+          item.style.borderBottom = "1px solid #f1f5f9";
+          item.style.fontSize = "0.95rem";
+          item.innerHTML = `👤 <b>${u.nombre1} ${u.apellido1}</b> <small style="color:#64748b;">(${u.cedula} - ${u.username})</small>`;
 
-    if (form) {
-        form.onsubmit = (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            formData.append("accion", "EDITAR");
+          item.onclick = () => {
+            txtBuscar.value = `${u.nombre1} ${u.apellido1} (${u.username})`;
+            contenedorSugerencias.style.display = "none";
+            // Pasamos u.id mapeando correctamente la Primary Key
+            cargarUsuarioEnFormulario(u.id);
+          };
 
-            fetch("Backend/controllers/usuario_controller.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "success") {
-                    alert("✅ Usuario actualizado correctamente.");
-                    txtBuscar.value = "";
-                    contenedorForm.style.display = "none";
-                    cargarCatalogoUsuarios(); // Recargar caché
-                } else {
-                    alert("⚠️ Error: " + data.message);
-                }
-            });
-        };
-    }
+          item.onmouseenter = () => (item.style.backgroundColor = "#f1f5f9");
+          item.onmouseleave = () =>
+            (item.style.backgroundColor = "transparent");
 
-    if (btnCancelar) {
-        btnCancelar.onclick = () => {
+          contenedorSugerencias.appendChild(item);
+        });
+      }
+      contenedorSugerencias.style.display = "block";
+    };
+  }
+
+  // 3. Renderizado y protección del formulario según el rol
+  function cargarUsuarioEnFormulario(idUsuario) {
+    fetch(`Backend/controllers/usuario_controller.php?id=${idUsuario}`)
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.status === "success" && response.data) {
+          const u = response.data;
+
+          // Seteamos valores mapeados a los inputs
+          document.getElementById("txtEditIdUsuario").value = u.id;
+          document.getElementById("txtEditNombre1").value = u.nombre1;
+          document.getElementById("txtEditNombre2").value = u.nombre2 || "";
+          document.getElementById("txtEditApellido1").value = u.apellido1;
+          document.getElementById("txtEditApellido2").value = u.apellido2 || "";
+          document.getElementById("txtEditCedula").value = u.cedula;
+          document.getElementById("txtEditFechaNac").value =
+            u.fecha_nacimiento || "";
+          document.getElementById("txtEditTelefono").value = u.telefono || "";
+          document.getElementById("txtEditCorreo").value = u.correo;
+          document.getElementById("txtEditUsername").value = u.username;
+
+          const cmbEditRol = document.getElementById("cmbEditRol");
+          const cmbEditEstado = document.getElementById("cmbEditEstado");
+
+          cmbEditRol.value = u.id_rol;
+          cmbEditEstado.value = u.estado;
+
+          // --- REGLA DE NEGOCIO EN EL FRONTEND ---
+          // Si el id_rol del usuario es igual a 1 (Superadministrador) congelamos Rol y Estado
+          if (parseInt(u.id_rol) === 1) {
+            cmbEditRol.disabled = true;
+            cmbEditEstado.disabled = true;
+            cmbEditRol.style.backgroundColor = "#f1f5f9";
+            cmbEditEstado.style.backgroundColor = "#f1f5f9";
+          } else {
+            cmbEditRol.disabled = false;
+            cmbEditEstado.disabled = false;
+            cmbEditRol.style.backgroundColor = "white";
+            cmbEditEstado.style.backgroundColor = "white";
+          }
+
+          contenedorForm.style.display = "block";
+        }
+      })
+      .catch((err) =>
+        console.error("Error al obtener detalles del usuario:", err),
+      );
+  }
+
+  // 4. Envío del formulario
+  if (form) {
+    form.onsubmit = (e) => {
+      e.preventDefault();
+
+      // Habilitamos temporalmente los campos bloqueados para que FormData pueda capturarlos
+      const cmbEditRol = document.getElementById("cmbEditRol");
+      const cmbEditEstado = document.getElementById("cmbEditEstado");
+      const rolBloqueado = cmbEditRol.disabled;
+
+      if (rolBloqueado) {
+        cmbEditRol.disabled = false;
+        cmbEditEstado.disabled = false;
+      }
+
+      const formData = new FormData(form);
+      formData.append("accion", "EDITAR");
+
+      // Restauramos el estado disabled inmediatamente después de leer los datos
+      if (rolBloqueado) {
+        cmbEditRol.disabled = true;
+        cmbEditEstado.disabled = true;
+      }
+
+      fetch("Backend/controllers/usuario_controller.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "success") {
+            alert("✅ Usuario actualizado correctamente.");
             txtBuscar.value = "";
             contenedorForm.style.display = "none";
-        };
-    }
+            cargarCatalogoUsuarios(); // Refrescar la memoria local
+          } else {
+            alert("⚠️ Error: " + data.message);
+          }
+        })
+        .catch((err) => console.error("Error al guardar cambios:", err));
+    };
+  }
+
+  if (btnCancelar) {
+    btnCancelar.onclick = () => {
+      txtBuscar.value = "";
+      contenedorForm.style.display = "none";
+      form.reset();
+    };
+  }
 }
 
-// ==========================================================================
-// 💡 NUEVA LOGICA PARA BORRAR CON BUSCADOR PROPIO (per0000003.html)
-// ==========================================================================
 function inicializarEliminarUsuario() {
-    const btnConfirmar = document.getElementById("btnConfirmarEliminar");
-    const btnCancelar = document.getElementById("btnCancelarEliminar");
-    const txtBuscar = document.getElementById("txtBuscarParaEliminar");
-    const contenedorSugerencias = document.getElementById("listaSugerenciasEliminar");
-    const contenedorFicha = document.getElementById("contenedorFichaEliminar");
+  const btnConfirmar = document.getElementById("btnConfirmarEliminar");
+  const btnCancelar = document.getElementById("btnCancelarEliminar");
+  const txtBuscar = document.getElementById("txtBuscarParaEliminar");
+  const contenedorSugerencias = document.getElementById(
+    "listaSugerenciasEliminar",
+  );
+  const contenedorFicha = document.getElementById("contenedorFichaEliminar");
 
-    let usuariosLocales = [];
-    let idSeleccionado = null;
+  // Elementos de aviso y acciones
+  const divAvisoBloqueo = document.getElementById("divAvisoBloqueo");
+  const divAccionesEliminar = document.getElementById("divAccionesEliminar");
 
-    // Cargar catálogo inicial de usuarios activos o globales
-    fetch("Backend/controllers/usuario_controller.php")
-        .then(res => res.json())
-        .then(response => {
-            if (response.status === "success") usuariosLocales = response.data;
+  let usuariosLocales = [];
+  let idSeleccionado = null;
+
+  // Cargar catálogo inicial
+  fetch("Backend/controllers/usuario_controller.php")
+    .then((res) => res.json())
+    .then((response) => {
+      if (response.status === "success") usuariosLocales = response.data;
+    });
+
+  if (txtBuscar) {
+    txtBuscar.oninput = (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      contenedorSugerencias.innerHTML = "";
+
+      if (query === "") {
+        contenedorSugerencias.style.display = "none";
+        return;
+      }
+
+      const filtrados = usuariosLocales.filter(
+        (u) =>
+          u.nombre1.toLowerCase().includes(query) ||
+          u.apellido1.toLowerCase().includes(query) ||
+          u.cedula.includes(query) ||
+          u.username.toLowerCase().includes(query),
+      );
+
+      if (filtrados.length === 0) {
+        contenedorSugerencias.innerHTML = `<div style="padding: 10px; color: #95a5a6; font-style: italic;">No se encontraron resultados</div>`;
+      } else {
+        filtrados.forEach((u) => {
+          const item = document.createElement("div");
+          item.style.padding = "10px 15px";
+          item.style.cursor = "pointer";
+          item.style.borderBottom = "1px solid #f1f5f9";
+          item.innerHTML = `❌ <b>${u.nombre1} ${u.apellido1}</b> <small style="color:#e74c3c;">(${u.username})</small>`;
+
+          item.onclick = () => {
+            txtBuscar.value = `${u.nombre1} ${u.apellido1}`;
+            contenedorSugerencias.style.display = "none";
+            idSeleccionado = u.id; // Correcto: usamos el campo 'id'
+            mostrarFichaBaja(u.id);
+          };
+          contenedorSugerencias.appendChild(item);
         });
+      }
+      contenedorSugerencias.style.display = "block";
+    };
+  }
 
-    if (txtBuscar) {
-        txtBuscar.oninput = (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            contenedorSugerencias.innerHTML = "";
-            
-            if (query === "") {
-                contenedorSugerencias.style.display = "none";
-                return;
-            }
+  function mostrarFichaBaja(idUsuario) {
+    fetch(`Backend/controllers/usuario_controller.php?id=${idUsuario}`)
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.status === "success" && response.data) {
+          const u = response.data;
+          document.getElementById("lblDelIdUsuario").textContent = u.id;
+          document.getElementById("lblDelNombreCompleto").textContent =
+            `${u.nombre1} ${u.apellido1}`;
+          document.getElementById("lblDelCedula").textContent = u.cedula;
+          document.getElementById("lblDelUsername").textContent = u.username;
+          document.getElementById("lblDelEstado").textContent =
+            parseInt(u.estado) === 1 ? "Activo" : "Inactivo";
 
-            const filtrados = usuariosLocales.filter(u => 
-                u.nombre1.toLowerCase().includes(query) || 
-                u.apellido1.toLowerCase().includes(query) || 
-                u.cedula.includes(query) || 
-                u.username.toLowerCase().includes(query)
-            );
+          // REGLA DE SEGURIDAD: Bloqueo de id_rol 1
+          if (parseInt(u.id_rol) === 1) {
+            divAvisoBloqueo.style.display = "block";
+            divAccionesEliminar.style.display = "none";
+          } else {
+            divAvisoBloqueo.style.display = "none";
+            divAccionesEliminar.style.display = "flex";
+          }
 
-            if (filtrados.length === 0) {
-                contenedorSugerencias.innerHTML = `<div style="padding: 10px; color: #95a5a6; font-style: italic;">No se encontraron resultados</div>`;
-            } else {
-                filtrados.forEach(u => {
-                    const item = document.createElement("div");
-                    item.style.padding = "10px 15px";
-                    item.style.cursor = "pointer";
-                    item.style.borderBottom = "1px solid #f1f5f9";
-                    item.innerHTML = `❌ <b>${u.nombre1} ${u.apellido1}</b> <small style="color:#e74c3c;">(${u.username})</small>`;
-                    
-                    item.onclick = () => {
-                        txtBuscar.value = `${u.nombre1} ${u.apellido1}`;
-                        contenedorSugerencias.style.display = "none";
-                        idSeleccionado = u.id_usuario;
-                        mostrarFichaBaja(u.id_usuario);
-                    };
+          contenedorFicha.style.display = "block";
+        }
+      });
+  }
 
-                    item.onmouseenter = () => item.style.backgroundColor = "#fdf2f2";
-                    item.onmouseleave = () => item.style.backgroundColor = "transparent";
-                    contenedorSugerencias.appendChild(item);
-                });
-            }
-            contenedorSugerencias.style.display = "block";
-        };
-    }
+  if (btnConfirmar) {
+    btnConfirmar.onclick = () => {
+      if (!idSeleccionado) return;
 
-    function mostrarFichaBaja(idUsuario) {
-        fetch(`Backend/controllers/usuario_controller.php?id=${idUsuario}`)
-            .then(res => res.json())
-            .then(response => {
-                if (response.status === "success" && response.data) {
-                    const u = response.data;
-                    document.getElementById("lblDelIdUsuario").textContent = u.id_usuario;
-                    document.getElementById("lblDelNombreCompleto").textContent = `${u.nombre1} ${u.apellido1}`;
-                    document.getElementById("lblDelCedula").textContent = u.cedula;
-                    document.getElementById("lblDelUsername").textContent = u.username;
-                    document.getElementById("lblDelEstado").textContent = u.estado === 'A' ? 'Activo' : 'Inactivo';
-                    
-                    contenedorFicha.style.display = "block"; // Desplegamos la confirmación
-                }
-            });
-    }
+      const formData = new FormData();
+      formData.append("id", idSeleccionado); // Correcto: enviamos campo 'id'
+      formData.append("accion", "DESACTIVAR");
 
-    if (btnConfirmar) {
-        btnConfirmar.onclick = () => {
-            if (!idSeleccionado) return;
-
-            const formData = new FormData();
-            formData.append("id_usuario", idSeleccionado);
-            formData.append("accion", "DESACTIVAR");
-
-            fetch("Backend/controllers/usuario_controller.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "success") {
-                    alert("🔴 Cuenta de usuario desactivada con éxito.");
-                    txtBuscar.value = "";
-                    contenedorFicha.style.display = "none";
-                    idSeleccionado = null;
-                    // Recargar catálogo local
-                    fetch("Backend/controllers/usuario_controller.php")
-                        .then(res => res.json())
-                        .then(res => { if (res.status === "success") usuariosLocales = res.data; });
-                } else {
-                    alert("⚠️ Error: " + data.message);
-                }
-            });
-        };
-    }
-
-    if (btnCancelar) {
-        btnCancelar.onclick = () => {
+      fetch("Backend/controllers/usuario_controller.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "success") {
+            alert("🔴 Cuenta de usuario desactivada con éxito.");
             txtBuscar.value = "";
             contenedorFicha.style.display = "none";
             idSeleccionado = null;
-        };
-    }
+            // Recargar catálogo
+            fetch("Backend/controllers/usuario_controller.php")
+              .then((res) => res.json())
+              .then((res) => {
+                if (res.status === "success") usuariosLocales = res.data;
+              });
+          } else {
+            alert("⚠️ Error: " + data.message);
+          }
+        });
+    };
+  }
+
+  if (btnCancelar) {
+    btnCancelar.onclick = () => {
+      txtBuscar.value = "";
+      contenedorFicha.style.display = "none";
+      idSeleccionado = null;
+    };
+  }
 }
