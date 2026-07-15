@@ -4,116 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestión Integral</title>
-    <link rel="stylesheet" href="Frontend/css/estilos.css">
-    <style>
-        /* Estilos base de respaldo para asegurar la estética moderna de la bienvenida */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        
-        .welcome-card {
-            background: #ffffff;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-            text-align: center;
-            max-width: 420px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .welcome-card h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.025em;
-        }
-
-        .welcome-card .subtitle {
-            color: #64748b;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            background: #2563eb;
-            color: #ffffff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
-        }
-
-        .btn-primary:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 2rem;
-            padding: 6px 12px;
-            background: #f1f5f9;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #475569;
-            border: 1px solid #e2e8f0;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        /* Estados dinámicos para el indicador de la BD */
-        .status-online { background: #10b981; box-shadow: 0 0 8px #10b981; }
-        .status-offline { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
-        .status-checking { background: #f59e0b; }
-    </style>
+    <link rel="stylesheet" href="Frontend/css/global.css">
 </head>
 <body>
 
-    <div id="app" style="display: none; width: 100%; justify-content: center; padding: 20px; box-sizing: border-box;">
+    <!-- Contenedor principal de la App -->
+    <div id="app" class="app-container">
         
-        <div id="auth-container" style="width: 100%; display: flex; justify-content: center;">
+        <!-- Contenedor de Autenticación / Bienvenida -->
+        <div id="auth-container" class="auth-container">
             
-            <div id="inicio-welcome" class="welcome-card">
+            <div id="inicio-welcome" class="welcome-card welcome-card-init">
                 <h1>🚀 Sistema de Gestión</h1>
-                <p class="subtitle">Usuarios • Roles • Permisos</p>
-                
-                <div style="margin-top: 1rem;">
-                    <button id="btnIniciarSesion" class="btn-primary" onclick="navegarA('login')">
+                <p class="subtitle">Proyecto para Programacion Web</p>
+                <br>
+                <p>Esta pagina es puramente informativa para que el examinador pueda conectarse correctamente a la base de datos e ingresar al sistema.</p>
+                <br>
+                <p>No tener en cuenta esta pagina para el funcionamiento del sistema, es decir, es solo para fines informativos.</p>
+                <br>
+                <p>Para una version final se omitira esta pagina</p>
+                <div class="welcome-action">
+                    <button id="btnIniciarSesion" class="btn-primary btn-welcome" onclick="navegarA('login')">
                         🔐 Acceder al Sistema
                     </button>
                 </div>
@@ -121,17 +32,30 @@
                 <div class="status-badge">
                     <span class="status-dot status-checking" id="statusDot"></span>
                     <span>BD:</span>
-                    <span id="serverStatus" style="color: #0f172a;">Verificando...</span>
+                    <span id="serverStatus" class="status-text">Verificando...</span>
+                </div>
+                <div class="credenciales">
+                    <br>
+                    <p>Usuario de la base de datos: <strong>root</strong></p>
+                    <p>Contraseña de la base de datos: <strong>adminadmin</strong></p>
+                    <p>Nombre de la base de datos: <strong>proyecto_pw</strong></p>
+                    <p>Codificacion de la base de datos: <strong>utf8mb4_general_ci</strong></p>
+                    <p>Archivo con las credenciales en caso de que quiera modificar y usar otro usuario de la DB: <strong>Backend/config/conexion.php</strong></p>
+                    <br>
+                    <p>Usuario superAdministrador: <strong>admin</strong></p>
+                    <p>Contraseña del superAdministrador: <strong>admin</strong></p>
                 </div>
             </div>
 
             <div id="content-view"></div> 
         </div>
 
-        <div id="main-dashboard" style="display: none; width: 100%;"></div>
+        <!-- Contenedor del Dashboard Principal -->
+        <div id="main-dashboard" class="main-dashboard-view"></div>
 
     </div>
 
+    <!-- Scripts del Sistema -->
     <script src="Frontend/js/main.js"></script>
     <script src="Frontend/js/login.js"></script>
     <script src="Frontend/js/principal.js"></script>

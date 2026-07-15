@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-07-2026 a las 21:07:49
+-- Tiempo de generación: 13-07-2026 a las 16:31:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -26,7 +26,6 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `menu`
 --
-
 
 CREATE TABLE `menu` (
   `id` smallint(6) NOT NULL,
@@ -52,15 +51,13 @@ INSERT INTO `menu` (`id`, `nombre`, `descripcion`, `url`, `estado`, `id_menuPadr
 (8, 'Eliminar usuario', 'Elimine un usuario', 'eliminar_usuario.html', 1, 1),
 (9, 'Ver roles', 'Listar los roles existentes', 'ver_roles.html', 1, 2),
 (10, 'Actualizar rol', 'Actualizar un rol existente', 'actualizar_roles.html', 1, 2),
-(11, 'Borrar rol', 'Listar los roles existentes', 'borrar_roles.html', 1, 2),
+(11, 'Borrar rol', 'Borrar un rol', 'borrar_roles.html', 1, 2),
 (12, 'Crear rol', 'Listar los roles existentes', 'crear_rol.html', 1, 2),
 (13, 'Crear Menu/Submenu', 'Crear un menu o submenu', 'crear_menu.html', 1, 3),
 (14, 'Ver Menu/Submenu', 'Listar los menus y submenus creados', 'ver_menu.html', 1, 3),
 (15, 'Actualizar Menu/Submenu', 'Editar un menu o submenu', 'actualizar_menu.html', 1, 3),
 (16, 'Borrar Menu/Submenu', 'Eliminar un menu o submenu', 'borrar_menu.html', 1, 3),
-(17, 'Crear Permiso', 'Conseder permiso a un rol', 'crear_permiso.html', 1, 4),
 (18, 'Ver Permisos', 'Listar los permisos de los roles', 'ver_permiso.html', 1, 4),
-(19, 'Eliminar Permiso', 'Retirar permiso a un rol', 'eliminar_permiso.html', 1, 4),
 (20, 'Actualizar Permiso', 'Editar permisos de un rol', 'editar_permiso.html', 1, 4);
 
 -- --------------------------------------------------------
@@ -80,33 +77,30 @@ CREATE TABLE `permiso` (
 --
 
 INSERT INTO `permiso` (`id`, `id_rol`, `id_menu`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(5, 1, 5),
-(6, 1, 6),
-(7, 1, 7),
-(8, 1, 8),
-(9, 1, 9),
-(10, 1, 10),
-(11, 1, 11),
-(12, 1, 12),
-(13, 1, 13),
-(14, 1, 14),
-(15, 1, 15),
-(16, 1, 16),
-(17, 1, 17),
-(18, 1, 18),
-(19, 1, 19),
-(20, 1, 20);
+(83, 1, 1),
+(88, 1, 2),
+(93, 1, 3),
+(98, 1, 4),
+(84, 1, 5),
+(85, 1, 6),
+(86, 1, 7),
+(87, 1, 8),
+(89, 1, 9),
+(90, 1, 10),
+(91, 1, 11),
+(92, 1, 12),
+(94, 1, 13),
+(95, 1, 14),
+(96, 1, 15),
+(97, 1, 16),
+(99, 1, 18),
+(100, 1, 20);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `rol`
 --
-
 
 CREATE TABLE `rol` (
   `id` smallint(6) NOT NULL,
@@ -121,7 +115,6 @@ CREATE TABLE `rol` (
 
 INSERT INTO `rol` (`id`, `nombre`, `descripcion`, `estado`) VALUES
 (1, 'SA', 'Super administrador del sistema', 1);
-
 
 -- --------------------------------------------------------
 
@@ -153,10 +146,10 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `cedula`, `correo`, `fecha_nacimiento`, `foto_perfil`, `telefono`, `username`, `clave`, `estado`, `id_rol`) VALUES
 (1, 'Admin', NULL, 'Sistema', NULL, '1234567890', 'admin@sistema.com', '1990-01-01', NULL, '0999999999', 'admin', '$2y$10$fgh8DXCcOhLknzfQbxIVoutgnemloD3LU5bjny10f/fxaLygyHfeK', 1, 1);
 
-
 --
 -- Índices para tablas volcadas
 --
+
 --
 -- Indices de la tabla `menu`
 --
@@ -196,25 +189,25 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
