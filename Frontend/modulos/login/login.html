@@ -1,0 +1,51 @@
+<body>
+<div class="login-wrapper">
+    
+    <div class="login-side-panel">
+        <div class="panel-content">
+            <p class="panel-tag">SISTEMA INTEGRADO</p>
+            <h1 class="panel-title">Gestión de Control y Accesos</h1>
+            <p class="panel-description">Bienvenido al portal administrativo. Inicie sesión para interactuar con los servicios del sistema.</p>
+        </div>
+    </div>
+
+    <div class="login-form-panel">
+        <div>
+            <h2 class="form-title">¡Le damos la bienvenida!</h2>
+            <p class="form-subtitle">Inicie sesión en su cuenta</p>
+
+            <form id="formLogin" class="form-group">
+                
+                <div class="input-container">
+                    <label for="userInput">Usuario *</label>
+                    <input type="text" id="userInput" class="form-control" placeholder="Usuario" required>
+                </div>
+
+                <!-- Se usa la clase .input-margin-top en vez de style inline -->
+                <div class="input-container input-margin-top">
+                    <label for="passInput">Contraseña *</label>
+                    <input type="password" id="passInput" class="form-control" placeholder="Contraseña" required>
+                </div>
+
+                <!-- Se usa la clase .input-margin-top en vez de style inline -->
+                <div class="input-container input-margin-top">
+                    <label>Validación de Seguridad (Captcha) *</label>
+                    <div class="captcha-container">
+                        <div id="captchaCodeBox" class="captcha-box">XXXX</div>
+                        <button type="button" id="btnRefreshCaptcha" class="btn-refresh" title="Cambiar código">🔄</button>
+                    </div>
+                    <!-- Se usa la clase .captcha-input en vez de style inline -->
+                    <input type="text" id="txtCaptchaInput" placeholder="Escriba el código de arriba" required class="form-control captcha-input">
+                </div>
+
+                <button type="submit" class="btn">Ingresar</button>
+                
+                <!-- El div de feedback ya no tiene estilos inline -->
+                <div id="loginFeedback" class="feedback-msg"></div>
+            </form>
+            
+            <!-- El botón de volver ya no tiene estilos inline -->
+            <button id="btnVolverInicio" class="btn btn-secondary">⬅ Volver</button>
+        </div>
+    </div>
+</div>

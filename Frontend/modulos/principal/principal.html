@@ -1,0 +1,34 @@
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="user-profile">
+            <!-- La ruta de la imagen ahora es consistente con la raíz index.html -->
+            <img src="Frontend/img/Foto_perfil.png" alt="Perfil" class="avatar-menu">
+            <h3 id="dashNombreUsuario">Cargando...</h3>
+            <span class="role-badge" id="dashRolUsuario">Rol</span>
+        </div>
+        
+        <nav class="sidebar-menu" id="menuDinamico">
+            <!-- Los menús y submenús dinámicos se inyectarán aquí -->
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="btnCerrarSesion" class="btn btn-secondary">Cerrar Sesión</button>
+        </div>
+    </aside>
+
+    <main class="dashboard-content">
+        <header class="content-header">
+            <h2 id="seccionActualTitle">Panel de Control General</h2>
+        </header>
+        <section class="content-body" style="height: calc(100vh - 80px); margin: 0; padding: 0; overflow: hidden;">
+            <!-- IFRAME MODULAR: Aquí dentro se cargará la interfaz y el JS local de cada submódulo -->
+            <iframe 
+                id="moduloIframe" 
+                name="moduloIframe"
+                src="about:blank" 
+                style="width: 100%; height: 100%; border: none; background-color: #f9f9f9;"
+                title="Contenedor de Módulo">
+            </iframe>
+        </section>
+    </main>
+</div>

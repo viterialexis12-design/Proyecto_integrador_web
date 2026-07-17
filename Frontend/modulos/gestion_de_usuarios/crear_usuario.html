@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear usuario</title>
+    <!-- Vincula aquí los estilos de tu aplicación -->
+    <link rel="stylesheet" href="../../css/global.css"> 
+</head>
+<body style="background-color: #f9f9f9; margin: 0; padding: 20px; font-family: sans-serif;">
+<div class="modulo-container" style="width: 100%; box-sizing: border-box;">
+    <div class="modulo-header" style="border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 25px;">
+        <h2 style="margin: 0 0 5px 0;">👤 Registrar Nuevo Usuario</h2>
+        <p style="color: #7f8c8d; margin: 0; font-size: 0.95rem;">Completa el siguiente formulario para dar de alta una nueva cuenta en el sistema.</p>
+    </div>
+
+    <form id="formCrearUsuario" autocomplete="off" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; width: 100%; box-sizing: border-box;">
+        
+        <div class="form-section-title" style="grid-column: 1 / -1; font-weight: bold; font-size: 1.1rem; color: #2c3e50; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px; margin-top: 10px;">Datos Personales</div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtNombre1" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Primer Nombre <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="txtNombre1" name="nombre1" required placeholder="Ej. Juan" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtNombre2" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Segundo Nombre</label>
+            <input type="text" id="txtNombre2" name="nombre2" placeholder="Ej. Carlos" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtApellido1" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Primer Apellido <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="txtApellido1" name="apellido1" required placeholder="Ej. Pérez" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtApellido2" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Segundo Apellido</label>
+            <input type="text" id="txtApellido2" name="apellido2" placeholder="Ej. López" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtCedula" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Cédula / Identificación <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="txtCedula" name="cedula" required maxlength="10" placeholder="Ej. 1712345678" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+            <span id="errorCedula" style="font-size: 0.8rem; color: #e74c3c; display: none; margin-top: 2px;">⚠️ Cédula inválida. Debe contener 10 dígitos y pasar el algoritmo de validación.</span>
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtFechaNac" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Fecha de Nacimiento <span style="color: #e74c3c;">*</span></label>
+            <input type="date" id="txtFechaNac" name="fecha_nacimiento" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtTelefono" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Teléfono</label>
+            <input type="tel" id="txtTelefono" name="telefono" placeholder="Ej. 0998765432" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtCorreo" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Correo Electrónico <span style="color: #e74c3c;">*</span></label>
+            <input type="email" id="txtCorreo" name="correo" required placeholder="juan.perez@correo.com" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-section-title" style="grid-column: 1 / -1; font-weight: bold; font-size: 1.1rem; color: #2c3e50; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px; margin-top: 15px;">Credenciales de Acceso</div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtUsername" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Nombre de Usuario (Username) <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="txtUsername" name="username" required placeholder="Ej. jperez" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="txtClave" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Contraseña <span style="color: #e74c3c;">*</span></label>
+            <input type="password" id="txtClave" name="clave" required autocomplete="new-password" placeholder="••••••••" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; width: 100%;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="cmbRol" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Rol Asignado <span style="color: #e74c3c;">*</span></label>
+            <select id="cmbRol" name="id_rol" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; background-color: white; box-sizing: border-box; width: 100%;">
+                <option value="">-- Seleccione un Rol --</option>
+            </select>
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="cmbEstado" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Estado Inicial</label>
+            <select id="cmbEstado" name="estado" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; background-color: white; box-sizing: border-box; width: 100%;">
+                <option value="1" selected>Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="form-actions" style="grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 20px; width: 100%;">
+            <button type="button" id="btnCancelarUsuario" class="btn btn-secondary">Cancelar</button>
+            <button type="submit" id="btnGuardarUsuario" class="btn btn-primary" style="background-color: #3b82f6; color: white;">💾 Guardar Usuario</button>
+        </div>
+    </form>
+</div>
+
+<!-- Enlace al JS Modular -->
+<script src="js/crear_usuario.js"></script>
+
+</body>
+</html>

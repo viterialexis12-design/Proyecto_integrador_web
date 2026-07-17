@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Nuevo Menú</title>
+    <!-- Vincula aquí los estilos de tu aplicación -->
+    <link rel="stylesheet" href="../../css/global.css"> 
+</head>
+<body style="background-color: #f9f9f9; margin: 0; padding: 20px; font-family: sans-serif;">
+
+<div class="modulo-container" style="width: 100%; max-width: 600px; margin: 0 auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+    <div class="modulo-header" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+        <h2 style="margin: 0; color: #2c3e50;">➕ Registrar Nuevo Módulo / Menú</h2>
+        <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 0.9rem;">Añade una nueva sección principal o asígnala como submenú (hijo) de una existente.</p>
+    </div>
+
+    <form id="formCrearMenu" class="form-grid" style="width: 100%;">
+        
+        <!-- Selección de Padre -->
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #34495e;">¿Depende de otro menú? (Padre) *</label>
+            <select id="selectMenuPadre" name="id_menuPadre" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #fff;">
+                <option value="">— Ninguno (Es un menú principal / Padre) —</option>
+            </select>
+        </div>
+
+        <!-- Nombre del Menú -->
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #34495e;">Nombre del Menú *</label>
+            <input type="text" name="nombre" placeholder="Ej: Crear Factura o Gestión de Menús" required style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+
+        <!-- Descripción -->
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #34495e;">Descripción / Detalles</label>
+            <input type="text" name="descripcion" placeholder="Ej: Permite ingresar nuevas ventas al sistema" style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+
+        <!-- URL (Dinámico) -->
+        <div class="form-group" id="wrapperUrlMenu" style="margin-bottom: 20px; display: none;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #34495e;">URL del Archivo HTML *</label>
+            <input type="text" id="txtUrlMenu" name="url" placeholder="Ej: crear_usuario.html" style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="form-actions" style="display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid #eee; padding-top: 15px;">
+            <button type="button" id="btnCancelarCrearMenu" class="btn btn-secondary" style="padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px;">Limpiar</button>
+            <button type="submit" class="btn btn-primary" style="padding: 10px 20px; cursor: pointer; background: #2c3e50; color: white; border: none; border-radius: 4px; font-weight: bold;">💾 Guardar Menú</button>
+        </div>
+    </form>
+</div>
+
+<!-- Enlace al JS Modular -->
+<script src="js/crear_menu.js"></script>
+</body>
+</html>

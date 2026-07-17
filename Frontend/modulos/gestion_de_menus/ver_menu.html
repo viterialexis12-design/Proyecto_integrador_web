@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizar Menús</title>
+    <!-- Vinculación del archivo CSS externo -->
+    <link rel="stylesheet" href="css/menus.css"> 
+</head>
+<body>
+
+<div class="modulo-container">
+    <div class="modulo-header">
+        <div>
+            <h2>📁 Módulos y Menús del Sistema</h2>
+            <p>Lista de secciones principales accesibles en la barra lateral (Sidebar) organizadas por jerarquía.</p>
+        </div>
+        <button id="btnRefrescarMenus" class="btn btn-secondary">🔄 Actualizar</button>
+    </div>
+
+    <!-- Barra de Herramientas: Búsqueda y Paginador de Filas -->
+    <div class="table-tools">
+        <div class="search-container">
+            <input type="text" id="txtBuscarMenu" placeholder="🔍 Filtrar por nombre, descripción o padre...">
+        </div>
+        <div class="limit-selector-container">
+            <label for="selectLimites">Mostrar:</label>
+            <select id="selectLimites">
+                <option value="5" selected>5 filas</option>
+                <option value="10">10 filas</option>
+                <option value="20">20 filas</option>
+                <option value="todos">Todos</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-responsive">
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th>Nombre del Menú</th>
+                    <th>Descripción</th>
+                    <th>Menú Padre</th>
+                    <th class="status-header">Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyMenus">
+                <tr>
+                    <td colspan="4" class="loading-row">Cargando menús...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer de la Tabla: Controles de Paginación -->
+    <div class="pagination-container">
+        <span id="infoPaginacion">Mostrando 0 a 0 de 0 menús</span>
+        <div class="pagination-buttons">
+            <button id="btnPrevPage">◀ Anterior</button>
+            <div id="contenedorNumerosPagina"></div>
+            <button id="btnNextPage">Siguiente ▶</button>
+        </div>
+    </div>
+</div>
+
+<!-- Carga del archivo JavaScript modular -->
+<script src="js/ver_menu.js"></script>
+</body>
+</html>

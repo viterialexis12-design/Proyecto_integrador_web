@@ -1,4 +1,4 @@
-// 1. FUNCIÓN GLOBAL DE NAVEGACIÓN (Se dispara al dar clic en el botón con onclick)
+// 1. FUNCIÓN GLOBAL DE NAVEGACIÓN
 function navegarA(vista) {
     console.log("-> Navegando hacia:", vista);
     const nuevaUrl = `${window.location.pathname}?view=${vista}`;
@@ -22,12 +22,13 @@ function router() {
         return;
     }
 
-    // CASO 2: Si hay una vista activa (?view=...), ocultamos por completo la sección de bienvenida anterior
+    // Ocultar la sección de bienvenida si hay una vista activa
     if (inicioWelcome) inicioWelcome.style.display = "none";
 
+    // Rutas actualizadas a la estructura modular ProyectoV2
     const vistasIndependientes = {
-        'login': 'Frontend/html/login.html',
-        'principal': 'Frontend/html/principal.html',
+        'login': 'Frontend/modulos/login/login.html',
+        'principal': 'Frontend/modulos/principal/principal.html',
     };
 
     const rutaArchivo = vistasIndependientes[view];
@@ -35,12 +36,12 @@ function router() {
     if (rutaArchivo) {
         fetch(rutaArchivo)
             .then(response => {
-                if (!response.ok) throw new Error("No se pudo encontrar el archivo HTML");
+                if (!response.ok) throw new Error("No se pudo encontrar el archivo HTML de la vista");
                 return response.text();
             })
             .then(html => {
                 contentView.innerHTML = html;
-                ejecutarScriptsDeVista(view); // Aquí se activa el submit del login
+                ejecutarScriptsDeVista(view);
             })
             .catch(error => {
                 contentView.innerHTML = `<h2>⚠️ Error 404</h2><p>No se pudo cargar la vista.</p>`;
@@ -50,6 +51,7 @@ function router() {
         contentView.innerHTML = `<h2>⚠️ Vista no válida</h2>`;
     }
 }
+
 // 3. EVENTO AL CARGAR LA PÁGINA
 document.addEventListener("DOMContentLoaded", () => {
     const appContainer = document.getElementById("app");
@@ -58,10 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Verificar el estado de la Base de Datos
     verificarEstadoBD();
 
-    // Cargar la vista si el usuario entra directo con un enlace largo (ej: ?view=login)
+    // Procesar la ruta actual
     router();
 
-    // Escuchar las flechas de navegación
+    // Escuchar la navegación del historial del navegador
     window.addEventListener("popstate", () => {
         router();
     });
@@ -89,16 +91,48 @@ function verificarEstadoBD() {
         });
 }
 
-// 5. DISPARADOR DE SCRIPTS
+// 5. INYECTOR DINÁMICO DE SCRIPTS PARA VISTAS PRINCIPALES
+// Dentro de main.js
+
 function ejecutarScriptsDeVista(view) {
     if (view === 'login') {
-        if (typeof inicializarLogin === 'function') inicializarLogin();
+        // Cargamos dinámicamente el JS del login JUSTO cuando se necesita
+        cargarScriptDinamicamente('Frontend/modulos/login/js/login.js', () => {
+            if (typeof inicializarLogin === 'function') {
+                inicializarLogin();
+            } else {
+                console.error("Error: No se encontró la función inicializarLogin() en login.js");
+            }
+        });
     }
-    else if (view === 'principal') { // 👈 Registramos la inicialización de la pantalla principal
-        if (typeof inicializarPrincipal === 'function') {
-            inicializarPrincipal();
-        } else {
-            console.error("Error: La función inicializarPrincipal() no está disponible.");
-        }
+    else if (view === 'principal') {
+        // Cargamos el JS del panel principal solo al entrar a él
+        cargarScriptDinamicamente('Frontend/modulos/principal/js/principal.js', () => {
+            if (typeof inicializarPrincipal === 'function') {
+                inicializarPrincipal();
+            } else {
+                console.error("Error: No se encontró la función inicializarPrincipal() en principal.js");
+            }
+        });
     }
+}
+
+// Función auxiliar para cargar archivos .js bajo demanda sin saturar el index.html
+function cargarScriptDinamicamente(ruta, callback) {
+    // Evitar duplicados
+    const scriptExistente = document.querySelector(`script[src="${ruta}"]`);
+    if (scriptExistente) {
+        if (callback) callback();
+        return;
+    }
+
+    const script = document.createElement('script');
+    script.src = ruta;
+    script.onload = () => {
+        if (callback) callback();
+    };
+    script.onerror = () => {
+        console.error(`No se pudo cargar el script: ${ruta}`);
+    };
+    document.body.appendChild(script);
 }

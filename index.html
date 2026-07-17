@@ -11,18 +11,18 @@
     <!-- Contenedor principal de la App -->
     <div id="app" class="app-container">
         
-        <!-- Contenedor de Autenticación / Bienvenida -->
+        <!-- Contenedor de Autenticación / Bienvenida / Login -->
         <div id="auth-container" class="auth-container">
             
             <div id="inicio-welcome" class="welcome-card welcome-card-init">
                 <h1>🚀 Sistema de Gestión</h1>
-                <p class="subtitle">Proyecto para Programacion Web</p>
+                <p class="subtitle">Proyecto para Programación Web</p>
                 <br>
-                <p>Esta pagina es puramente informativa para que el examinador pueda conectarse correctamente a la base de datos e ingresar al sistema.</p>
+                <p>Esta página es puramente informativa para que el examinador pueda conectarse correctamente a la base de datos e ingresar al sistema.</p>
                 <br>
-                <p>No tener en cuenta esta pagina para el funcionamiento del sistema, es decir, es solo para fines informativos.</p>
+                <p>No tener en cuenta esta página para el funcionamiento del sistema, es decir, es solo para fines informativos.</p>
                 <br>
-                <p>Para una version final se omitira esta pagina</p>
+                <p>Para una versión final se omitirá esta página</p>
                 <div class="welcome-action">
                     <button id="btnIniciarSesion" class="btn-primary btn-welcome" onclick="navegarA('login')">
                         🔐 Acceder al Sistema
@@ -39,29 +39,21 @@
                     <p>Usuario de la base de datos: <strong>root</strong></p>
                     <p>Contraseña de la base de datos: <strong>adminadmin</strong></p>
                     <p>Nombre de la base de datos: <strong>proyecto_pw</strong></p>
-                    <p>Codificacion de la base de datos: <strong>utf8mb4_general_ci</strong></p>
-                    <p>Archivo con las credenciales en caso de que quiera modificar y usar otro usuario de la DB: <strong>Backend/config/conexion.php</strong></p>
+                    <p>Codificación de la base de datos: <strong>utf8mb4_general_ci</strong></p>
+                    <p>Archivo con las credenciales: <strong>Backend/config/conexion.php</strong></p>
                     <br>
                     <p>Usuario superAdministrador: <strong>admin</strong></p>
                     <p>Contraseña del superAdministrador: <strong>admin</strong></p>
                 </div>
             </div>
 
+            <!-- Aquí se inyectarán dinámicamente login.html o principal.html -->
             <div id="content-view"></div> 
         </div>
 
-        <!-- Contenedor del Dashboard Principal -->
-        <div id="main-dashboard" class="main-dashboard-view"></div>
-
     </div>
 
-    <!-- Scripts del Sistema -->
+    <!-- Scripts globales del núcleo SPA (Se cargan dinámicamente o se definen aquí) -->
     <script src="Frontend/js/main.js"></script>
-    <script src="Frontend/js/login.js"></script>
-    <script src="Frontend/js/principal.js"></script>
-    <script src="Frontend/js/usuario.js"></script>
-    <script src="Frontend/js/rol.js"></script>
-    <script src="Frontend/js/menu.js"></script>
-    <script src="Frontend/js/permiso.js"></script>
 </body>
 </html>

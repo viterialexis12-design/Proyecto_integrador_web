@@ -1,0 +1,241 @@
+/**
+ * ==========================================================================
+ * LÓGICA DE VISUALIZACIÓN Y PAGINACIÓN DE USUARIOS (ver_usuarios.js)
+ * ==========================================================================
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+    inicializarVerUsuarios();
+});
+
+function inicializarVerUsuarios() {
+    const tbody = document.getElementById("tbodyUsuarios");
+    const btnRefrescar = document.getElementById("btnRefrescarUsuarios");
+    const txtBuscar = document.getElementById("txtBuscarUsuario");
+    
+    // Elementos de la paginación
+    const infoPaginacion = document.getElementById("infoPaginacionUsuarios");
+    const btnPrev = document.getElementById("btnPrevUsuarios");
+    const btnNext = document.getElementById("btnNextUsuarios");
+    const contenedorPaginas = document.getElementById("contenedorPaginasUsuarios");
+
+    // Variables de control de datos y paginación
+    let usuariosLocales = [];      // Almacén de la base de datos completa
+    let usuariosFiltrados = [];    // Almacén del subset activo por búsqueda
+    let paginaActual = 1;
+    const registrosPorPagina = 10; // Límite estándar por vista
+
+    /**
+     * Trae la lista actualizada de usuarios desde el controlador del Backend
+     */
+    function cargarTabla() {
+        if (!tbody) return;
+        if (txtBuscar) txtBuscar.value = ""; // Limpieza estética del buscador
+        
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 30px; color: #475569;">⏳ Cargando usuarios...</td></tr>';
+
+        fetch("../../../Backend/controllers/usuario_controller.php")
+            .then((res) => res.json())
+            .then((response) => {
+                if (response.status === "success") {
+                    usuariosLocales = response.data;
+                    usuariosFiltrados = [...usuariosLocales]; // Clon inicial para el filtro
+                    paginaActual = 1;                         // Resetear al inicio
+                    actualizarVistaPaginada();
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="7" style="color:#e74c3c; text-align:center; padding: 20px; font-weight: bold;">⚠️ ${response.message}</td></tr>`;
+                    deshabilitarPaginacionCompleta();
+                }
+            })
+            .catch((err) => {
+                console.error("Error al obtener usuarios:", err);
+                tbody.innerHTML = '<tr><td colspan="7" style="color:#e74c3c; text-align:center; padding: 20px; font-weight: bold;">❌ Error al conectar con el servidor.</td></tr>';
+                deshabilitarPaginacionCompleta();
+            });
+    }
+
+    /**
+     * Renderiza las filas en base al segmento de la página actual
+     */
+    function renderizarFilas(usuariosSegmento) {
+        tbody.innerHTML = "";
+        
+        if (usuariosSegmento.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 30px; color: #7f8c8d;">No se encontraron usuarios registrados.</td></tr>';
+            return;
+        }
+
+        usuariosSegmento.forEach((u, index) => {
+            const tr = document.createElement("tr");
+
+            // Estilizado alternado (filas cebra)
+            tr.style.backgroundColor = index % 2 === 0 ? "#ffffff" : "#f8fafc";
+            tr.style.borderBottom = "1px solid #e2e8f0";
+
+            // Normalización y tratamiento de campos vacíos o nulos
+            const n1 = u.nombre1 ? u.nombre1.trim() : "";
+            const n2 = u.nombre2 ? u.nombre2.trim() : "";
+            const a1 = u.apellido1 ? u.apellido1.trim() : "";
+            const a2 = u.apellido2 ? u.apellido2.trim() : "";
+
+            const nombreCompleto = [n1, n2, a1, a2].filter(Boolean).join(" ");
+
+            const estadoTexto = parseInt(u.estado) === 1
+                ? '<span style="color:#22c55e; background-color: #f0fdf4; padding: 4px 8px; border-radius: 4px; font-weight:bold; font-size: 0.85rem;">Activo</span>'
+                : '<span style="color:#ef4444; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px; font-weight:bold; font-size: 0.85rem;">Inactivo</span>';
+
+            tr.innerHTML = `
+                <td style="padding: 12px 15px; font-weight: bold; color: #64748b;">${u.id}</td>
+                <td style="padding: 12px 15px; color: #1e293b; font-weight: 500;">${nombreCompleto}</td>
+                <td style="padding: 12px 15px; color: #334155;">${u.cedula}</td>
+                <td style="padding: 12px 15px; color: #334155;">${u.correo}</td>
+                <td style="padding: 12px 15px; color: #475569; font-family: monospace;">${u.username}</td>
+                <td style="padding: 12px 15px; color: #334155;"><span style="background-color: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 0.85rem;">${u.nombre_rol || "Sin Rol"}</span></td>
+                <td style="padding: 12px 15px;">${estadoTexto}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    /**
+     * Calcula los índices de corte de la paginación y actualiza controles UI
+     */
+    function actualizarVistaPaginada() {
+        const totalRegistros = usuariosFiltrados.length;
+        const totalPaginas = Math.ceil(totalRegistros / registrosPorPagina) || 1;
+
+        // Ajuste preventivo si la página actual excede el límite real
+        if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+        if (paginaActual < 1) paginaActual = 1;
+
+        // Corte de arreglo en memoria
+        const indiceInicio = (paginaActual - 1) * registrosPorPagina;
+        const indiceFin = Math.min(indiceInicio + registrosPorPagina, totalRegistros);
+        const segmento = usuariosFiltrados.slice(indiceInicio, indiceFin);
+
+        // Renderizado del bloque visible
+        renderizarFilas(segmento);
+
+        // Actualización de leyenda descriptiva
+        if (infoPaginacion) {
+            if (totalRegistros === 0) {
+                infoPaginacion.textContent = "Mostrando 0 a 0 de 0 registros";
+            } else {
+                infoPaginacion.textContent = `Mostrando ${indiceInicio + 1} a ${indiceFin} de ${totalRegistros} registros`;
+            }
+        }
+
+        // Control de estados activos de botones anterior / siguiente
+        if (btnPrev) btnPrev.disabled = (paginaActual === 1);
+        if (btnNext) btnNext.disabled = (paginaActual === totalPaginas);
+
+        generarBotonesNumericos(totalPaginas);
+    }
+
+    /**
+     * Genera dinámicamente los botones numerados (ej. 1, 2, 3...)
+     */
+    function generarBotonesNumericos(totalPaginas) {
+        if (!contenedorPaginas) return;
+        contenedorPaginas.innerHTML = "";
+
+        // Si es una única página, ocultamos los botones numéricos por estética
+        if (totalPaginas <= 1) return;
+
+        for (let i = 1; i <= totalPaginas; i++) {
+            const btnPagina = document.createElement("button");
+            btnPagina.textContent = i;
+            btnPagina.className = "btn";
+            btnPagina.style.padding = "6px 12px";
+            btnPagina.style.fontSize = "0.85rem";
+            btnPagina.style.border = "1px solid #cbd5e1";
+
+            if (i === paginaActual) {
+                btnPagina.style.backgroundColor = "#2c3e50";
+                btnPagina.style.color = "#ffffff";
+                btnPagina.style.cursor = "default";
+            } else {
+                btnPagina.style.backgroundColor = "#ffffff";
+                btnPagina.style.color = "#475569";
+                btnPagina.style.cursor = "pointer";
+                btnPagina.onclick = () => {
+                    paginaActual = i;
+                    actualizarVistaPaginada();
+                };
+            }
+            contenedorPaginas.appendChild(btnPagina);
+        }
+    }
+
+    /**
+     * Limpia o deshabilita visualmente los controles si falla la API
+     */
+    function deshabilitarPaginacionCompleta() {
+        if (infoPaginacion) infoPaginacion.textContent = "Mostrando 0 a 0 de 0 registros";
+        if (btnPrev) btnPrev.disabled = true;
+        if (btnNext) btnNext.disabled = true;
+        if (contenedorPaginas) contenedorPaginas.innerHTML = "";
+    }
+
+    // --- MANEJO DE EVENTOS DE INTERFAZ ---
+
+    if (btnRefrescar) {
+        btnRefrescar.onclick = cargarTabla;
+    }
+
+    if (btnPrev) {
+        btnPrev.onclick = () => {
+            if (paginaActual > 1) {
+                paginaActual--;
+                actualizarVistaPaginada();
+            }
+        };
+    }
+
+    if (btnNext) {
+        btnNext.onclick = () => {
+            const totalPaginas = Math.ceil(usuariosFiltrados.length / registrosPorPagina);
+            if (paginaActual < totalPaginas) {
+                paginaActual++;
+                actualizarVistaPaginada();
+            }
+        };
+    }
+
+    // Filtro avanzado en memoria sincronizado con el renderizador
+    if (txtBuscar) {
+        txtBuscar.oninput = (e) => {
+            const termino = e.target.value.toLowerCase().trim();
+
+            if (termino === "") {
+                usuariosFiltrados = [...usuariosLocales];
+            } else {
+                usuariosFiltrados = usuariosLocales.filter((u) => {
+                    const n1 = u.nombre1 ? u.nombre1.toLowerCase() : "";
+                    const n2 = u.nombre2 ? u.nombre2.toLowerCase() : "";
+                    const a1 = u.apellido1 ? u.apellido1.toLowerCase() : "";
+                    const a2 = u.apellido2 ? u.apellido2.toLowerCase() : "";
+                    const cedula = u.cedula ? u.cedula.toLowerCase() : "";
+                    const username = u.username ? u.username.toLowerCase() : "";
+                    const correo = u.correo ? u.correo.toLowerCase() : "";
+
+                    return (
+                        n1.includes(termino) ||
+                        n2.includes(termino) ||
+                        a1.includes(termino) ||
+                        a2.includes(termino) ||
+                        cedula.includes(termino) ||
+                        username.includes(termino) ||
+                        correo.includes(termino)
+                    );
+                });
+            }
+
+            paginaActual = 1; // Volver a la primera página ante una nueva búsqueda
+            actualizarVistaPaginada();
+        };
+    }
+
+    // Ejecutar carga inicial automática al instanciar el componente
+    cargarTabla();
+}

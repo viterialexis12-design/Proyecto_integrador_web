@@ -1,0 +1,152 @@
+/* CSS para la visualización de módulos y menús del sistema */
+
+body {
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.modulo-container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modulo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modulo-header h2 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.modulo-header p {
+    margin: 5px 0 0 0;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+#btnRefrescarMenus {
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+/* Barra de herramientas */
+.table-tools {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.table-tools .search-container {
+    flex-grow: 1;
+}
+
+#txtBuscarMenu {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.limit-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 180px;
+}
+
+.limit-selector-container label {
+    font-size: 0.9rem;
+    color: #555;
+    white-space: nowrap;
+}
+
+#selectLimites {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    background: white;
+    cursor: pointer;
+}
+
+/* Tabla */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.main-table thead {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.main-table th {
+    padding: 12px;
+    text-align: left;
+}
+
+.main-table th.status-header {
+    width: 100px;
+    text-align: center;
+}
+
+.main-table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.main-table tbody .loading-row {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d;
+}
+
+/* Paginación */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+#infoPaginacion {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.pagination-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.pagination-buttons button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#contenedorNumerosPagina {
+    display: flex;
+    gap: 5px;
+}
+
