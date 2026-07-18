@@ -1,302 +1,421 @@
 /* ===================================================================================
-   1. VARIABLES DE DISEÑO COHERENTES CON TU PROYECTO
+   1. VARIABLES DE DISEÑO COHERENTES (Variables Limpias)
 =================================================================================== */
 :root {
-    --color-primary-dark: #2c3e50;
-    --color-text-dark: #34495e;
-    --color-text-muted: #7f8c8d;
-    --color-border: #ccc;
+    --color-primary-dark: #1e293b;
+    --color-text-dark: #334155;
+    --color-text-muted: #64748b;
     --color-border-light: #e2e8f0;
     --color-bg-light: #f8fafc;
     --color-body-bg: #f9f9f9;
+    --color-accent: #2a6f97;
     --color-danger: #e74c3c;
     --color-danger-bg: #fdf2f2;
 }
 
 /* ===================================================================================
-   2. CUERPO Y CONTENEDOR MÓDULO (Estructura)
+   2. CUERPO Y CONTENEDOR MÓDULO (Estructuras Base)
 =================================================================================== */
 .modulo-body {
     background-color: var(--color-body-bg);
-    margin: 0;
-    padding: 20px;
+    margin: auto;
     font-family: sans-serif;
 }
 
 .modulo-container {
-    width: 100%;
+    margin: auto;
+    width: 99%;
     background: #ffffff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     box-sizing: border-box;
 }
 
-.modulo-container-small {
-    margin: 0 auto;
-}
 
-/* ===================================================================================
-   3. SECCIONES DE ENCABEZADO
-=================================================================================== */
 .modulo-header {
-    margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+    align-items: flex-start;
     width: 100%;
-}
-
-.modulo-header h2 {
-    margin: 0 0 5px 0;
-    color: var(--color-primary-dark);
-}
-
-.modulo-header p {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--color-border-light);
+    padding-bottom: 20px;
+    gap: 20px;
 }
 
 .modulo-header-danger {
-    border-bottom: 2px solid #f5c6cb;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    display: block;
+    border-bottom-color: #fecaca;
 }
 
-.modulo-header-danger h2 {
-    color: #c0392b;
+.modulo-header h2 {
+    margin: 0;
+    color: var(--color-primary-dark);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.modulo-header p {
+    margin: 6px 0 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 /* ===================================================================================
-   4. TABLAS Y HERRAMIENTAS (ver_rol.html)
+   3. BARRA DE HERRAMIENTAS Y BUSCADOR (Vista Consultar)
 =================================================================================== */
 .table-tools {
-    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
     width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.table-tools input[type="text"] {
+.search-wrapper {
+    position: relative;
+    flex-grow: 1;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    color: #94a3b8;
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+.search-input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
+    padding: 11px 16px 11px 40px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: var(--color-bg-light);
+    color: var(--color-text-dark);
     font-size: 0.95rem;
-    box-sizing: border-box;
     outline: none;
+    transition: all 0.2s ease;
 }
 
+.search-input:focus {
+    border-color: var(--color-accent);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.15);
+}
+
+.limit-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.limit-selector-wrapper label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #475569;
+    white-space: nowrap;
+}
+
+.limit-select {
+    padding: 10px 30px 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: var(--color-text-dark);
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 14px;
+}
+
+.limit-select:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.15);
+}
+
+/* ===================================================================================
+   4. TABLAS MODERNAS (Vista Consultar)
+=================================================================================== */
 .table-responsive {
     width: 100%;
     overflow-x: auto;
+    background: #ffffff;
+    border-radius: 8px;
     border: 1px solid var(--color-border-light);
-    border-radius: 6px;
 }
 
 .main-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-size: 0.95rem;
 }
 
 .main-table thead {
-    background-color: var(--color-primary-dark);
-    color: #ffffff;
+    background-color: var(--color-bg-light);
+    border-bottom: 2px solid var(--color-border-light);
 }
 
-.main-table th,
-.main-table td {
-    padding: 12px 15px;
+.main-table th {
+    padding: 14px 16px;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.main-table th.status-header {
+    width: 120px;
+    text-align: center;
 }
 
 .main-table tbody td {
+    padding: 14px 16px;
     border-bottom: 1px solid var(--color-border-light);
+    color: var(--color-text-dark);
+    font-size: 0.95rem;
+}
+
+.main-table tbody tr {
+    background-color: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.main-table tbody tr:hover {
+    background-color: #f1f5f9;
 }
 
 .main-table tbody .loading-row {
-    padding: 20px;
     text-align: center;
+    padding: 40px;
     color: var(--color-text-muted);
+    font-style: italic;
 }
 
+/* Badges de Estado */
+.badge-activo, .badge-inactivo {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+.badge-activo { background-color: #d1fae5; color: #065f46; }
+.badge-inactivo { background-color: #fee2e2; color: #991b1b; }
+
 /* ===================================================================================
-   5. FORMULARIOS, ELEMENTOS INPUT Y ACCIONES
+   5. ESTRUCTURAS DE FORMULARIOS (Aislado para Creación y Edición de Roles)
 =================================================================================== */
 .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
     width: 100%;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 6px;
-    border: 1px solid var(--color-border-light);
-    box-sizing: border-box;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-group label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
     font-size: 0.9rem;
-    color: var(--color-text-dark);
+    font-weight: 600;
+    color: #475569;
 }
 
+/* Inputs, textareas y selects de forma contextual bajo .form-group */
 .form-group input[type="text"],
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: var(--color-text-dark);
     font-size: 0.95rem;
-    background-color: #fff;
+    box-sizing: border-box;
     outline: none;
+    font-family: sans-serif;
+    transition: border-color 0.15s ease;
 }
 
 .form-group textarea {
-    resize: none;
+    resize: vertical;
 }
 
-/* Botoneras */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.12);
+}
+
 .form-actions {
-    border-top: 1px solid #eee;
-    padding-top: 15px;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-}
-
-.form-actions-simple {
     display: flex;
     justify-content: flex-end;
-    gap: 15px;
-    width: 100%;
-}
-
-.btn-danger-action {
-    background-color: var(--color-danger);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.btn-danger-action:hover {
-    background-color: #c0392b;
+    gap: 12px;
+    margin-top: 10px;
+    border-top: 1px solid var(--color-border-light);
+    padding-top: 20px;
 }
 
 /* ===================================================================================
-   6. AUTOCOMPLETADOS Y BUSCADORES DE ASIGNACIÓN
+   6. AUTOCOMPLETADO Y DESACTIVACIONES (Aislado para Modificar / Dar de Baja)
 =================================================================================== */
 .buscador-modulo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
     position: relative;
-    margin-bottom: 25px;
-    width: 100%;
 }
 
 .buscador-modulo-container label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 600;
     color: var(--color-text-dark);
 }
 
 .buscador-modulo-container input[type="text"] {
     width: 100%;
-    padding: 12px;
-    box-sizing: border-box;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     font-size: 0.95rem;
+    box-sizing: border-box;
     outline: none;
 }
 
+.buscador-modulo-container input[type="text"]:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.12);
+}
+
+/* Lista Desplegable Asíncrona */
 .lista-sugerencias {
     position: absolute;
-    width: 100%;
-    background: white;
-    border: 1px solid var(--color-border);
-    border-top: none;
-    z-index: 100;
-    max-height: 200px;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    max-height: 220px;
     overflow-y: auto;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border-radius: 0 0 4px 4px;
-    box-sizing: border-box;
+    z-index: 100;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    margin-top: 4px;
 }
 
-/* ===================================================================================
-   7. SECCIÓN DE CONFIRMACIÓN / FICHAS DE ACCIÓN
-=================================================================================== */
+/* Ficha de confirmación de bajas */
 .contenedor-confirmacion {
-    border-top: 2px solid var(--color-danger);
+    margin-top: 20px;
     padding-top: 20px;
+    border-top: 1px solid var(--color-border-light);
     width: 100%;
-}
-
-/* Variante de línea gris para edición */
-#contenedorFormEditarRol.contenedor-confirmacion {
-    border-top: 2px solid var(--color-border-light);
 }
 
 .confirm-box {
-    background-color: var(--color-danger-bg);
-    border: 1px solid #f5c6cb;
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
     padding: 20px;
-    border-radius: 6px;
     margin-bottom: 20px;
-    font-size: 0.95rem;
-    color: var(--color-primary-dark);
-    width: 100%;
-    box-sizing: border-box;
 }
 
 .confirm-box p {
-    margin: 8px 0;
+    margin: 0 0 12px 0;
+    font-size: 0.95rem;
+    color: #475569;
+}
+.confirm-box p:last-child { margin-bottom: 0; }
+.confirm-box b { color: var(--color-primary-dark); min-width: 160px; display: inline-block; }
+
+/* Alerta de Rol Crítico */
+.alerta-protegida {
+    padding: 14px;
+    border-radius: 6px;
+    border: 1px solid #fca5a5;
+    background-color: var(--color-danger-bg);
+    color: #991b1b;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-top: 15px;
+    font-weight: 500;
 }
 
-.alerta-protegida {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #ffd2d2;
-    border: 1px solid #f5c6cb;
-    color: #d63031;
-    border-radius: 4px;
-    font-weight: bold;
-    text-align: center;
-    box-sizing: border-box;
+.form-actions-simple {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
 }
 
 /* ===================================================================================
-   8. PAGINACIÓN
+   7. PAGINACIÓN UNIFICADA (Vista Consultar)
 =================================================================================== */
 .pagination-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
-    padding: 10px 0;
-    flex-wrap: wrap;
-    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--color-border-light);
 }
 
 .pagination-info {
-    color: var(--color-text-muted);
     font-size: 0.9rem;
+    color: var(--color-text-muted);
 }
 
 .pagination-buttons {
     display: flex;
-    gap: 5px;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-pag-nav, .btn-pagina-comun, .btn-pagina-activo {
+    padding: 8px 14px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--color-text-dark);
+    transition: all 0.15s ease;
+}
+
+.btn-pag-nav:hover:not(:disabled), .btn-pagina-comun:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.btn-pag-nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--color-bg-light);
+}
+
+.btn-pagina-activo {
+    background: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+    font-weight: 600;
 }

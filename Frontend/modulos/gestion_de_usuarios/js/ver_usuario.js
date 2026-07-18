@@ -1,6 +1,6 @@
 /**
  * ==========================================================================
- * LÓGICA DE VISUALIZACIÓN Y PAGINACIÓN DE USUARIOS (ver_usuarios.js)
+ * LÓGICA DE VISUALIZACIÓN Y PAGINACIÓN DE USUARIOS (ver_usuario.js)
  * ==========================================================================
  */
 
@@ -12,6 +12,7 @@ function inicializarVerUsuarios() {
     const tbody = document.getElementById("tbodyUsuarios");
     const btnRefrescar = document.getElementById("btnRefrescarUsuarios");
     const txtBuscar = document.getElementById("txtBuscarUsuario");
+    const selectLimites = document.getElementById("selectLimitesUsuarios");
     
     // Elementos de la paginación
     const infoPaginacion = document.getElementById("infoPaginacionUsuarios");
@@ -23,7 +24,7 @@ function inicializarVerUsuarios() {
     let usuariosLocales = [];      // Almacén de la base de datos completa
     let usuariosFiltrados = [];    // Almacén del subset activo por búsqueda
     let paginaActual = 1;
-    const registrosPorPagina = 10; // Límite estándar por vista
+    let registrosPorPagina = 10;   // Límite estándar por defecto
 
     /**
      * Trae la lista actualizada de usuarios desde el controlador del Backend
@@ -32,7 +33,7 @@ function inicializarVerUsuarios() {
         if (!tbody) return;
         if (txtBuscar) txtBuscar.value = ""; // Limpieza estética del buscador
         
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 30px; color: #475569;">⏳ Cargando usuarios...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="loading-row">⏳ Cargando usuarios...</td></tr>';
 
         fetch("../../../Backend/controllers/usuario_controller.php")
             .then((res) => res.json())
@@ -43,13 +44,13 @@ function inicializarVerUsuarios() {
                     paginaActual = 1;                         // Resetear al inicio
                     actualizarVistaPaginada();
                 } else {
-                    tbody.innerHTML = `<tr><td colspan="7" style="color:#e74c3c; text-align:center; padding: 20px; font-weight: bold;">⚠️ ${response.message}</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="7" class="loading-row" style="color:#e74c3c; font-weight: bold;">⚠️ ${response.message}</td></tr>`;
                     deshabilitarPaginacionCompleta();
                 }
             })
             .catch((err) => {
                 console.error("Error al obtener usuarios:", err);
-                tbody.innerHTML = '<tr><td colspan="7" style="color:#e74c3c; text-align:center; padding: 20px; font-weight: bold;">❌ Error al conectar con el servidor.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" class="loading-row" style="color:#e74c3c; font-weight: bold;">❌ Error al conectar con el servidor.</td></tr>';
                 deshabilitarPaginacionCompleta();
             });
     }
@@ -61,16 +62,12 @@ function inicializarVerUsuarios() {
         tbody.innerHTML = "";
         
         if (usuariosSegmento.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 30px; color: #7f8c8d;">No se encontraron usuarios registrados.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="loading-row">No se encontraron usuarios registrados.</td></tr>';
             return;
         }
 
-        usuariosSegmento.forEach((u, index) => {
+        usuariosSegmento.forEach((u) => {
             const tr = document.createElement("tr");
-
-            // Estilizado alternado (filas cebra)
-            tr.style.backgroundColor = index % 2 === 0 ? "#ffffff" : "#f8fafc";
-            tr.style.borderBottom = "1px solid #e2e8f0";
 
             // Normalización y tratamiento de campos vacíos o nulos
             const n1 = u.nombre1 ? u.nombre1.trim() : "";
@@ -81,17 +78,17 @@ function inicializarVerUsuarios() {
             const nombreCompleto = [n1, n2, a1, a2].filter(Boolean).join(" ");
 
             const estadoTexto = parseInt(u.estado) === 1
-                ? '<span style="color:#22c55e; background-color: #f0fdf4; padding: 4px 8px; border-radius: 4px; font-weight:bold; font-size: 0.85rem;">Activo</span>'
-                : '<span style="color:#ef4444; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px; font-weight:bold; font-size: 0.85rem;">Inactivo</span>';
+                ? '<span class="badge badge-success">Activo</span>'
+                : '<span class="badge badge-danger">Inactivo</span>';
 
             tr.innerHTML = `
-                <td style="padding: 12px 15px; font-weight: bold; color: #64748b;">${u.id}</td>
-                <td style="padding: 12px 15px; color: #1e293b; font-weight: 500;">${nombreCompleto}</td>
-                <td style="padding: 12px 15px; color: #334155;">${u.cedula}</td>
-                <td style="padding: 12px 15px; color: #334155;">${u.correo}</td>
-                <td style="padding: 12px 15px; color: #475569; font-family: monospace;">${u.username}</td>
-                <td style="padding: 12px 15px; color: #334155;"><span style="background-color: #e2e8f0; padding: 3px 6px; border-radius: 4px; font-size: 0.85rem;">${u.nombre_rol || "Sin Rol"}</span></td>
-                <td style="padding: 12px 15px;">${estadoTexto}</td>
+                <td class="col-id">${u.id}</td>
+                <td class="col-name">${nombreCompleto}</td>
+                <td>${u.cedula}</td>
+                <td>${u.correo}</td>
+                <td class="col-mono">${u.username}</td>
+                <td><span class="badge badge-neutral">${u.nombre_rol || "Sin Rol"}</span></td>
+                <td>${estadoTexto}</td>
             `;
             tbody.appendChild(tr);
         });
@@ -102,6 +99,11 @@ function inicializarVerUsuarios() {
      */
     function actualizarVistaPaginada() {
         const totalRegistros = usuariosFiltrados.length;
+        
+        // Obtener el límite del selector (si está en 'todos' se usa el total de filas filtradas)
+        const limiteSeleccionado = selectLimites ? selectLimites.value : "10";
+        registrosPorPagina = limiteSeleccionado === "todos" ? totalRegistros : parseInt(limiteSeleccionado);
+
         const totalPaginas = Math.ceil(totalRegistros / registrosPorPagina) || 1;
 
         // Ajuste preventivo si la página actual excede el límite real
@@ -133,31 +135,22 @@ function inicializarVerUsuarios() {
     }
 
     /**
-     * Genera dinámicamente los botones numerados (ej. 1, 2, 3...)
+     * Generar botones numéricos simétricos
      */
     function generarBotonesNumericos(totalPaginas) {
         if (!contenedorPaginas) return;
         contenedorPaginas.innerHTML = "";
 
-        // Si es una única página, ocultamos los botones numéricos por estética
         if (totalPaginas <= 1) return;
 
         for (let i = 1; i <= totalPaginas; i++) {
             const btnPagina = document.createElement("button");
             btnPagina.textContent = i;
-            btnPagina.className = "btn";
-            btnPagina.style.padding = "6px 12px";
-            btnPagina.style.fontSize = "0.85rem";
-            btnPagina.style.border = "1px solid #cbd5e1";
-
+            
             if (i === paginaActual) {
-                btnPagina.style.backgroundColor = "#2c3e50";
-                btnPagina.style.color = "#ffffff";
-                btnPagina.style.cursor = "default";
+                btnPagina.className = "btn-pag-nav active";
             } else {
-                btnPagina.style.backgroundColor = "#ffffff";
-                btnPagina.style.color = "#475569";
-                btnPagina.style.cursor = "pointer";
+                btnPagina.className = "btn-pag-nav";
                 btnPagina.onclick = () => {
                     paginaActual = i;
                     actualizarVistaPaginada();
@@ -167,9 +160,6 @@ function inicializarVerUsuarios() {
         }
     }
 
-    /**
-     * Limpia o deshabilita visualmente los controles si falla la API
-     */
     function deshabilitarPaginacionCompleta() {
         if (infoPaginacion) infoPaginacion.textContent = "Mostrando 0 a 0 de 0 registros";
         if (btnPrev) btnPrev.disabled = true;
@@ -177,10 +167,19 @@ function inicializarVerUsuarios() {
         if (contenedorPaginas) contenedorPaginas.innerHTML = "";
     }
 
-    // --- MANEJO DE EVENTOS DE INTERFAZ ---
+    // --- MANEJO DE EVENTOS ---
 
     if (btnRefrescar) {
         btnRefrescar.onclick = cargarTabla;
+    }
+
+    if (selectLimites) {
+        // Habilitamos el selector ya que ahora el JS lo procesa
+        selectLimites.disabled = false;
+        selectLimites.onchange = () => {
+            paginaActual = 1;
+            actualizarVistaPaginada();
+        };
     }
 
     if (btnPrev) {
@@ -202,7 +201,6 @@ function inicializarVerUsuarios() {
         };
     }
 
-    // Filtro avanzado en memoria sincronizado con el renderizador
     if (txtBuscar) {
         txtBuscar.oninput = (e) => {
             const termino = e.target.value.toLowerCase().trim();
@@ -231,11 +229,10 @@ function inicializarVerUsuarios() {
                 });
             }
 
-            paginaActual = 1; // Volver a la primera página ante una nueva búsqueda
+            paginaActual = 1;
             actualizarVistaPaginada();
         };
     }
 
-    // Ejecutar carga inicial automática al instanciar el componente
     cargarTabla();
 }

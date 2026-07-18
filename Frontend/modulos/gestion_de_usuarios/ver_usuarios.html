@@ -2,27 +2,39 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Ver usuarios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Usuarios</title>
     <link rel="stylesheet" href="../../css/global.css"> 
     <link rel="stylesheet" href="css/usuarios.css"> 
 </head>
-<body class="modulo-body">
+<body>
 
 <div class="modulo-container">
+    <!-- Encabezado unificado -->
     <div class="modulo-header">
-        <div>
+        <div class="modulo-header-title">
             <h2>👥 Gestión de Usuarios</h2>
             <p>Visualiza, busca y administra el personal registrado en la plataforma.</p>
         </div>
         <button id="btnRefrescarUsuarios" class="btn btn-secondary">🔄 Actualizar Lista</button>
     </div>
 
-    <!-- Buscador -->
+    <!-- Nueva Barra de Herramientas Estilizada siguiendo el patrón de menús -->
     <div class="table-tools">
-        <input type="text" id="txtBuscarUsuario" placeholder="🔍 Buscar por nombre, apellido, cédula o usuario...">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="txtBuscarUsuario" class="search-input" placeholder="Buscar por nombre, apellido, cédula o usuario...">
+        </div>
+        <!-- Nota: Tu JS actual no maneja el select dinámico de límites, pero lo dejamos maquetado estructuralmente con la clase de menús para mantener la simetría visual -->
+        <div class="limit-selector-wrapper">
+            <label for="selectLimitesUsuarios">Mostrar</label>
+            <select id="selectLimitesUsuarios" class="limit-select" disabled>
+                <option value="10" selected>10 filas</option>
+            </select>
+        </div>
     </div>
 
-    <!-- Tabla -->
+    <!-- Contenedor de la Tabla -->
     <div class="table-responsive">
         <table id="tablaUsuarios" class="main-table">
             <thead>
@@ -33,7 +45,7 @@
                     <th>Correo</th>
                     <th>Username</th>
                     <th>Rol</th>
-                    <th>Estado</th>
+                    <th class="status-header">Estado</th>
                 </tr>
             </thead>
             <tbody id="tbodyUsuarios">
@@ -44,18 +56,18 @@
         </table>
     </div>
 
-    <!-- Controles de Paginación -->
+    <!-- Paginación Unificada siguiendo el patrón de menús -->
     <div id="paginacionUsuarios" class="pagination-container">
         <span id="infoPaginacionUsuarios" class="pagination-info">Mostrando 0 a 0 de 0 registros</span>
         <div class="pagination-buttons">
-            <button id="btnPrevUsuarios" class="btn btn-secondary btn-pag-nav">◀ Anterior</button>
-            <div id="contenedorPaginasUsuarios" class="pagination-pages"></div>
-            <button id="btnNextUsuarios" class="btn btn-secondary btn-pag-nav">Siguiente ▶</button>
+            <button id="btnPrevUsuarios" class="btn-pag-nav">◀ Anterior</button>
+            <div id="contenedorPaginasUsuarios" class="pagination-numbers"></div>
+            <button id="btnNextUsuarios" class="btn-pag-nav">Siguiente ▶</button>
         </div>
     </div>
 </div>
 
-<!-- Enlace al JS Modular -->
+<!-- Enlace al JS Modular intacto -->
 <script src="js/ver_usuario.js"></script>
 </body>
 </html>

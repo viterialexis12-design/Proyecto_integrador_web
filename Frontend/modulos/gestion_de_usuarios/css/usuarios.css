@@ -19,18 +19,18 @@
 =================================================================================== */
 .modulo-body {
     background-color: var(--color-body-bg);
-    margin: 0;
-    padding: 20px;
+    margin: auto;
     font-family: sans-serif;
 }
 
 .modulo-container {
-    width: 100%;
+    width: 99%;
     background: #ffffff;
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
+    margin: auto;
 }
 
 /* ===================================================================================
@@ -68,59 +68,6 @@
 
 .modulo-header-danger h2 {
     color: #b91c1c;
-}
-
-/* ===================================================================================
-   4. TABLAS Y HERRAMIENTAS (ver_usuario.html)
-=================================================================================== */
-.table-tools {
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.table-tools input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-    outline: none;
-}
-
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid var(--color-border-light);
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.main-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 0.95rem;
-}
-
-.main-table thead {
-    background-color: var(--color-primary-dark);
-    color: #ffffff;
-}
-
-.main-table th,
-.main-table td {
-    padding: 12px 15px;
-}
-
-.main-table tbody td {
-    border-bottom: 1px solid var(--color-border-light);
-}
-
-.main-table tbody .loading-row {
-    padding: 30px;
-    text-align: center;
-    color: var(--color-text-muted);
 }
 
 /* ===================================================================================
@@ -309,7 +256,171 @@
 }
 
 /* ===================================================================================
-   8. PAGINACIÓN
+   4. TABLAS Y HERRAMIENTAS (Patrón Unificado Avanzado)
+=================================================================================== */
+.table-tools {
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Buscador Estilizado con Icono */
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 280px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 10px 10px 36px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+/* Selector de Límite de Filas */
+.limit-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    font-weight: 500;
+}
+
+.limit-select {
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background-color: #fff;
+    outline: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.limit-select:focus {
+    border-color: var(--color-primary-dark);
+}
+
+/* Contenedor e interfaz de Tabla */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-border-light);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.main-table thead {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+}
+
+.main-table th {
+    padding: 14px 15px;
+    font-weight: 600;
+}
+
+.status-header {
+    text-align: center;
+    width: 100px;
+}
+
+.main-table tbody tr {
+    transition: background-color 0.15s;
+}
+
+.main-table tbody tr:hover {
+    background-color: #f1f5f9 !important;
+}
+
+.main-table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--color-border-light);
+    color: #334155;
+}
+
+/* Clases de utilidad específicas para celdas dinámicas */
+.col-id {
+    font-weight: bold;
+    color: #64748b !important;
+}
+
+.col-name {
+    color: #1e293b !important;
+    font-weight: 500;
+}
+
+.col-mono {
+    font-family: monospace;
+    color: #475569 !important;
+}
+
+.main-table tbody .loading-row {
+    padding: 40px;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* Badges de Estado Limpios */
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    display: inline-block;
+    text-align: center;
+}
+
+.badge-success {
+    color: #22c55e;
+    background-color: #f0fdf4;
+}
+
+.badge-danger {
+    color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.badge-neutral {
+    background-color: #e2e8f0;
+    color: #475569;
+    font-weight: normal;
+}
+
+/* ===================================================================================
+   8. PAGINACIÓN UNIFICADA (Estilo Botones Planos)
 =================================================================================== */
 .pagination-container {
     display: flex;
@@ -318,9 +429,10 @@
     margin-top: 20px;
     padding: 10px 0;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
     width: 100%;
     box-sizing: border-box;
+    border-top: 1px solid var(--color-border-light);
 }
 
 .pagination-info {
@@ -331,16 +443,44 @@
 
 .pagination-buttons {
     display: flex;
-    gap: 5px;
+    gap: 4px;
     align-items: center;
 }
 
-.pagination-pages {
+.pagination-numbers {
     display: flex;
-    gap: 5px;
+    gap: 4px;
 }
 
+/* Botones Planos del Patrón */
 .btn-pag-nav {
     padding: 6px 12px;
     font-size: 0.85rem;
+    background-color: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.btn-pag-nav:hover:not(:disabled) {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    color: #1e293b;
+}
+
+.btn-pag-nav:disabled {
+    background-color: #f1f5f9;
+    color: #cbd5e1;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
+.btn-pag-nav.active {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+    border-color: var(--color-primary-dark);
+    cursor: default;
 }

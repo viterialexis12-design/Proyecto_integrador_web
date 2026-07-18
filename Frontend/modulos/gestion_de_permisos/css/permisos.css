@@ -16,13 +16,13 @@
 =================================================================================== */
 .modulo-body {
     background-color: var(--color-body-bg);
-    margin: 0;
-    padding: 20px;
+    margin: auto;
     font-family: sans-serif;
 }
 
 .modulo-container {
-    width: 100%;
+    width: 99%;
+    margin: auto;
     background: #ffffff;
     padding: 25px;
     border-radius: 8px;
