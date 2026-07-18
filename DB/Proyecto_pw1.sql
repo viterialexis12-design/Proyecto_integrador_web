@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-07-2026 a las 16:31:07
+-- Tiempo de generación: 18-07-2026 a las 15:08:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -43,8 +43,8 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` (`id`, `nombre`, `descripcion`, `url`, `estado`, `id_menuPadre`) VALUES
 (1, 'Gestion de usuarios', 'Gestiona los usuarios', NULL, 1, NULL),
 (2, 'Gestion de roles', 'Gestiona los roles', NULL, 1, NULL),
-(3, 'Gestion de menus', 'Gestiona los menus', NULL, 1, NULL),
-(4, 'Gestion de permisos', 'Gestiona los permisos de cada rol', NULL, 1, NULL),
+(3, 'Gestion de menus', 'Gestiona los menusitos', '', 1, NULL),
+(4, 'Gestion de permisos', 'Gestiona los permisos', '', 1, NULL),
 (5, 'Crear Usuario', 'Ingrese nuevos usuarios', 'crear_usuario.html', 1, 1),
 (6, 'Actualizar usuario', 'Corrija informacion de un usuario', 'actualizar_usuario.html', 1, 1),
 (7, 'Ver usuarios', 'Lista con todos los usuarios', 'ver_usuarios.html', 1, 1),
@@ -58,7 +58,9 @@ INSERT INTO `menu` (`id`, `nombre`, `descripcion`, `url`, `estado`, `id_menuPadr
 (15, 'Actualizar Menu/Submenu', 'Editar un menu o submenu', 'actualizar_menu.html', 1, 3),
 (16, 'Borrar Menu/Submenu', 'Eliminar un menu o submenu', 'borrar_menu.html', 1, 3),
 (18, 'Ver Permisos', 'Listar los permisos de los roles', 'ver_permiso.html', 1, 4),
-(20, 'Actualizar Permiso', 'Editar permisos de un rol', 'editar_permiso.html', 1, 4);
+(20, 'Actualizar Permiso', 'Editar permisos de un rol', 'actualizar_permiso.html', 1, 4),
+(24, 'Ventas', 'Permite vender', '', 1, NULL),
+(25, 'hacer una venta', 'hace una venta', 'hacer_venta.html', 1, 24);
 
 -- --------------------------------------------------------
 
@@ -77,24 +79,32 @@ CREATE TABLE `permiso` (
 --
 
 INSERT INTO `permiso` (`id`, `id_rol`, `id_menu`) VALUES
-(83, 1, 1),
-(88, 1, 2),
-(93, 1, 3),
-(98, 1, 4),
-(84, 1, 5),
-(85, 1, 6),
-(86, 1, 7),
-(87, 1, 8),
-(89, 1, 9),
-(90, 1, 10),
-(91, 1, 11),
-(92, 1, 12),
-(94, 1, 13),
-(95, 1, 14),
-(96, 1, 15),
-(97, 1, 16),
-(99, 1, 18),
-(100, 1, 20);
+(208, 1, 1),
+(209, 1, 2),
+(210, 1, 3),
+(211, 1, 4),
+(212, 1, 5),
+(213, 1, 6),
+(214, 1, 7),
+(215, 1, 8),
+(216, 1, 9),
+(217, 1, 10),
+(218, 1, 11),
+(219, 1, 12),
+(220, 1, 13),
+(221, 1, 14),
+(222, 1, 15),
+(223, 1, 16),
+(224, 1, 18),
+(225, 1, 20),
+(200, 4, 1),
+(201, 4, 2),
+(202, 4, 3),
+(203, 4, 4),
+(204, 4, 7),
+(205, 4, 9),
+(206, 4, 14),
+(207, 4, 18);
 
 -- --------------------------------------------------------
 
@@ -114,7 +124,9 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`id`, `nombre`, `descripcion`, `estado`) VALUES
-(1, 'SA', 'Super administrador del sistema', 1);
+(1, 'SA', 'Super administrador del sistema', 1),
+(3, 'rolsito', 'adfgdgre', 1),
+(4, 'Superheroe', 'Actor', 1);
 
 -- --------------------------------------------------------
 
@@ -144,7 +156,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `cedula`, `correo`, `fecha_nacimiento`, `foto_perfil`, `telefono`, `username`, `clave`, `estado`, `id_rol`) VALUES
-(1, 'Admin', NULL, 'Sistema', NULL, '1234567890', 'admin@sistema.com', '1990-01-01', NULL, '0999999999', 'admin', '$2y$10$fgh8DXCcOhLknzfQbxIVoutgnemloD3LU5bjny10f/fxaLygyHfeK', 1, 1);
+(1, 'Admin', NULL, 'Sistema', NULL, '1234567890', 'admin@sistema.com', '1990-01-01', NULL, '0999999999', 'admin', '$2y$10$fgh8DXCcOhLknzfQbxIVoutgnemloD3LU5bjny10f/fxaLygyHfeK', 1, 1),
+(3, 'Alexis', '', 'Viteri', '', '1727753970', 'ajviteri2@espe.edu.ec', '2026-06-30', NULL, '0983785507', 'elpapu', '$2y$10$6.vsjuj3pojEqNfwfNmIKuKrGqa47GswSMCTw5/o34DbbXvY/L7z6', 1, 3),
+(4, 'Jean', 'Piere', 'Guevara', '', '0502709819', 'ja@outrloo.com', '2013-02-11', NULL, '0983785507', 'api', '$2y$10$.pi9nLLbgAyjppLL32A.H.n8HEg/5UQpuNmfRrrkNSJjfZklcVGs.', 1, 4);
 
 --
 -- Índices para tablas volcadas
@@ -189,25 +203,25 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
