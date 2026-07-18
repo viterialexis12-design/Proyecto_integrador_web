@@ -11,6 +11,7 @@ function inicializarPrincipal() {
 
     // 1. Cargar el menú de inmediato
     cargarMenuYDatosUsuario();
+    renderiza_bienvenida();
 
     // 2. Configurar el evento de cierre de sesión
     if (btnCerrarSesion) {
@@ -31,10 +32,33 @@ function inicializarPrincipal() {
         }
     });
 }
+function renderiza_bienvenida() {
+    const iframe = document.getElementById("moduloIframe");
+    const template = document.getElementById("Carta_bienvenida");
 
-/**
- * Consulta los datos de usuario y menús autorizados, y los renderiza en pantalla
- */
+    if (iframe && template) {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        
+        // 1. Inicializamos un documento HTML limpio dentro del iframe (Corregida la etiqueta <body>)
+        doc.open();
+        doc.write(`
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <link rel="stylesheet" href="Frontend/css/global.css">
+            </head>
+            <body style="margin: 0; padding: 0; height: 100vh; overflow: hidden;">
+            </body>
+            </html>
+        `);
+        doc.close();
+
+        // 2. Inyectamos el contenido clonado del template
+        const clone = template.content.cloneNode(true);
+        doc.body.appendChild(clone);
+    }
+}
 function cargarMenuYDatosUsuario() {
     const dashNombreUsuario = document.getElementById("dashNombreUsuario");
     const dashRolUsuario = document.getElementById("dashRolUsuario");

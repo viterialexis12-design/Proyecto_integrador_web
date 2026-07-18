@@ -3,44 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Modificar Menú</title>
-    <!-- Vincula aquí los estilos de tu aplicación -->
     <link rel="stylesheet" href="../../css/global.css"> 
+    <link rel="stylesheet" href="css/menus.css"> 
 </head>
-<body style="background-color: #f9f9f9; margin: 0; padding: 20px; font-family: sans-serif;">
-<div class="modulo-container" style="width: 100%;">
-    <div class="modulo-header" style="border-bottom: 2px solid #f5c6cb; padding-bottom: 10px;">
-        <h2 style="color: #c0392b;">🔴 Desactivar Módulo del Sistema</h2>
-        <p>Busca un menú para inhabilitarlo. Esto ocultará el módulo y sus submódulos de forma global.</p>
+<body class="modulo-body">
+<div class="modulo-container">
+    <div class="modulo-header modulo-header-danger">
+        <div>
+            <h2>🔴 Desactivar Módulo del Sistema</h2>
+            <p>Busca un menú para inhabilitarlo. Esto ocultará el módulo y sus submódulos de forma global.</p>
+        </div>
     </div>
 
     <!-- Buscador de menús para dar de baja -->
-    <div class="buscador-modulo-container" style="position: relative; margin: 20px 0; width: 100%;">
-        <label style="font-weight: bold; display: block; margin-bottom: 5px;">Seleccione el menú a dar de baja:</label>
-        <input type="text" id="txtBuscarParaEliminarMenu" placeholder="🔍 Escribe el nombre del menú..." style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
-        <div id="listaSugerenciasEliminarMenu" style="position: absolute; width: 100%; background: white; border: 1px solid #ccc; border-top: none; z-index: 100; max-height: 200px; overflow-y: auto; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box;"></div>
+    <div class="buscador-modulo-container">
+        <label>Seleccione el menú a dar de baja:</label>
+        <input type="text" id="txtBuscarParaEliminarMenu" placeholder="🔍 Escribe el nombre del menú...">
+        <!-- Se conserva style="display: none;" ya que tu JS modifica este display directamente en tiempo de ejecución -->
+        <div id="listaSugerenciasEliminarMenu" class="lista-sugerencias" style="display: none;"></div>
     </div>
 
     <!-- Ficha de confirmación (Se muestra al seleccionar un menú) -->
-    <div id="contenedorFichaEliminarMenu" style="display: none; border-top: 2px solid #e74c3c; padding-top: 20px; width: 100%;">
-        <div class="confirm-box" style="background-color: #fdf2f2; border: 1px solid #f5c6cb; padding: 20px; border-radius: 6px; margin-bottom: 20px; width: 100%; box-sizing: border-box;">
-            <p style="margin: 5px 0;"><b>Nombre:</b> <span id="lblDelMenuNombre">-</span></p>
-            <p style="margin: 5px 0;"><b>Descripción:</b> <span id="lblDelMenuDescripcion">-</span></p>
-            <p style="margin: 5px 0;"><b>Pertenece a (Padre):</b> <span id="lblDelMenuPadre">-</span></p>
-            <p style="margin: 5px 0;"><b>Estado Actual:</b> <span id="lblDelMenuEstado">-</span></p>
+    <!-- Se conserva style="display: none;" por control de flujo de tu JS -->
+    <div id="contenedorFichaEliminarMenu" class="contenedor-confirmacion" style="display: none;">
+        <div class="confirm-box">
+            <p><b>Nombre:</b> <span id="lblDelMenuNombre">-</span></p>
+            <p><b>Descripción:</b> <span id="lblDelMenuDescripcion">-</span></p>
+            <p><b>Pertenece a (Padre):</b> <span id="lblDelMenuPadre">-</span></p>
+            <p><b>Estado Actual:</b> <span id="lblDelMenuEstado">-</span></p>
             
             <!-- 
               Alerta dinámica: Se le quitan los estilos de fondo fijos del HTML 
-              para que JavaScript aplique el Rojo (Peligro) o Azul (Módulo Protegido) limpiamente.
+              para que tu JavaScript aplique el borde o color dinámico limpiamente.
             -->
-            <div id="alertaHijosMenu" style="display: none; margin-top: 15px; padding: 12px; border-left: 5px solid; font-weight: bold; border-radius: 4px; box-sizing: border-box;">
+            <div id="alertaHijosMenu" class="alerta-dinamica" style="display: none;">
                 <!-- El contenido se inyecta dinámicamente desde JS -->
             </div>
         </div>
 
         <!-- Acciones de control -->
-        <div style="display: flex; justify-content: flex-end; gap: 15px; width: 100%;">
+        <div class="form-actions-simple">
             <button type="button" id="btnCancelarEliminarMenu" class="btn btn-secondary">Cancelar</button>
-            <button type="button" id="btnConfirmarEliminarMenu" class="btn" style="background-color: #e74c3c; color: white; transition: all 0.3s ease;">🔴 Confirmar Inactivación</button>
+            <button type="button" id="btnConfirmarEliminarMenu" class="btn btn-danger-action">🔴 Confirmar Inactivación</button>
         </div>
     </div>
 </div>

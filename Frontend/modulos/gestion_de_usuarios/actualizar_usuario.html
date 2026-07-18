@@ -3,89 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>Actualizar usuario</title>
-    <!-- Vincula aquí los estilos de tu aplicación -->
     <link rel="stylesheet" href="../../css/global.css"> 
+    <link rel="stylesheet" href="css/usuarios.css"> 
 </head>
-<body style="background-color: #f9f9f9; margin: 0; padding: 20px; font-family: sans-serif;">
-<div class="modulo-container" style="width: 100%; box-sizing: border-box;">
-    <div class="modulo-header" style="border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 25px;">
-        <h2 style="margin: 0 0 5px 0;">✏️ Modificar Cuenta de Usuario</h2>
-        <p style="color: #7f8c8d; margin: 0; font-size: 0.95rem;">Busca un usuario por nombre, cédula o username para actualizar su información.</p>
+<body class="modulo-body">
+
+<div class="modulo-container">
+    <div class="modulo-header">
+        <div>
+            <h2>✏️ Modificar Cuenta de Usuario</h2>
+            <p>Busca un usuario por nombre, cédula o username para actualizar su información.</p>
+        </div>
     </div>
 
-    <div class="buscador-modulo-container" style="position: relative; margin-bottom: 25px; width: 100%;">
-        <label for="txtBuscarParaEditar" style="font-weight: bold; display: block; margin-bottom: 8px; color: #334155;">Seleccione el usuario a modificar:</label>
-        <input type="text" id="txtBuscarParaEditar" placeholder="🔍 Escribe cédula, nombre o username..." style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 1rem; box-sizing: border-box;">
-        <div id="listaSugerenciasEditar" style="position: absolute; width: 100%; background: white; border: 1px solid #cbd5e1; border-top: none; border-radius: 0 0 4px 4px; z-index: 100; max-height: 200px; overflow-y: auto; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.05); box-sizing: border-box;"></div>
+    <!-- Buscador de Usuario -->
+    <div class="buscador-modulo-container">
+        <label for="txtBuscarParaEditar">Seleccione el usuario a modificar:</label>
+        <input type="text" id="txtBuscarParaEditar" placeholder="🔍 Escribe cédula, nombre o username...">
+        <div id="listaSugerenciasEditar" class="lista-sugerencias"></div>
     </div>
 
-    <div id="contenedorFormEditar" style="display: none; border-top: 2px solid #e2e8f0; padding-top: 20px; width: 100%;">
-        <form id="formEditarUsuario" autocomplete="off" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; width: 100%; box-sizing: border-box;">
+    <!-- Formulario de Edición (Oculto por defecto) -->
+    <div id="contenedorFormEditar" class="contenedor-confirmacion">
+        <form id="formEditarUsuario" autocomplete="off" class="form-grid">
             <input type="hidden" id="txtEditIdUsuario" name="id">
 
-            <div class="form-section-title" style="grid-column: 1 / -1; font-weight: bold; font-size: 1.1rem; color: #2c3e50; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px;">Datos Personales</div>
+            <div class="form-section-title">Datos Personales</div>
             
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditNombre1" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Primer Nombre <span style="color: #e74c3c;">*</span></label>
-                <input type="text" id="txtEditNombre1" name="nombre1" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditNombre1">Primer Nombre *</label>
+                <input type="text" id="txtEditNombre1" name="nombre1" required>
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditNombre2" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Segundo Nombre</label>
-                <input type="text" id="txtEditNombre2" name="nombre2" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditNombre2">Segundo Nombre</label>
+                <input type="text" id="txtEditNombre2" name="nombre2">
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditApellido1" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Primer Apellido <span style="color: #e74c3c;">*</span></label>
-                <input type="text" id="txtEditApellido1" name="apellido1" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditApellido1">Primer Apellido *</label>
+                <input type="text" id="txtEditApellido1" name="apellido1" required>
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditApellido2" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Segundo Apellido</label>
-                <input type="text" id="txtEditApellido2" name="apellido2" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditApellido2">Segundo Apellido</label>
+                <input type="text" id="txtEditApellido2" name="apellido2">
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditCedula" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Cédula <span style="color: #e74c3c;">*</span></label>
-                <input type="text" id="txtEditCedula" name="cedula" required maxlength="10" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
-                <span id="errorEditCedula" style="font-size: 0.8rem; color: #e74c3c; display: none; margin-top: 2px;">⚠️ Cédula inválida. Debe contener 10 dígitos y pasar el algoritmo de validación.</span>
+            <div class="form-group">
+                <label for="txtEditCedula">Cédula *</label>
+                <input type="text" id="txtEditCedula" name="cedula" required maxlength="10">
+                <span id="errorEditCedula" class="error-validacion">⚠️ Cédula inválida. Debe contener 10 dígitos y pasar el algoritmo de validación.</span>
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditFechaNac" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Fecha de Nacimiento <span style="color: #e74c3c;">*</span></label>
-                <input type="date" id="txtEditFechaNac" name="fecha_nacimiento" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditFechaNac">Fecha de Nacimiento *</label>
+                <input type="date" id="txtEditFechaNac" name="fecha_nacimiento" required>
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditTelefono" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Teléfono</label>
-                <input type="tel" id="txtEditTelefono" name="telefono" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditTelefono">Teléfono</label>
+                <input type="tel" id="txtEditTelefono" name="telefono">
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditCorreo" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Correo <span style="color: #e74c3c;">*</span></label>
-                <input type="email" id="txtEditCorreo" name="correo" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditCorreo">Correo *</label>
+                <input type="email" id="txtEditCorreo" name="correo" required>
             </div>
 
-            <div class="form-section-title" style="grid-column: 1 / -1; font-weight: bold; font-size: 1.1rem; color: #2c3e50; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px; margin-top: 10px;">Credenciales de Acceso</div>
+            <div class="form-section-title span-all-columns">Credenciales de Acceso</div>
             
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditUsername" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Username <span style="color: #e74c3c;">*</span></label>
-                <input type="text" id="txtEditUsername" name="username" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditUsername">Username *</label>
+                <input type="text" id="txtEditUsername" name="username" required>
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="txtEditClave" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Nueva Contraseña <span style="font-weight: normal; font-size: 0.8rem; color: #7f8c8d;">(Opcional)</span></label>
-                <input type="password" id="txtEditClave" name="clave" autocomplete="new-password" placeholder="••••••••" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="txtEditClave">Nueva Contraseña <span class="label-optional">(Opcional)</span></label>
+                <input type="password" id="txtEditClave" name="clave" autocomplete="new-password" placeholder="••••••••">
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="cmbEditRol" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Rol <span style="color: #e74c3c;">*</span></label>
-                <select id="cmbEditRol" name="id_rol" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; background: white; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="cmbEditRol">Rol *</label>
+                <select id="cmbEditRol" name="id_rol" required>
                     <option value="">-- Seleccione un Rol --</option>
                 </select>
             </div>
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
-                <label for="cmbEditEstado" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Estado</label>
-                <select id="cmbEditEstado" name="estado" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; background: white; box-sizing: border-box; width: 100%;">
+            <div class="form-group">
+                <label for="cmbEditEstado">Estado</label>
+                <select id="cmbEditEstado" name="estado">
                     <option value="1">Activo</option>
                     <option value="0">Inactivo</option>
                 </select>
             </div>
 
-            <div class="form-actions" style="grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 20px; width: 100%;">
+            <div class="form-actions span-all-columns">
                 <button type="button" id="btnCancelarEditarUsuario" class="btn btn-secondary">Limpiar / Cancelar</button>
-                <button type="submit" id="btnGuardarEditarUsuario" class="btn btn-primary" style="background-color: #3b82f6; color: white;">💾 Guardar Cambios</button>
+                <button type="submit" id="btnGuardarEditarUsuario" class="btn btn-primary">💾 Guardar Cambios</button>
             </div>
         </form>
     </div>
@@ -93,6 +98,5 @@
 
 <!-- Enlace al JS Modular -->
 <script src="js/actualizar_usuario.js"></script>
-
 </body>
 </html>

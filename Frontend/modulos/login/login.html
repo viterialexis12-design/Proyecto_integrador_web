@@ -35,7 +35,7 @@
                         <button type="button" id="btnRefreshCaptcha" class="btn-refresh" title="Cambiar código">🔄</button>
                     </div>
                     <!-- Se usa la clase .captcha-input en vez de style inline -->
-                    <input type="text" id="txtCaptchaInput" placeholder="Escriba el código de arriba" required class="form-control captcha-input">
+                    <input type="text" id="txtCaptchaInput" placeholder="Escriba el código de arriba" required class="form-control captcha-input" style="text-transform: uppercase;">
                 </div>
 
                 <button type="submit" class="btn">Ingresar</button>
@@ -43,8 +43,6 @@
                 <!-- El div de feedback ya no tiene estilos inline -->
                 <div id="loginFeedback" class="feedback-msg"></div>
             </form>
-            
-            <!-- El botón de volver ya no tiene estilos inline -->
             <button id="btnVolverInicio" class="btn btn-secondary">⬅ Volver</button>
         </div>
     </div>

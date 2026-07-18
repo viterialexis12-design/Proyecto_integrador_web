@@ -3,39 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Ver permiso</title>
-    <!-- Vincula aquí los estilos de tu aplicación -->
     <link rel="stylesheet" href="../../css/global.css"> 
+    <link rel="stylesheet" href="css/permisos.css"> 
 </head>
-<body style="background-color: #f9f9f9; margin: 0; padding: 20px; font-family: sans-serif;">
-<div class="modulo-container" style="width: 100%; box-sizing: border-box;">
-    <div class="modulo-header" style="border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;">
-        <h2 style="color: #1e293b; margin: 0 0 5px 0;">🔑 Matriz de Permisos por Rol</h2>
-        <p style="color: #6b7280; margin: 0; font-size: 0.95rem;">Busca un rol por su nombre para auditar los módulos y accesos jerárquicos que tiene asignados.</p>
+<body class="modulo-body">
+
+<div class="modulo-container">
+    <div class="modulo-header">
+        <div>
+            <h2>🔑 Matriz de Permisos por Rol</h2>
+            <p>Busca un rol por su nombre para auditar los módulos y accesos jerárquicos que tiene asignados.</p>
+        </div>
     </div>
 
-    <div class="control-group" style="margin-bottom: 25px; background: #f8fafc; padding: 20px; border-radius: 6px; border: 1px solid #e2e8f0; position: relative; width: 100%; box-sizing: border-box;">
-        <label for="txtBuscarRolVerPermiso" style="font-weight: bold; display: block; margin-bottom: 8px; color: #334155;">Escriba el nombre del Rol a Consultar:</label>
-        <input type="text" id="txtBuscarRolVerPermiso" placeholder="🔍 Escribe para buscar un rol... (Ej: SA, Administrador)" autocomplete="off" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 1rem; box-sizing: border-box;">
-        
-        <div id="listaSugerenciasRolVerPermiso" style="position: absolute; left: 0; right: 0; background: white; border: 1px solid #cbd5e1; border-top: none; z-index: 1000; max-height: 200px; overflow-y: auto; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 0 0 4px 4px; width: 100%; box-sizing: border-box;"></div>
+    <!-- Buscador de Rol para Auditoría -->
+    <div class="control-group">
+        <label for="txtBuscarRolVerPermiso">Escriba el nombre del Rol a Consultar:</label>
+        <input type="text" id="txtBuscarRolVerPermiso" placeholder="🔍 Escribe para buscar un rol... (Ej: SA, Administrador)" autocomplete="off">
+        <div id="listaSugerenciasRolVerPermiso" class="lista-sugerencias" style="display: none;"></div>
     </div>
 
-    <div id="contenedorArbolPermisos" style="display: none; width: 100%;">
-        <h3 style="font-size: 1.1rem; color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; margin-top: 0;">
+    <!-- Contenedor del Árbol de Permisos Autorizados (Controlado por tu JS) -->
+    <div id="contenedorArbolPermisos" style="display: none;">
+        <h3 class="section-title">
             📁 Estructura de Menús Autorizados
         </h3>
         
         <!-- Contenedor del Grid de Tarjetas -->
-        <div id="listaModulosJerarquia" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; width: 100%; box-sizing: border-box;">
+        <div id="listaModulosJerarquia" class="grid-tarjetas">
         </div>
 
         <!-- Nueva Sección para la Paginación Dinámica -->
-        <div id="paginacionPermisos" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 25px; padding-top: 15px; border-top: 1px solid #e2e8f0; width: 100%;">
+        <div id="paginacionPermisos" class="paginacion-dinamica paginacion-top-border">
         </div>
     </div>
 </div>
+
 <!-- Enlace al JS Modular -->
 <script src="js/ver_permiso.js"></script>
-
 </body>
 </html>

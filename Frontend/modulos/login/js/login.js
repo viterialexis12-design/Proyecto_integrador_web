@@ -20,7 +20,7 @@ function inicializarLogin() {
 
     // --- 1. CONFIGURACIÓN DEL CAPTCHA ---
     function generarCaptcha() {
-        const caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Evita ambigüedades como 0, O, 1, I
+        const caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Evita 0, O, 1, I
         let resultado = "";
         for (let i = 0; i < 5; i++) {
             resultado += caracteres.charAt(Math.floor(Math.random() * caracteres.length));

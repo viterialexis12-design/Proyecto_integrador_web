@@ -1,5 +1,6 @@
 /* ===================================================================================
-                                    general */
+                                    GENERAL & BASE
+=================================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -39,9 +40,9 @@ body {
     background-color: #7f8c8d;
 }
 
-/* 
-================================================================================
-                                    INDEX */
+/* ===================================================================================
+                                    INDEX LAYOUTS (Cajas de Auth/App)
+=================================================================================== */
 .app-container {
     display: none;
     width: 100%;
@@ -54,108 +55,10 @@ body {
     display: flex;
     justify-content: center;
 }
-.welcome-card-init {
-    background: #ffffff !important;
-    padding: 2.5rem !important;
-    border-radius: 16px !important;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
-    border: 1px solid #e2e8f0 !important;
-    text-align: center !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    border-left: none !important; /* Quita el borde verde de las tarjetas internas */
-}
 
-.welcome-card-init h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.025em;
-}
-
-.welcome-card-init .subtitle {
-    color: #64748b;
-    font-size: 0.95rem;
-    margin-bottom: 2rem;
-    font-weight: 500;
-}
-
-.welcome-action {
-    margin-top: 1rem;
-}
-.btn-welcome {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    background: #2a6f97 !important; /* Azul moderno en vez del verde del dashboard */
-    color: #ffffff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
-    transition: all 0.2s ease;
-}
-.btn-welcome:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
-}
-
-.btn-welcome:active {
-    transform: translateY(0);
-}
-.status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 2rem;
-    padding: 6px 12px;
-    background: #f1f5f9;
-    border-radius: 9999px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #475569;
-    border: 1px solid #e2e8f0;
-}
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-    background: #e2e8f0;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.status-text {
-    color: #0f172a;
-}
-
-.status-online { background: #10b981; box-shadow: 0 0 8px #10b981; }
-.status-offline { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
-.status-checking { background: #f59e0b; }
-
-.welcome-card {
-    background-color: #ffffff;
-    padding: 35px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    border-left: 6px solid #2ecc71;
-}
-.welcome-card h3 {
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-.welcome-card p {
-    color: #7f8c8d;
-    font-size: 1rem;
-}
-/* 
-========================================================================
-
-                            LOGIN */
+/* ===================================================================================
+                                    LOGIN WRAPPER
+=================================================================================== */
 .login-wrapper {
     display: flex;
     width: 100%;
@@ -275,6 +178,8 @@ body {
     gap: 10px;
     margin-top: 8px;
 }
+
+
 .captcha-box {
     background: #e2e8f0;
     color: #1b263b;
@@ -296,18 +201,18 @@ body {
     padding: 5px;
 }
 .login-form-panel .btn {
-    width: 100% ;
-    background-color: #2a6f97 ;
-    color: white ;
-    padding: 12px ;
-    border: none ;
-    border-radius: 25px ;
-    font-size: 1rem ;
-    font-weight: bold ;
+    width: 100%;
+    background-color: #2a6f97;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
     transition: background 0.2s;
-    margin-top: 20px ;
-    display: block ;
+    margin-top: 20px;
+    display: block;
     text-align: center;
     box-sizing: border-box;
 }
@@ -316,23 +221,23 @@ body {
 }
 .login-form-panel .btn-secondary {
     background-color: transparent;
-    color: #555 ;
-    border: 1px solid #ccc ;
-    font-weight: normal ;
-    margin-top: 12px ;
+    color: #555;
+    border: 1px solid #ccc;
+    font-weight: normal;
+    margin-top: 12px;
 }
 .login-form-panel .btn-secondary:hover {
-    background-color: #f1f5f9 ;
+    background-color: #f1f5f9;
 }
 
 @keyframes rotatePanelShape {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
-/* 
 
-===============================================================================
-                                    Principal */
+/* ===================================================================================
+                                    SHELL / SIDEBAR PRINCIPAL
+=================================================================================== */
 #btnCerrarSesion {
     background-color: #95a5a6;
     color: #ffffff;
@@ -361,7 +266,6 @@ body {
     padding: 25px;
     box-sizing: border-box;
 }
-
 .dashboard-content {
     flex-grow: 1;
     height: 100%;
@@ -396,7 +300,6 @@ body {
     text-transform: uppercase;
     margin-top: 8px;
 }
-/* Menú Dinámico del Sidebar */
 .sidebar-menu {
     flex-grow: 1;
     margin-top: 25px;
@@ -424,7 +327,6 @@ body {
     width: 100%;
     margin-bottom: 5px;
 }
-/* Botón del Menú Padre */
 .menu-header-btn {
     width: 100%;
     background-color: #34495e;
@@ -449,14 +351,12 @@ body {
     font-size: 0.8rem;
     transition: transform 0.2s;
 }
-/* Contenedor de los sub-elementos (Permisos) */
 .submenu-container {
     background-color: #1f2c39;
     padding: 5px 0 5px 15px;
     border-radius: 0 0 5px 5px;
     border-left: 3px solid #1abc9c;
 }
-/* Enlaces de los Permisos */
 .submenu-link {
     display: block;
     color: #bdc3c7;
@@ -471,5 +371,203 @@ body {
     color: #ffffff;
     padding-left: 18px;
 }
+/* ================================================================================= */
+.app-container {
+    display: none; /* Controlado dinámicamente por tus JS */
+    width: 100%;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.welcome-card-init {
+    background: #ffffff !important;
+    padding: 2.5rem !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid #e2e8f0 !important;
+    text-align: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-left: none !important; /* Quita el borde verde de las tarjetas internas */
+}
+
+.welcome-card-init h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.025em;
+}
+
+.welcome-card-init .subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.welcome-action {
+    margin-top: 1rem;
+}
+.btn-welcome {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: #2a6f97 !important; /* Azul moderno en vez del verde del dashboard */
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    transition: all 0.2s ease;
+}
+.btn-welcome:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.btn-welcome:active {
+    transform: translateY(0);
+}
+/* Indicador de estado de la Base de Datos */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2rem;
+    padding: 6px 12px;
+    background: #f1f5f9;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-text {
+    color: #0f172a;
+}
+
+/* Estados dinámicos controlados por JS */
+.status-online { background: #10b981; box-shadow: 0 0 8px #10b981; }
+.status-offline { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+.status-checking { background: #f59e0b; }
+
+.welcome-card {
+    background-color: #ffffff;
+    padding: 35px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border-left: 6px solid #2ecc71;
+}
+.welcome-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+.welcome-card p {
+    color: #7f8c8d;
+    font-size: 1rem;
+}
+.content-body{
+    border-radius: 2%;
+    height: calc(100vh - 80px); 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden;
+}
+iframe{
+    width: 100%;
+    height: 100%; 
+    border: none; 
+    background-color: #f9f9f9;
+}
 /* 
-=================================================================================== */
+============================================================================================================ */
+/* Contenedor que ocupa todo el iframe */
+.bienvenido-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Un fondo gris muy suave que hereda la limpieza del panel general */
+    background-color: #f8fafc; 
+}
+
+/* Tarjeta minimalista e integrada */
+.bienvenido-card {
+    text-align: center;
+    background: #ffffff;
+    padding: 48px 32px;
+    border-radius: 16px;
+    /* Sombra difuminada muy sutil para dar profundidad sin saturar */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    max-width: 420px;
+    width: 90%;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Título con el color oscuro del sidebar corporativo */
+.bienvenido-card h1 {
+    color: #1e293b;
+    margin: 0 0 12px 0;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+/* Texto de descripción */
+.bienvenido-text {
+    color: #64748b;
+    margin: 0 0 24px 0;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Divisor sutil en lugar de una línea gruesa azul brillante */
+.divider {
+    width: 40px;
+    height: 3px;
+    background: #3b82f6; /* Puedes cambiar este azul por el color de acento de tus carpetas si lo deseas */
+    margin: 0 auto 24px auto;
+    border-radius: 9999px;
+}
+
+/* Pie de la tarjeta */
+.bienvenido-footer {
+    color: #94a3b8;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Animación de entrada suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

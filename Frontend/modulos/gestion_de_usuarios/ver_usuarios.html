@@ -3,59 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Ver usuarios</title>
-    <!-- Vincula aquí los estilos de tu aplicación -->
     <link rel="stylesheet" href="../../css/global.css"> 
+    <link rel="stylesheet" href="css/usuarios.css"> 
 </head>
-<body style="background-color: #f9f9f9; margin: 0; padding: 20px; font-family: sans-serif;">
-<div class="modulo-container" style="width: 100%; box-sizing: border-box;">
-    <div class="modulo-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; width: 100%;">
+<body class="modulo-body">
+
+<div class="modulo-container">
+    <div class="modulo-header">
         <div>
-            <h2 style="margin: 0 0 5px 0;">👥 Gestión de Usuarios</h2>
-            <p style="color: #7f8c8d; margin: 0; font-size: 0.95rem;">Visualiza, busca y administra el personal registrado en la plataforma.</p>
+            <h2>👥 Gestión de Usuarios</h2>
+            <p>Visualiza, busca y administra el personal registrado en la plataforma.</p>
         </div>
-        <div>
-            <button id="btnRefrescarUsuarios" class="btn btn-secondary">🔄 Actualizar Lista</button>
-        </div>
+        <button id="btnRefrescarUsuarios" class="btn btn-secondary">🔄 Actualizar Lista</button>
     </div>
 
-    <div class="table-tools" style="margin-bottom: 20px; width: 100%;">
-        <input type="text" id="txtBuscarUsuario" placeholder="🔍 Buscar por nombre, apellido, cédula o usuario..." style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box;">
+    <!-- Buscador -->
+    <div class="table-tools">
+        <input type="text" id="txtBuscarUsuario" placeholder="🔍 Buscar por nombre, apellido, cédula o usuario...">
     </div>
 
-    <div class="table-responsive" style="width: 100%; overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-        <table id="tablaUsuarios" class="main-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
-            <thead style="background-color: #2c3e50; color: #ffffff;">
+    <!-- Tabla -->
+    <div class="table-responsive">
+        <table id="tablaUsuarios" class="main-table">
+            <thead>
                 <tr>
-                    <th style="padding: 12px 15px;">ID</th>
-                    <th style="padding: 12px 15px;">Nombre Completo</th>
-                    <th style="padding: 12px 15px;">Cédula</th>
-                    <th style="padding: 12px 15px;">Correo</th>
-                    <th style="padding: 12px 15px;">Username</th>
-                    <th style="padding: 12px 15px;">Rol</th>
-                    <th style="padding: 12px 15px;">Estado</th>
+                    <th>ID</th>
+                    <th>Nombre Completo</th>
+                    <th>Cédula</th>
+                    <th>Correo</th>
+                    <th>Username</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody id="tbodyUsuarios">
                 <tr>
-                    <td colspan="7" style="padding: 30px; text-align: center; color: #7f8c8d;">Cargando registros...</td>
+                    <td colspan="7" class="loading-row">Cargando registros...</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- 📊 Controles de Paginación -->
-    <div id="paginacionUsuarios" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding: 10px 0; flex-wrap: wrap; gap: 10px; width: 100%; box-sizing: border-box;">
-        <span id="infoPaginacionUsuarios" style="font-size: 0.9rem; color: #475569; font-weight: 500;">Mostrando 0 a 0 de 0 registros</span>
-        <div style="display: flex; gap: 5px; align-items: center;">
-            <button id="btnPrevUsuarios" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">◀ Anterior</button>
-            <div id="contenedorPaginasUsuarios" style="display: flex; gap: 5px;"></div>
-            <button id="btnNextUsuarios" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">Siguiente ▶</button>
+    <!-- Controles de Paginación -->
+    <div id="paginacionUsuarios" class="pagination-container">
+        <span id="infoPaginacionUsuarios" class="pagination-info">Mostrando 0 a 0 de 0 registros</span>
+        <div class="pagination-buttons">
+            <button id="btnPrevUsuarios" class="btn btn-secondary btn-pag-nav">◀ Anterior</button>
+            <div id="contenedorPaginasUsuarios" class="pagination-pages"></div>
+            <button id="btnNextUsuarios" class="btn btn-secondary btn-pag-nav">Siguiente ▶</button>
         </div>
     </div>
 </div>
 
 <!-- Enlace al JS Modular -->
 <script src="js/ver_usuario.js"></script>
-
 </body>
 </html>

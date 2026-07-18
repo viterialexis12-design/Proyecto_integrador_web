@@ -1,0 +1,302 @@
+/* ===================================================================================
+   1. VARIABLES DE DISEÑO COHERENTES CON TU PROYECTO
+=================================================================================== */
+:root {
+    --color-primary-dark: #2c3e50;
+    --color-text-dark: #34495e;
+    --color-text-muted: #7f8c8d;
+    --color-border: #ccc;
+    --color-border-light: #e2e8f0;
+    --color-bg-light: #f8fafc;
+    --color-body-bg: #f9f9f9;
+    --color-danger: #e74c3c;
+    --color-danger-bg: #fdf2f2;
+}
+
+/* ===================================================================================
+   2. CUERPO Y CONTENEDOR MÓDULO (Estructura)
+=================================================================================== */
+.modulo-body {
+    background-color: var(--color-body-bg);
+    margin: 0;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.modulo-container {
+    width: 100%;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.modulo-container-small {
+    margin: 0 auto;
+}
+
+/* ===================================================================================
+   3. SECCIONES DE ENCABEZADO
+=================================================================================== */
+.modulo-header {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+}
+
+.modulo-header h2 {
+    margin: 0 0 5px 0;
+    color: var(--color-primary-dark);
+}
+
+.modulo-header p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.modulo-header-danger {
+    border-bottom: 2px solid #f5c6cb;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.modulo-header-danger h2 {
+    color: #c0392b;
+}
+
+/* ===================================================================================
+   4. TABLAS Y HERRAMIENTAS (ver_rol.html)
+=================================================================================== */
+.table-tools {
+    margin: 20px 0;
+    width: 100%;
+}
+
+.table-tools input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-border-light);
+    border-radius: 6px;
+}
+
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.main-table thead {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+}
+
+.main-table th,
+.main-table td {
+    padding: 12px 15px;
+}
+
+.main-table tbody td {
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.main-table tbody .loading-row {
+    padding: 20px;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+/* ===================================================================================
+   5. FORMULARIOS, ELEMENTOS INPUT Y ACCIONES
+=================================================================================== */
+.form-grid {
+    width: 100%;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--color-border-light);
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    outline: none;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+/* Botoneras */
+.form-actions {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.form-actions-simple {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    width: 100%;
+}
+
+.btn-danger-action {
+    background-color: var(--color-danger);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-danger-action:hover {
+    background-color: #c0392b;
+}
+
+/* ===================================================================================
+   6. AUTOCOMPLETADOS Y BUSCADORES DE ASIGNACIÓN
+=================================================================================== */
+.buscador-modulo-container {
+    position: relative;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.buscador-modulo-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+}
+
+.buscador-modulo-container input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.lista-sugerencias {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-top: none;
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 0 0 4px 4px;
+    box-sizing: border-box;
+}
+
+/* ===================================================================================
+   7. SECCIÓN DE CONFIRMACIÓN / FICHAS DE ACCIÓN
+=================================================================================== */
+.contenedor-confirmacion {
+    border-top: 2px solid var(--color-danger);
+    padding-top: 20px;
+    width: 100%;
+}
+
+/* Variante de línea gris para edición */
+#contenedorFormEditarRol.contenedor-confirmacion {
+    border-top: 2px solid var(--color-border-light);
+}
+
+.confirm-box {
+    background-color: var(--color-danger-bg);
+    border: 1px solid #f5c6cb;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    color: var(--color-primary-dark);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.confirm-box p {
+    margin: 8px 0;
+}
+
+.alerta-protegida {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #ffd2d2;
+    border: 1px solid #f5c6cb;
+    color: #d63031;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* ===================================================================================
+   8. PAGINACIÓN
+=================================================================================== */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pagination-info {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.pagination-buttons {
+    display: flex;
+    gap: 5px;
+}
