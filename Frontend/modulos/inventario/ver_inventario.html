@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Inventario</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/inventario.css">
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+
+    <!-- Encabezado Unificado -->
+    <header class="modulo-header">
+        <div class="header-titles">
+            <h1 class="modulo-titulo">📦 Inventario y Existencias</h1>
+            <p class="modulo-subtitulo">Monitoreo de stock real y alertas automáticas de reposición (Tasa crítica: ≤ 5 unidades)</p>
+        </div>
+        <div class="header-actions">
+            <!-- Switch de filtro rápido de alertas -->
+            <label class="alert-switch-label">
+                <input type="checkbox" id="chkSoloAlertas">
+                <span>⚠️ Ver solo productos por agotarse</span>
+            </label>
+        </div>
+    </header>
+
+    <!-- Fila resumen de alertas rápidas -->
+    <div id="panelContadorAlertas" class="card alert-banner" style="display: none;">
+        <span id="txtContadorMensaje">⚠️ Atención: Hay productos que requieren reposición inmediata.</span>
+    </div>
+
+    <!-- Barra de Búsqueda -->
+    <div class="filter-bar card">
+        <div class="filter-group flex-1">
+            <label for="inputBuscarInventario">Buscar Producto</label>
+            <input type="text" id="inputBuscarInventario" placeholder="🔍 Buscar por ID, Nombre, Descripción o Categoría..." autocomplete="off">
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-secondary" id="btnLimpiarInventario">🧹 Limpiar</button>
+        </div>
+    </div>
+
+    <!-- Barra de Controles: Selector de Registros -->
+    <div class="table-controls">
+        <div class="page-size-box ml-auto">
+            <label for="selectPageSize">Mostrar:</label>
+            <select id="selectPageSize">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal de Tabla -->
+    <div class="card table-card">
+        <table class="main-table" id="tablaInventario">
+            <thead>
+                <tr>
+                    <th style="width: 8%;">ID</th>
+                    <th style="width: 32%;">Producto</th>
+                    <th style="width: 20%;">Categoría</th>
+                    <th style="width: 12%; text-align: right;">Precio Unit.</th>
+                    <th style="width: 10%; text-align: right;">Stock Actual</th>
+                    <th style="width: 8%; text-align: center;">U. Medida</th>
+                    <th style="width: 10%; text-align: center;">Estado Stock</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyInventario">
+                <tr>
+                    <td colspan="7" class="td-empty">
+                        ⏳ Consultando existencias en bodega...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer de Paginación -->
+    <footer class="pagination-container">
+        <div class="pagination-info" id="infoPaginacion">
+            Mostrando 0 - 0 de 0 registros
+        </div>
+        <div class="pagination-buttons" id="btnPaginacion">
+            <!-- Botones generados dinámicamente -->
+        </div>
+    </footer>
+
+</div>
+
+<script src="js/ver_inventario.js"></script>
+</body>
+</html>

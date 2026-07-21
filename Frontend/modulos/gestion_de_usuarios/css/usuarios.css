@@ -19,12 +19,14 @@
 =================================================================================== */
 .modulo-body {
     background-color: var(--color-body-bg);
-    margin: auto;
-    font-family: sans-serif;
+    margin: 0;
+    padding: 20px 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 .modulo-container {
-    width: 99%;
+    width: 98%;
+    max-width: 1400px;
     background: #ffffff;
     padding: 25px;
     border-radius: 8px;
@@ -48,11 +50,22 @@
     width: 100%;
 }
 
-.modulo-header h2 {
-    margin: 0 0 5px 0;
-    color: var(--color-primary-dark);
+.modulo-header .header-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
+.modulo-titulo, 
+.modulo-header h1, 
+.modulo-header h2 {
+    margin: 0;
+    color: var(--color-primary-dark);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.modulo-subtitulo, 
 .modulo-header p {
     margin: 0;
     color: var(--color-text-muted);
@@ -71,7 +84,154 @@
 }
 
 /* ===================================================================================
-   5. FORMULARIOS REORGANIZADOS (Grid de dos columnas)
+   4. TABLAS Y FILTROS DE VISTA "VER" (Estándar Unificado)
+=================================================================================== */
+
+/* Tarjetas contenedor */
+.card {
+    background: #ffffff;
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.table-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Barra de Filtros y Herramientas */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-group.flex-1 {
+    flex: 1;
+    min-width: 260px;
+}
+
+.filter-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.filter-group input[type="text"],
+.filter-group select {
+    padding: 9px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-group input[type="text"]:focus,
+.filter-group select:focus {
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+/* Tabla Principal */
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.main-table thead {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+}
+
+.main-table th {
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+}
+
+.main-table tbody tr {
+    border-bottom: 1px solid var(--color-border-light);
+    transition: background-color 0.15s;
+}
+
+.main-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.main-table td {
+    padding: 12px 16px;
+    color: #334155;
+    vertical-align: middle;
+}
+
+/* Estados Vacíos / Carga / Error */
+.td-empty {
+    padding: 35px !important;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.td-error {
+    color: var(--color-danger) !important;
+    font-weight: 600;
+}
+
+/* Badges y Etiquetas de Estado Unificadas */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.badge-op-insert, .badge-success {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-op-delete, .badge-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-op-default, .badge-neutral {
+    background-color: #f1f5f9;
+    color: #475569;
+}
+
+/* Clases de Utilidad Monospaciadas/Etiquetas */
+.font-mono {
+    font-family: monospace;
+}
+
+.code-tag {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+/* ===================================================================================
+   5. FORMULARIOS (Para Vistas de Crear / Editar)
 =================================================================================== */
 .form-grid {
     display: grid;
@@ -91,7 +251,6 @@
     margin-top: 15px;
 }
 
-/* Clase explícita para forzar que ciertos elementos tomen todo el ancho en el Grid */
 .span-all-columns {
     grid-column: 1 / -1;
 }
@@ -137,7 +296,6 @@
     margin-top: 2px;
 }
 
-/* Botoneras */
 .form-actions {
     display: flex;
     justify-content: flex-end;
@@ -238,10 +396,6 @@
     color: #4b5563;
 }
 
-.text-mono {
-    font-family: monospace;
-}
-
 .alerta-protegida {
     display: none;
     background-color: var(--color-danger-bg);
@@ -256,170 +410,6 @@
 }
 
 /* ===================================================================================
-   4. TABLAS Y HERRAMIENTAS (Patrón Unificado Avanzado)
-=================================================================================== */
-.table-tools {
-    margin-bottom: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-/* Buscador Estilizado con Icono */
-.search-wrapper {
-    position: relative;
-    flex: 1;
-    min-width: 280px;
-}
-
-.search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    pointer-events: none;
-}
-
-.search-input {
-    width: 100%;
-    padding: 10px 10px 10px 36px;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.search-input:focus {
-    border-color: var(--color-primary-dark);
-    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
-}
-
-/* Selector de Límite de Filas */
-.limit-selector-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: var(--color-text-dark);
-    font-weight: 500;
-}
-
-.limit-select {
-    padding: 8px 12px;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    background-color: #fff;
-    outline: none;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-.limit-select:focus {
-    border-color: var(--color-primary-dark);
-}
-
-/* Contenedor e interfaz de Tabla */
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid var(--color-border-light);
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.main-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 0.95rem;
-}
-
-.main-table thead {
-    background-color: var(--color-primary-dark);
-    color: #ffffff;
-}
-
-.main-table th {
-    padding: 14px 15px;
-    font-weight: 600;
-}
-
-.status-header {
-    text-align: center;
-    width: 100px;
-}
-
-.main-table tbody tr {
-    transition: background-color 0.15s;
-}
-
-.main-table tbody tr:hover {
-    background-color: #f1f5f9 !important;
-}
-
-.main-table tbody td {
-    padding: 12px 15px;
-    border-bottom: 1px solid var(--color-border-light);
-    color: #334155;
-}
-
-/* Clases de utilidad específicas para celdas dinámicas */
-.col-id {
-    font-weight: bold;
-    color: #64748b !important;
-}
-
-.col-name {
-    color: #1e293b !important;
-    font-weight: 500;
-}
-
-.col-mono {
-    font-family: monospace;
-    color: #475569 !important;
-}
-
-.main-table tbody .loading-row {
-    padding: 40px;
-    text-align: center;
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-}
-
-/* Badges de Estado Limpios */
-.badge {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.85rem;
-    display: inline-block;
-    text-align: center;
-}
-
-.badge-success {
-    color: #22c55e;
-    background-color: #f0fdf4;
-}
-
-.badge-danger {
-    color: #ef4444;
-    background-color: #fef2f2;
-}
-
-.badge-neutral {
-    background-color: #e2e8f0;
-    color: #475569;
-    font-weight: normal;
-}
-
-/* ===================================================================================
    8. PAGINACIÓN UNIFICADA (Estilo Botones Planos)
 =================================================================================== */
 .pagination-container {
@@ -427,58 +417,57 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
-    padding: 10px 0;
+    padding-top: 15px;
     flex-wrap: wrap;
     gap: 15px;
     width: 100%;
-    box-sizing: border-box;
     border-top: 1px solid var(--color-border-light);
 }
 
 .pagination-info {
-    font-size: 0.9rem;
-    color: #475569;
+    font-size: 0.88rem;
+    color: #64748b;
     font-weight: 500;
 }
 
 .pagination-buttons {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     align-items: center;
 }
 
-.pagination-numbers {
+.pagination-numbers-box {
     display: flex;
     gap: 4px;
 }
 
-/* Botones Planos del Patrón */
-.btn-pag-nav {
+/* Botones Planos de Paginación */
+.page-btn {
     padding: 6px 12px;
     font-size: 0.85rem;
     background-color: #ffffff;
     color: #475569;
     border: 1px solid #cbd5e1;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.15s ease;
 }
 
-.btn-pag-nav:hover:not(:disabled) {
+.page-btn:hover:not(:disabled) {
     background-color: #f8fafc;
     border-color: #94a3b8;
-    color: #1e293b;
+    color: #0f172a;
 }
 
-.btn-pag-nav:disabled {
+.page-btn:disabled {
     background-color: #f1f5f9;
     color: #cbd5e1;
     border-color: #e2e8f0;
     cursor: not-allowed;
 }
 
-.btn-pag-nav.active {
+.page-btn.active {
     background-color: var(--color-primary-dark);
     color: #ffffff;
     border-color: var(--color-primary-dark);

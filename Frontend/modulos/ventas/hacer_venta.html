@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de Venta</title>
+    <!-- Estilos Globales de ProyectoV2 -->
+    <link rel="stylesheet" href="../../css/global.css"> 
+    <link rel="stylesheet" href="css/venta.css"> 
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+    <!-- Cabecera Estandarizada del Módulo -->
+    <div class="modulo-header">
+        <div>
+            <h2>🛒 Registrar Nueva Venta</h2>
+            <p>Selecciona el cliente y agrega productos al carrito para emitir la factura.</p>
+        </div>
+    </div>
+
+    <form id="formHacerVenta" onsubmit="return false;">
+        
+        <!-- Bloque de Selección e Insumos -->
+        <div class="card mb-3">
+            <div class="filter-bar">
+                
+                <!-- Selección de Cliente -->
+                <div class="filter-group flex-1">
+                    <label for="selCliente">👤 Cliente / Comprador *</label>
+                    <select id="selCliente" name="selCliente" class="form-control" required>
+                        <option value="" disabled selected>Cargando lista de clientes...</option>
+                    </select>
+                </div>
+
+                <!-- Buscador Dinámico de Producto -->
+                <div class="filter-group flex-1 pos-search-container">
+                    <label for="txtBuscarProducto">🔍 Buscar Producto *</label>
+                    <input type="text" 
+                           id="txtBuscarProducto" 
+                           name="txtBuscarProducto"
+                           class="form-control" 
+                           placeholder="Escribe el nombre o código..." 
+                           autocomplete="off">
+                    <div id="listaResultados" class="pos-search-results" style="display: none;"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Tabla del Carrito Virtual -->
+        <div class="card table-card mb-3">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th class="text-right" style="width: 120px;">Precio U.</th>
+                        <th class="text-center" style="width: 110px;">Cantidad</th>
+                        <th class="text-center" style="width: 90px;">IVA</th>
+                        <th class="text-right" style="width: 120px;">Subtotal</th>
+                        <th class="text-center" style="width: 80px;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyCarrito">
+                    <tr>
+                        <td colspan="6" class="td-empty">
+                            🛒 El carrito está vacío. Utiliza el buscador superior para agregar productos.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Resumen de Totales y Acciones -->
+        <div class="card p-3">
+            <div class="pos-summary-container">
+                
+                <div class="pos-summary-details">
+                    <div class="pos-summary-row">
+                        <span>Subtotal 0%: <strong id="lblSubtotal0">$0.00</strong></span>
+                        <span>Subtotal Gravado: <strong id="lblSubtotalGrabado">$0.00</strong></span>
+                        <span>IVA: <strong id="lblIva">$0.00</strong></span>
+                    </div>
+                    <div class="pos-total-row">
+                        <span>Total a Pagar: <strong id="lblTotal">$0.00</strong></span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="btnCancelarVenta" class="btn btn-secondary">
+                        ❌ Cancelar
+                    </button>
+                    <button type="button" id="btnFinalizarVenta" class="btn btn-primary">
+                        💳 Guardar Venta
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!-- Lógica JS del Módulo -->
+<script src="js/hacer_venta.js"></script>
+</body>
+</html>

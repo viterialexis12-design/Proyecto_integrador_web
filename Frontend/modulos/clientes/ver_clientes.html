@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Clientes</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/cliente.css">
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+
+    <!-- Encabezado Unificado -->
+    <header class="modulo-header">
+        <div class="header-titles">
+            <h1 class="modulo-titulo">Directorio de Clientes</h1>
+            <p class="modulo-subtitulo">Consulta el catálogo de clientes registrados y su información de facturación electrónica.</p>
+        </div>
+    </header>
+
+    <!-- Barra de Búsqueda -->
+    <div class="filter-bar card">
+        <div class="filter-group flex-1">
+            <label for="inputBuscarCliente">Buscar Cliente</label>
+            <input type="text" id="inputBuscarCliente" placeholder="🔍 Buscar por Identificación, Nombres, Apellidos o Correo..." autocomplete="off">
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-secondary" id="btnLimpiarCliente">🧹 Limpiar</button>
+        </div>
+    </div>
+
+    <!-- Barra de Controles: Selector de Registros -->
+    <div class="table-controls">
+        <div class="page-size-box ml-auto">
+            <label for="selectPageSize">Mostrar:</label>
+            <select id="selectPageSize">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal de Tabla -->
+    <div class="card table-card">
+        <table class="main-table" id="tablaClientes">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Identificación</th>
+                    <th style="width: 12%;">Tipo</th>
+                    <th style="width: 25%;">Nombres y Apellidos</th>
+                    <th style="width: 20%;">Correo Electrónico</th>
+                    <th style="width: 12%;">Teléfono</th>
+                    <th style="width: 16%;">Dirección</th>
+                    <th style="width: 10%; text-align: center;">Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyClientes">
+                <tr>
+                    <td colspan="7" class="td-empty">
+                        ⏳ Cargando registros de la base de datos...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer de Paginación -->
+    <footer class="pagination-container">
+        <div class="pagination-info" id="infoPaginacion">
+            Mostrando 0 - 0 de 0 clientes
+        </div>
+        <div class="pagination-buttons" id="btnPaginacion">
+            <!-- Botones generados dinámicamente -->
+        </div>
+    </footer>
+
+</div>
+
+<script src="js/ver_clientes.js"></script>
+</body>
+</html>

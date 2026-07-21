@@ -7,7 +7,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 header('Content-Type: application/json; charset=UTF-8');
 
-// 1. Guardián de seguridad silencioso (ID normalizado)
 if (!isset($_SESSION['id'])) {
     ob_clean();
     http_response_code(401);
@@ -23,10 +22,8 @@ try {
     $metodo = $_SERVER['REQUEST_METHOD'];
     $usuarioModel = new Usuario($conexion);
 
-    // 2. PROCESAR PETICIÓN DE LECTURA (GET)
+    // --- PROCESAR PETICIÓN DE LECTURA (GET) ---
     if ($metodo === 'GET') {
-        
-        // Si viene un ID específico por URL (para editar o ver detalle)
         if (isset($_GET['id'])) {
             $datosUsuario = $usuarioModel->obtenerPorId($_GET['id']);
             ob_clean();
@@ -34,9 +31,7 @@ try {
             exit;
         } 
         
-        // Si no viene ID, devolvemos la lista completa para la tabla
         $listaUsuarios = $usuarioModel->obtenerTodos();
-        
         ob_clean();
         echo json_encode([
             "status" => "success",
@@ -45,75 +40,68 @@ try {
         exit;
     }
 
-    // 3. PROCESAR PETICIÓN DE CREACIÓN (POST)
+    // --- PROCESAR PETICIÓN DE CREACIÓN (POST) ---
     if ($metodo === 'POST' && (!isset($_POST['accion']) || ($_POST['accion'] !== 'EDITAR' && $_POST['accion'] !== 'DESACTIVAR'))) {
         
-        // Capturar los campos enviados desde el formulario
         $nombre1       = $_POST['nombre1'] ?? null;
         $nombre2       = $_POST['nombre2'] ?? null;
         $apellido1     = $_POST['apellido1'] ?? null;
         $apellido2     = $_POST['apellido2'] ?? null;
         $cedula        = $_POST['cedula'] ?? null;
         $fecha_nac     = $_POST['fecha_nacimiento'] ?? null;
+        $foto_perfil   = null; // ◄ Forzado temporalmente a NULL para omitir el front
         $telefono      = $_POST['telefono'] ?? null;
         $correo        = $_POST['correo'] ?? null;
         $username      = $_POST['username'] ?? null;
         $clave_limpia  = $_POST['clave'] ?? null;
         $id_rol        = $_POST['id_rol'] ?? null;
-        $estado        = $_POST['estado'] ?? 1; // Adaptado a tinyint(1) (1 = Activo)
+        $id_empresa    = $_POST['id_empresa'] ?? 1; // ◄ Por defecto 1 si no viene del front
+        $estado        = $_POST['estado'] ?? 1;
 
-        // Validaciones básicas de campos obligatorios
+        // Se removió la validación de $id_empresa para evitar rebotes del backend
         if (!$nombre1 || !$apellido1 || !$cedula || !$correo || !$username || !$clave_limpia || !$id_rol) {
             ob_clean();
             echo json_encode(["status" => "error", "message" => "Faltan campos obligatorios."]);
             exit;
         }
 
-        // 🔥 APLICAMOS EL HASH BCRYPT (IDÉNTICO A TU SCRIPT DE ADMIN)
         $clave_hasheada = password_hash($clave_limpia, PASSWORD_BCRYPT);
 
-        // Mapeamos los datos al objeto del modelo
         $usuarioModel->nombre1 = $nombre1;
         $usuarioModel->nombre2 = $nombre2;
         $usuarioModel->apellido1 = $apellido1;
         $usuarioModel->apellido2 = $apellido2;
         $usuarioModel->cedula = $cedula;
         $usuarioModel->fecha_nacimiento = !empty($fecha_nac) ? $fecha_nac : null;
+        $usuarioModel->foto_perfil = $foto_perfil;
         $usuarioModel->telefono = $telefono;
         $usuarioModel->correo = $correo;
         $usuarioModel->username = $username;
         $usuarioModel->clave = $clave_hasheada; 
         $usuarioModel->id_rol = $id_rol;
+        $usuarioModel->id_empresa = $id_empresa;
         $usuarioModel->estado = $estado;
 
-        // Intentar registrar en la Base de Datos
         if ($usuarioModel->crear()) {
             ob_clean();
-            echo json_encode([
-                "status" => "success", 
-                "message" => "Usuario registrado correctamente con encriptación Bcrypt."
-            ]);
+            echo json_encode(["status" => "success", "message" => "Usuario registrado correctamente con encriptación Bcrypt."]);
         } else {
             ob_clean();
-            echo json_encode([
-                "status" => "error", 
-                "message" => "No se pudo registrar el usuario en el sistema."
-            ]);
+            echo json_encode(["status" => "error", "message" => "No se pudo registrar el usuario."]);
         }
         exit;
     }
 
-    // --- PROCESAR ACTUALIZACIÓN (MÉTODO POST SIMULANDO EDICIÓN) ---
+    // --- PROCESAR ACTUALIZACIÓN (EDITAR) ---
     if ($metodo === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'EDITAR') {
         
-        $id = $_POST['id'] ?? null; // Cambiado de id_usuario a id
+        $id = $_POST['id'] ?? null;
         if (!$id) {
             ob_clean();
             echo json_encode(["status" => "error", "message" => "ID de usuario requerido."]);
             exit;
         }
 
-        // Cargar datos actuales para no perder la clave si viene vacía
         $usuarioActual = $usuarioModel->obtenerPorId($id);
         if (!$usuarioActual) {
             ob_clean();
@@ -121,20 +109,21 @@ try {
             exit;
         }
         
-        $usuarioModel->id        = $id; // Cambiado a propiedad ->id
-        $usuarioModel->nombre1   = $_POST['nombre1'] ?? '';
-        $usuarioModel->nombre2   = $_POST['nombre2'] ?? null;
-        $usuarioModel->apellido1 = $_POST['apellido1'] ?? '';
-        $usuarioModel->apellido2 = $_POST['apellido2'] ?? null;
-        $usuarioModel->cedula    = $_POST['cedula'] ?? '';
-        $usuarioModel->correo    = $_POST['correo'] ?? '';
-        $usuarioModel->username  = $_POST['username'] ?? '';
-        $usuarioModel->id_rol    = $_POST['id_rol'] ?? null;
-        $usuarioModel->estado    = $_POST['estado'] ?? 1; // Adaptado a tinyint(1)
+        $usuarioModel->id               = $id;
+        $usuarioModel->nombre1          = $_POST['nombre1'] ?? '';
+        $usuarioModel->nombre2          = $_POST['nombre2'] ?? null;
+        $usuarioModel->apellido1        = $_POST['apellido1'] ?? '';
+        $usuarioModel->apellido2        = $_POST['apellido2'] ?? null;
+        $usuarioModel->cedula           = $_POST['cedula'] ?? '';
+        $usuarioModel->correo           = $_POST['correo'] ?? '';
+        $usuarioModel->username         = $_POST['username'] ?? '';
+        $usuarioModel->id_rol           = $_POST['id_rol'] ?? null;
+        $usuarioModel->id_empresa       = $_POST['id_empresa'] ?? $usuarioActual['id_empresa'] ?? 1; // Mantiene o usa 1
+        $usuarioModel->estado           = $_POST['estado'] ?? 1;
         $usuarioModel->fecha_nacimiento = !empty($_POST['fecha_nacimiento']) ? $_POST['fecha_nacimiento'] : null;
-        $usuarioModel->telefono  = $_POST['telefono'] ?? null;
+        $usuarioModel->foto_perfil      = null; // ◄ Se mantiene NULL por ahora en la edición
+        $usuarioModel->telefono         = $_POST['telefono'] ?? null;
 
-        // 🔥 Validar contraseña: si el usuario escribió algo, se hashea con Bcrypt. Si no, se deja la actual.
         if (!empty($_POST['clave'])) {
             $usuarioModel->clave = password_hash($_POST['clave'], PASSWORD_BCRYPT);
         } else {
@@ -151,9 +140,9 @@ try {
         exit;
     }
 
-    // --- PROCESAR DESACTIVACIÓN LÓGICA (BORRAR) ---
+    // --- PROCESAR DESACTIVACIÓN LÓGICA ---
     if ($metodo === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'DESACTIVAR') {
-        $id = $_POST['id'] ?? null; // Cambiado de id_usuario a id
+        $id = $_POST['id'] ?? null;
 
         if (!$id) {
             ob_clean();
@@ -161,10 +150,9 @@ try {
             exit;
         }
 
-        // Ejecutar el cambio de estado en el modelo
         if ($usuarioModel->desactivarLogico($id)) {
             ob_clean();
-            echo json_encode(["status" => "success", "message" => "Usuario desactivado del sistema correctamente."]);
+            echo json_encode(["status" => "success", "message" => "Usuario desactivado correctamente."]);
         } else {
             ob_clean();
             echo json_encode(["status" => "error", "message" => "No se pudo cambiar el estado del usuario."]);

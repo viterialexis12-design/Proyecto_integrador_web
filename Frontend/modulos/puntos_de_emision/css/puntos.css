@@ -1,0 +1,270 @@
+/* Layout General */
+.modulo-body {
+    padding: 20px;
+    background-color: #f8fafc;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.modulo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.modulo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modulo-titulo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.modulo-subtitulo {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 4px 0 0 0;
+}
+
+/* Barra de Controles superiores */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 16px;
+}
+
+.search-box {
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.search-box input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.page-size-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: #475569;
+}
+
+.page-size-box select {
+    padding: 6px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+/* Estructura de la Tabla */
+.table-card {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+.main-table th {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-weight: 600;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.main-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+}
+
+.main-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Columnas y Tipografías */
+.col-nombre { width: 30%; }
+.col-codigo { width: 15%; text-align: center; }
+.col-secuencial { width: 20%; text-align: right; }
+.col-usuario { width: 20%; }
+.col-estado { width: 15%; text-align: center; }
+
+.td-codigo { text-align: center; }
+.td-secuencial { text-align: right; font-family: monospace; font-weight: 600; }
+.td-estado { text-align: center; }
+.td-empty { text-align: center; color: #64748b; padding: 24px !important; }
+
+.punto-nombre { font-weight: 600; color: #0f172a; }
+.sri-code { background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; font-family: monospace; }
+.usuario-tag { color: #334155; font-weight: 500; }
+.usuario-vacio { color: #94a3b8; font-style: italic; }
+
+/* Badges de Estado */
+.badge-activo { background-color: #dcfce7; color: #15803d; padding: 4px 10px; border-radius: 12px; font-weight: 600; font-size: 0.75rem; }
+.badge-inactivo { background-color: #fee2e2; color: #b91c1c; padding: 4px 10px; border-radius: 12px; font-weight: 600; font-size: 0.75rem; }
+
+/* Paginación */
+.pagination-container { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+.pagination-info { font-size: 0.875rem; color: #64748b; }
+.pagination-buttons { display: flex; gap: 4px; }
+.page-btn { padding: 6px 12px; border: 1px solid #cbd5e1; background: #ffffff; border-radius: 6px; cursor: pointer; font-size: 0.875rem; }
+.page-btn.active { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+.page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS PARA EL MÓDULO DE PUNTOS DE EMISIÓN
+   ========================================================================== */
+
+/* Contenedor principal del buscador */
+.buscador-modulo-container {
+    position: relative;
+    margin-bottom: 25px;
+    background-color: #ffffff;
+    padding: 18px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.buscador-modulo-container label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #334155;
+    font-size: 0.95rem;
+}
+
+.buscador-modulo-container input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.buscador-modulo-container input[type="text"]:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Lista desplegable de autocompletado */
+.lista-sugerencias {
+    position: absolute;
+    top: calc(100% - 10px);
+    left: 20px;
+    right: 20px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor dinámico del formulario de edición */
+.contenedor-confirmacion {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Layout en cuadrícula para inputs del formulario */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 0.9rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #1e293b;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-control[readonly] {
+    background-color: #f1f5f9;
+    color: #64748b;
+    cursor: not-allowed;
+    border-color: #e2e8f0;
+}
+
+/* Botones de acción */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* Animación suave para la apertura del formulario */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

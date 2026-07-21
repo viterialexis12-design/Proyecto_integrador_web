@@ -1,148 +1,91 @@
 <?php
 class Usuario {
     private $conexion;
-    private $tabla = "usuario";
 
-    // Propiedades del objeto Usuario (Actualizado: id_usuario -> id)
     public $id;
     public $nombre1;
     public $nombre2;
     public $apellido1;
     public $apellido2;
-    public $fecha_nacimiento;
     public $cedula;
-    public $telefono;
     public $correo;
+    public $fecha_nacimiento;
+    public $foto_perfil;
+    public $telefono;
     public $username;
     public $clave;
     public $estado;
-    public $foto_perfil;
     public $id_rol;
+    public $id_empresa;
 
     public function __construct($db) {
         $this->conexion = $db;
     }
 
-    /**
-     * Lee todos los usuarios de la base de datos
-     * Realiza un JOIN con la tabla rol para traer el nombre del rol amigable
-     */
-    public function leerTodos() {
-        $query = "SELECT 
-                    u.id, 
-                    u.nombre1, 
-                    u.nombre2, 
-                    u.apellido1, 
-                    u.apellido2, 
-                    u.cedula, 
-                    u.correo, 
-                    u.username, 
-                    u.estado, 
-                    u.id_rol,
-                    r.nombre AS nombre_rol
-                  FROM " . $this->tabla . " u
-                  LEFT JOIN rol r ON u.id_rol = r.id
-                  ORDER BY u.id DESC";
-
-        $stmt = $this->conexion->prepare($query);
-        $stmt->execute();
-        
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public function obtenerTodos() {
-        $query = "SELECT 
-                    u.id, 
-                    u.nombre1, 
-                    u.apellido1, 
-                    u.cedula, 
-                    u.correo, 
-                    u.username, 
-                    u.estado, 
-                    r.nombre AS nombre_rol
-                  FROM usuario u
-                  LEFT JOIN rol r ON u.id_rol = r.id
-                  ORDER BY u.id DESC";
-
+        $query = "CALL sp_ObtenerTodosUsuarios()";
         $stmt = $this->conexion->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Registra un nuevo usuario en la base de datos
-     */
-    public function crear() {
-        $query = "INSERT INTO " . $this->tabla . " 
-                    (nombre1, nombre2, apellido1, apellido2, cedula, fecha_nacimiento, telefono, correo, username, clave, id_rol, estado) 
-                  VALUES 
-                    (:nombre1, :nombre2, :apellido1, :apellido2, :cedula, :fecha_nacimiento, :telefono, :correo, :username, :clave, :id_rol, :estado)";
-
-        $stmt = $this->conexion->prepare($query);
-
-        // Vinculación de parámetros seguros contra inyección SQL
-        $stmt->bindParam(':nombre1', $this->nombre1);
-        $stmt->bindParam(':nombre2', $this->nombre2);
-        $stmt->bindParam(':apellido1', $this->apellido1);
-        $stmt->bindParam(':apellido2', $this->apellido2);
-        $stmt->bindParam(':cedula', $this->cedula);
-        $stmt->bindParam(':fecha_nacimiento', $this->fecha_nacimiento);
-        $stmt->bindParam(':telefono', $this->telefono);
-        $stmt->bindParam(':correo', $this->correo);
-        $stmt->bindParam(':username', $this->username);
-        $stmt->bindParam(':clave', $this->clave);
-        $stmt->bindParam(':id_rol', $this->id_rol);
-        $stmt->bindParam(':estado', $this->estado);
-
-        return $stmt->execute();
-    }
-
-    /**
-     * Obtiene un usuario específico por su ID
-     */
     public function obtenerPorId($id) {
-        $query = "SELECT * FROM " . $this->tabla . " WHERE id = :id LIMIT 1";
+        $query = "CALL sp_ObtenerUsuarioPorId(:id)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindValue(':id', intval($id), PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
-    /**
-     * Actualiza los datos de un usuario existente
-     */
-    public function actualizar() {
-        $query = "UPDATE " . $this->tabla . " SET 
-                    nombre1 = :nombre1, nombre2 = :nombre2, apellido1 = :apellido1, apellido2 = :apellido2,
-                    cedula = :cedula, fecha_nacimiento = :fecha_nacimiento, telefono = :telefono, 
-                    correo = :correo, username = :username, clave = :clave, id_rol = :id_rol, estado = :estado
-                  WHERE id = :id";
 
+    public function crear() {
+        $query = "CALL sp_CrearUsuario(:nombre1, :nombre2, :apellido1, :apellido2, :cedula, :correo, :fecha_nacimiento, :foto_perfil, :telefono, :username, :clave, :id_rol, :id_empresa, :estado)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':nombre1', $this->nombre1);
-        $stmt->bindParam(':nombre2', $this->nombre2);
-        $stmt->bindParam(':apellido1', $this->apellido1);
-        $stmt->bindParam(':apellido2', $this->apellido2);
-        $stmt->bindParam(':cedula', $this->cedula);
-        $stmt->bindParam(':fecha_nacimiento', $this->fecha_nacimiento);
-        $stmt->bindParam(':telefono', $this->telefono);
-        $stmt->bindParam(':correo', $this->correo);
-        $stmt->bindParam(':username', $this->username);
-        $stmt->bindParam(':clave', $this->clave);
-        $stmt->bindParam(':id_rol', $this->id_rol);
-        $stmt->bindParam(':estado', $this->estado);
-        $stmt->bindParam(':id', $this->id);
+
+        $stmt->bindValue(':nombre1', $this->nombre1, PDO::PARAM_STR);
+        $stmt->bindValue(':nombre2', $this->nombre2, PDO::PARAM_STR);
+        $stmt->bindValue(':apellido1', $this->apellido1, PDO::PARAM_STR);
+        $stmt->bindValue(':apellido2', $this->apellido2, PDO::PARAM_STR);
+        $stmt->bindValue(':cedula', $this->cedula, PDO::PARAM_STR);
+        $stmt->bindValue(':correo', $this->correo, PDO::PARAM_STR);
+        $stmt->bindValue(':fecha_nacimiento', $this->fecha_nacimiento, PDO::PARAM_STR);
+        $stmt->bindValue(':foto_perfil', $this->foto_perfil, PDO::PARAM_STR);
+        $stmt->bindValue(':telefono', $this->telefono, PDO::PARAM_STR);
+        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $stmt->bindValue(':clave', $this->clave, PDO::PARAM_STR);
+        $stmt->bindValue(':id_rol', intval($this->id_rol), PDO::PARAM_INT);
+        $stmt->bindValue(':id_empresa', intval($this->id_empresa), PDO::PARAM_INT);
+        $stmt->bindValue(':estado', intval($this->estado), PDO::PARAM_INT);
 
         return $stmt->execute();
     }
 
-    /**
-     * Desactivación lógica (Borrado empresarial poniendo estado en 0)
-     */
-    public function desactivarLogico($id) {
-        $query = "UPDATE " . $this->tabla . " SET estado = 0 WHERE id = :id";
+    public function actualizar() {
+        $query = "CALL sp_ActualizarUsuario(:id, :nombre1, :nombre2, :apellido1, :apellido2, :cedula, :correo, :fecha_nacimiento, :foto_perfil, :telefono, :username, :clave, :id_rol, :id_empresa, :estado)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':id', $id);
+
+        $stmt->bindValue(':id', intval($this->id), PDO::PARAM_INT);
+        $stmt->bindValue(':nombre1', $this->nombre1, PDO::PARAM_STR);
+        $stmt->bindValue(':nombre2', $this->nombre2, PDO::PARAM_STR);
+        $stmt->bindValue(':apellido1', $this->apellido1, PDO::PARAM_STR);
+        $stmt->bindValue(':apellido2', $this->apellido2, PDO::PARAM_STR);
+        $stmt->bindValue(':cedula', $this->cedula, PDO::PARAM_STR);
+        $stmt->bindValue(':correo', $this->correo, PDO::PARAM_STR);
+        $stmt->bindValue(':fecha_nacimiento', $this->fecha_nacimiento, PDO::PARAM_STR);
+        $stmt->bindValue(':foto_perfil', $this->foto_perfil, PDO::PARAM_STR);
+        $stmt->bindValue(':telefono', $this->telefono, PDO::PARAM_STR);
+        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $stmt->bindValue(':clave', $this->clave, PDO::PARAM_STR);
+        $stmt->bindValue(':id_rol', intval($this->id_rol), PDO::PARAM_INT);
+        $stmt->bindValue(':id_empresa', intval($this->id_empresa), PDO::PARAM_INT);
+        $stmt->bindValue(':estado', intval($this->estado), PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    public function desactivarLogico($id) {
+        $query = "CALL sp_DesactivarUsuario(:id)";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->bindValue(':id', intval($id), PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

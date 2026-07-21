@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Producto</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/producto.css">
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+    <div class="modulo-header">
+        <div>
+            <h2>📝 Modificar Producto</h2>
+            <p>Busca un producto por su nombre para actualizar sus precios, stock, categoría o estado.</p>
+        </div>
+    </div>
+
+    <!-- Buscador Autocompletado -->
+    <div class="buscador-modulo-container">
+        <label for="txtBuscarParaEditarProducto">Seleccione el producto a modificar:</label>
+        <input type="text" id="txtBuscarParaEditarProducto" placeholder="🔍 Escribe el nombre o descripción del producto...">
+        <div id="listaSugerenciasEditarProducto" class="lista-sugerencias" style="display: none;"></div>
+    </div>
+
+    <!-- Formulario de Edición (Oculto hasta seleccionar un producto) -->
+    <div id="contenedorFormEditarProducto" class="contenedor-confirmacion" style="display: none;">
+        <form id="formEditarProducto">
+            <!-- ID oculto del producto -->
+            <input type="hidden" id="txtIdProducto" name="id">
+
+            <div class="form-grid">
+                
+                <!-- Nombre del Producto -->
+                <div class="form-group full-width">
+                    <label for="txtNombre">🏷️ Nombre del Producto *</label>
+                    <input type="text" id="txtNombre" name="nombre" class="form-control" required>
+                </div>
+
+                <!-- Descripción -->
+                <div class="form-group full-width">
+                    <label for="txtDescripcion">📝 Descripción detallada (Opcional):</label>
+                    <textarea id="txtDescripcion" name="descripcion" class="form-control" rows="2"></textarea>
+                </div>
+
+                <!-- Categoría -->
+                <div class="form-group">
+                    <label for="selCategoria">🗂️ Categoría *</label>
+                    <select id="selCategoria" name="id_categoria" class="form-control" required>
+                        <option value="" disabled selected>Cargando categorías...</option>
+                    </select>
+                </div>
+
+                <!-- Unidad de Medida -->
+                <div class="form-group">
+                    <label for="txtUnidadMedida">📏 Unidad de Medida *</label>
+                    <input type="text" id="txtUnidadMedida" name="unidadMedida" class="form-control" placeholder="UND, KG, LT, etc." required>
+                </div>
+
+                <!-- Precio Unitario -->
+                <div class="form-group">
+                    <label for="txtPrecioUnitario">💰 Precio Unitario ($) *</label>
+                    <input type="number" id="txtPrecioUnitario" name="precioUnitario" class="form-control" step="0.0001" min="0.0000" required>
+                </div>
+
+                <!-- Stock Actual -->
+                <div class="form-group">
+                    <label for="txtStockActual">📉 Stock Actual *</label>
+                    <input type="number" id="txtStockActual" name="stockActual" class="form-control" step="0.01" min="0.00" required>
+                </div>
+
+                <!-- Estado Operativo -->
+                <div class="form-group full-width">
+                    <label for="selEstado">⚡ Estado del Producto *</label>
+                    <select id="selEstado" name="estado" class="form-control" required>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-actions" style="margin-top: 25px;">
+                <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
+                <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/actualizar_producto.js"></script>
+</body>
+</html>

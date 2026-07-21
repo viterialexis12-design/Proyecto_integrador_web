@@ -61,27 +61,36 @@ try {
 
         // --- NUEVA ACCIÓN: GUARDAR MATRIZ COMPLETA ---
         // --- ACCIÓN: GUARDAR MATRIZ COMPLETA ---
-if ($accion === 'GUARDAR_MATRIZ') {
-    $id_rol = intval($_POST['id_rol'] ?? 0);
-    $menus_seleccionados = $_POST['menus'] ?? []; 
+// --- ACCIÓN: GUARDAR MATRIZ COMPLETA ---
+        if ($accion === 'GUARDAR_MATRIZ') {
+            $id_rol = intval($_POST['id_rol'] ?? 0);
+            $menus_seleccionados = $_POST['menus'] ?? []; 
 
-    if (!$id_rol) {
-        ob_clean();
-        echo json_encode(["status" => "error", "message" => "El ID de rol es requerido."]);
-        exit;
-    }
-
-    // 🔥 REGLA DE PROTECCIÓN DEFINITIVA EN BACKEND
-    if ($id_rol === 1) {
-        // Obligamos a incluir el padre (4), ver permisos (18) y actualizar permisos (20)
-        $ids_vitales = [4, 18, 20];
-        foreach ($ids_vitales as $id_vital) {
-            if (!in_array($id_vital, $menus_seleccionados)) {
-                $menus_seleccionados[] = $id_vital;
+            if (!$id_rol) {
+                ob_clean();
+                echo json_encode(["status" => "error", "message" => "El ID de rol es requerido."]);
+                exit;
             }
-        }
-    }
 
+            // 🔥 REGLA DE PROTECCIÓN EN BACKEND
+            if ($id_rol === 1) {
+                $ids_vitales = [4, 18, 20];
+                foreach ($ids_vitales as $id_vital) {
+                    if (!in_array($id_vital, $menus_seleccionados)) {
+                        $menus_seleccionados[] = $id_vital;
+                    }
+                }
+            }
+
+            // Llamamos directamente al modelo que ahora gestiona la transacción en la BD
+            if ($permisoModel->guardarMatriz($id_rol, $menus_seleccionados)) {
+                ob_clean();
+                echo json_encode(["status" => "success", "message" => "Matriz de permisos actualizada exitosamente."]);
+            } else {
+                ob_clean();
+                echo json_encode(["status" => "error", "message" => "No se pudo actualizar la matriz de permisos."]);
+            }
+            exit;
     try {
         $conexion->beginTransaction();
         

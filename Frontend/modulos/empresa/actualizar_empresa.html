@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuración de la Empresa</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/empresa.css">
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+    <div class="modulo-header">
+        <div>
+            <h2>🏢 Configuración de la Empresa</h2>
+            <p>Modifica la información tributaria, comercial y fiscal de tu organización.</p>
+        </div>
+    </div>
+
+    <!-- Indicador de Carga Inicial -->
+    <div id="loaderEmpresa" class="loading-container">
+        <p>⏳ Cargando información de la empresa...</p>
+    </div>
+
+    <!-- Formulario Único de Edición -->
+    <form id="formActualizarEmpresa" class="contenedor-confirmacion" style="display: none;">
+        <!-- ID oculto para asegurar el parámetro en la petición -->
+        <input type="hidden" id="txtEmpresaId" name="id">
+
+        <h3 class="section-title" style="margin-top: 0; margin-bottom: 20px; color: #1e293b;">
+            🛠️ Atributos Comerciales y Fiscales
+        </h3>
+
+        <!-- Grid donde se renderizarán los campos de la empresa -->
+        <div id="contenedorCamposEmpresa" class="grid-tarjetas">
+            <!-- Carga dinámica por JS -->
+        </div>
+
+        <!-- Acciones del Formulario -->
+        <div class="form-actions" style="margin-top: 25px;">
+            <button type="button" id="btnRestablecerEmpresa" class="btn btn-secondary"> Descartar Cambios</button>
+            <button type="submit" class="btn btn-primary">💾 Guardar Cambios de la Empresa</button>
+        </div>
+    </form>
+</div>
+
+<script src="js/actualizar_empresa.js"></script>
+</body>
+</html>

@@ -7,67 +7,74 @@
     <link rel="stylesheet" href="../../css/global.css"> 
     <link rel="stylesheet" href="css/usuarios.css"> 
 </head>
-<body>
+<body class="modulo-body">
 
 <div class="modulo-container">
-    <!-- Encabezado unificado -->
-    <div class="modulo-header">
-        <div class="modulo-header-title">
-            <h2>👥 Gestión de Usuarios</h2>
-            <p>Visualiza, busca y administra el personal registrado en la plataforma.</p>
+
+    <!-- Encabezado Unificado -->
+    <header class="modulo-header">
+        <div class="header-titles">
+            <h1 class="modulo-titulo">👥 Gestión de Usuarios</h1>
+            <p class="modulo-subtitulo">Visualiza, busca y administra el personal registrado en la plataforma.</p>
         </div>
         <button id="btnRefrescarUsuarios" class="btn btn-secondary">🔄 Actualizar Lista</button>
-    </div>
+    </header>
 
-    <!-- Nueva Barra de Herramientas Estilizada siguiendo el patrón de menús -->
-    <div class="table-tools">
-        <div class="search-wrapper">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="txtBuscarUsuario" class="search-input" placeholder="Buscar por nombre, apellido, cédula o usuario...">
+    <!-- Barra de Herramientas y Filtros -->
+    <div class="filter-bar card">
+        <div class="filter-group flex-1">
+            <label for="txtBuscarUsuario">Buscar Usuario</label>
+            <input type="text" id="txtBuscarUsuario" placeholder="🔍 Buscar por nombre, apellido, cédula, correo o usuario..." autocomplete="off">
         </div>
-        <!-- Nota: Tu JS actual no maneja el select dinámico de límites, pero lo dejamos maquetado estructuralmente con la clase de menús para mantener la simetría visual -->
-        <div class="limit-selector-wrapper">
+        <div class="filter-group">
             <label for="selectLimitesUsuarios">Mostrar</label>
-            <select id="selectLimitesUsuarios" class="limit-select" disabled>
+            <select id="selectLimitesUsuarios">
+                <option value="5">5 filas</option>
                 <option value="10" selected>10 filas</option>
+                <option value="25">25 filas</option>
+                <option value="50">50 filas</option>
+                <option value="todos">Todas</option>
             </select>
         </div>
     </div>
 
-    <!-- Contenedor de la Tabla -->
-    <div class="table-responsive">
+    <!-- Contenedor Principal de Tabla -->
+    <div class="card table-card">
         <table id="tablaUsuarios" class="main-table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre Completo</th>
-                    <th>Cédula</th>
-                    <th>Correo</th>
-                    <th>Username</th>
-                    <th>Rol</th>
-                    <th class="status-header">Estado</th>
+                    <th style="width: 8%;">ID</th>
+                    <th style="width: 25%;">Nombre Completo</th>
+                    <th style="width: 14%;">Cédula</th>
+                    <th style="width: 23%;">Correo</th>
+                    <th style="width: 12%;">Username</th>
+                    <th style="width: 10%;">Rol</th>
+                    <th style="width: 8%; text-align: center;">Estado</th>
                 </tr>
             </thead>
             <tbody id="tbodyUsuarios">
                 <tr>
-                    <td colspan="7" class="loading-row">Cargando registros...</td>
+                    <td colspan="7" class="td-empty">⏳ Cargando usuarios...</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- Paginación Unificada siguiendo el patrón de menús -->
-    <div id="paginacionUsuarios" class="pagination-container">
-        <span id="infoPaginacionUsuarios" class="pagination-info">Mostrando 0 a 0 de 0 registros</span>
-        <div class="pagination-buttons">
-            <button id="btnPrevUsuarios" class="btn-pag-nav">◀ Anterior</button>
-            <div id="contenedorPaginasUsuarios" class="pagination-numbers"></div>
-            <button id="btnNextUsuarios" class="btn-pag-nav">Siguiente ▶</button>
+    <!-- Footer de Paginación Unificado -->
+    <footer id="paginacionUsuarios" class="pagination-container">
+        <div id="infoPaginacionUsuarios" class="pagination-info">
+            Mostrando 0 a 0 de 0 registros
         </div>
-    </div>
+        <div class="pagination-buttons">
+            <button id="btnPrevUsuarios" class="page-btn" disabled>«</button>
+            <div id="contenedorPaginasUsuarios" class="pagination-numbers-box"></div>
+            <button id="btnNextUsuarios" class="page-btn" disabled>»</button>
+        </div>
+    </footer>
+
 </div>
 
-<!-- Enlace al JS Modular intacto -->
+<!-- Enlace al JS Modular -->
 <script src="js/ver_usuario.js"></script>
 </body>
 </html>

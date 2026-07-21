@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Cliente</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/cliente.css">
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+    <div class="modulo-header">
+        <div>
+            <h2>✏️ Modificar Información de Cliente</h2>
+            <p>Busca un cliente para editar sus datos personales, de contacto o estado operativo.</p>
+        </div>
+    </div>
+
+    <!-- Buscador Autocompletado -->
+    <div class="buscador-modulo-container">
+        <label for="txtBuscarParaEditarCliente">Seleccione el cliente a modificar:</label>
+        <input type="text" id="txtBuscarParaEditarCliente" placeholder="🔍 Escribe la cédula/RUC, nombres o apellidos del cliente...">
+        <div id="listaSugerenciasEditarCliente" class="lista-sugerencias" style="display: none;"></div>
+    </div>
+
+    <!-- Formulario de Edición (Oculto hasta seleccionar) -->
+    <div id="contenedorFormEditarCliente" class="contenedor-confirmacion" style="display: none;">
+        <form id="formEditarCliente">
+            <!-- Input oculto para rastrear el ID del registro -->
+            <input type="hidden" id="txtEditIdCliente" name="id">
+
+            <div class="form-grid">
+                <!-- Identificación -->
+                <div class="form-group">
+                    <label for="selEditTipoIdentificacion">📊 Tipo de Identificación *</label>
+                    <select id="selEditTipoIdentificacion" name="tipoIdentificacion" class="form-control" required>
+                        <option value="05">Cédula</option>
+                        <option value="04">RUC</option>
+                        <option value="06">Pasaporte</option>
+                        <option value="07">Consumidor Final</option>
+                        <option value="08">Identificación del Exterior</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEditIdentificacion">🆔 Número de Identificación *</label>
+                    <input type="text" id="txtEditIdentificacion" name="identificacion" class="form-control" required>
+                </div>
+
+                <!-- Nombres -->
+                <div class="form-group">
+                    <label for="txtEditNombre1">👤 Primer Nombre *</label>
+                    <input type="text" id="txtEditNombre1" name="nombre1" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEditNombre2">👤 Segundo Nombre (Opcional):</label>
+                    <input type="text" id="txtEditNombre2" name="nombre2" class="form-control">
+                </div>
+
+                <!-- Apellidos -->
+                <div class="form-group">
+                    <label for="txtEditApellido1">👤 Primer Apellido *</label>
+                    <input type="text" id="txtEditApellido1" name="apellido1" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEditApellido2">👤 Segundo Apellido (Opcional):</label>
+                    <input type="text" id="txtEditApellido2" name="apellido2" class="form-control">
+                </div>
+
+                <!-- Contacto -->
+                <div class="form-group">
+                    <label for="txtEditCorreo">📧 Correo Electrónico:</label>
+                    <input type="email" id="txtEditCorreo" name="correo" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEditTelefono">📞 Teléfono:</label>
+                    <input type="text" id="txtEditTelefono" name="telefono" class="form-control">
+                </div>
+
+                <!-- Control de Estado -->
+                <div class="form-group">
+                    <label for="selEditEstado">📊 Estado del Cliente *</label>
+                    <select id="selEditEstado" name="estado" class="form-control" required>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="grid-column: span 2;">
+                    <label for="txtEditDireccion">📍 Dirección Domiciliaria:</label>
+                    <input type="text" id="txtEditDireccion" name="direccion" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="btnCancelarEditarCliente" class="btn btn-secondary">Cancelar</button>
+                <button type="submit" id="btnGuardar" class="btn btn-primary">💾 Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Enlace al JS Modular -->
+<script src="js/actualizar_clientes.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Auditoría de Cambios</title>
+    <link rel="stylesheet" href="../../css/global.css"> 
+    <link rel="stylesheet" href="css/auditoria.css"> 
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+
+    <!-- Encabezado Unificado -->
+    <header class="modulo-header">
+        <div class="header-titles">
+            <h1 class="modulo-titulo">🛡️ Historial de Auditoría de Cambios</h1>
+            <p class="modulo-subtitulo">Registro detallado de operaciones de trazabilidad sobre los datos del sistema.</p>
+        </div>
+    </header>
+
+    <!-- Barra de Filtros -->
+    <div class="filter-bar card">
+        <div class="filter-group flex-1">
+            <label for="txtBuscarAuditoria">Buscar Registros</label>
+            <input type="text" id="txtBuscarAuditoria" placeholder="🔍 Buscar por usuario, tabla o ID registro..." autocomplete="off">
+        </div>
+
+        <div class="filter-group">
+            <label for="selectFiltroTabla">Tabla Afectada</label>
+            <select id="selectFiltroTabla">
+                <option value="">-- Todas las tablas --</option>
+                <option value="usuario">usuario</option>
+                <option value="cliente">cliente</option>
+                <option value="producto">producto</option>
+                <option value="categoria">categoria</option>
+                <option value="empresa">empresa</option>
+                <option value="puntoEmision">puntoEmision</option>
+                <option value="rol">rol</option>
+                <option value="menu">menu</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="fechaInicio">Desde</label>
+            <input type="date" id="fechaInicio">
+        </div>
+
+        <div class="filter-group">
+            <label for="fechaFin">Hasta</label>
+            <input type="date" id="fechaFin">
+        </div>
+
+        <div class="filter-actions">
+            <button class="btn btn-secondary" id="btnRefrescarAuditoria">🔄 Actualizar</button>
+        </div>
+    </div>
+
+    <!-- Barra de Controles: Selector de Registros -->
+    <div class="table-controls">
+        <div class="page-size-box ml-auto">
+            <label for="selectLimites">Mostrar:</label>
+            <select id="selectLimites">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="todos">Todos</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal de Tabla -->
+    <div class="card table-card">
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Fecha y Hora</th>
+                    <th style="width: 25%;">Usuario</th>
+                    <th style="width: 20%;">Tabla</th>
+                    <th style="width: 15%;">Operación</th>
+                    <th style="width: 10%;">ID Reg.</th>
+                    <th style="width: 15%; text-align: center;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyAuditorias">
+                <tr>
+                    <td colspan="6" class="td-empty">⏳ Cargando historial de auditoría...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer de Paginación -->
+    <footer class="pagination-container">
+        <div class="pagination-info" id="infoPaginacion">
+            Mostrando 0 a 0 de 0 registros
+        </div>
+        <div class="pagination-buttons">
+            <button id="btnPrevPage" class="page-btn" disabled>«</button>
+            <div id="contenedorNumerosPagina" class="pagination-numbers-box"></div>
+            <button id="btnNextPage" class="page-btn" disabled>»</button>
+        </div>
+    </footer>
+
+</div>
+
+<!-- Modal Comparativo de JSON -->
+<div id="modalDetalleAuditoria" class="modal-overlay" style="display: none;">
+    <div class="modal-card-lg">
+        <div class="modal-header">
+            <h3>🔍 Comparativo de Cambios en Registro</h3>
+            <button id="btnCerrarModal" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body modal-grid-json">
+            <div class="json-column">
+                <h4 class="json-title-before">⬅️ Valor Anterior (Antes)</h4>
+                <pre id="jsonAnterior" class="json-code-box">Sin información previa</pre>
+            </div>
+            <div class="json-column">
+                <h4 class="json-title-after">➡️ Valor Nuevo (Después)</h4>
+                <pre id="jsonNuevo" class="json-code-box">Sin información posterior</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/ver_auditoria_cambios.js"></script>
+</body>
+</html>

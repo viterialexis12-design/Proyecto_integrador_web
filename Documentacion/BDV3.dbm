@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.2.2" use-changelog="false" max-obj-count="19"
+	 gen-disabled-objs-code="false" show-sys-schemas-rects="true"
+	 last-position="-104,0" last-zoom="0.65" scene-rect="-160,0,2276.81,1076.8"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<table name="rol" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="220" y="880"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombre">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="descripcion">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="estado">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="Rol_pk" type="pk-constr" table="public.rol">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="menu" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1040" y="840"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombre">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="descripcion">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="estado">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="url">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="id_menuPadre">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="menu_pk" type="pk-constr" table="public.menu">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="permiso" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="620" y="860"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="permiso_pk" type="pk-constr" table="public.permiso">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="usuario" layers="0" collapse-mode="2" max-obj-count="18" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="-140" y="560"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombre1">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="nombre2">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="apellido1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="apellido2">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="cedula">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="correo">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="fecha_nacimiento">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="foto_perfil">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="telefono">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="username">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="clave">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="estado">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="usuario_pk" type="pk-constr" table="public.usuario">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="usuario_has_one_rol" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#8d30d6"
+	 src-table="public.rol"
+	 dst-table="public.usuario"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rol_has_many_permiso" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#944ce4"
+	 src-table="public.rol"
+	 dst-table="public.permiso"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="menu_has_many_permiso" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#c2e856"
+	 src-table="public.menu"
+	 dst-table="public.permiso"
+	 src-required="false" dst-required="false"/>
+
+<table name="empresa" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="-120" y="60"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="razonSocial">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombreComercial">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="ruc">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="dirMatriz">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="obligadoContabilidad">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="contribuyenteEspecial">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="empresa_pk" type="pk-constr" table="public.empresa">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="empresa_has_many_usuario" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#20f355"
+	 src-table="public.empresa"
+	 dst-table="public.usuario"
+	 src-required="false" dst-required="false"/>
+
+<table name="puntoEmision" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="380" y="60"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombre">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="codigoSRI">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="secuencial">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="estado">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="puntoEmision_pk" type="pk-constr" table="public.&quot;puntoEmision&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="empresa_has_many_puntoEmision" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#19e55f"
+	 src-table="public.empresa"
+	 dst-table="public.&quot;puntoEmision&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="puntoEmision_has_one_usuario" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#37cbf7"
+	 src-table="public.usuario"
+	 dst-table="public.&quot;puntoEmision&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="categoria" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="740" y="60"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombre">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="descripcion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="estado">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="categoria_pk" type="pk-constr" table="public.categoria">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="ivaSRI" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1120" y="60"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="codigoSri">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="porcentaje">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="ivaSRI_pk" type="pk-constr" table="public.&quot;ivaSRI&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="categoria_has_one_ivaSRI" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#dd3a53"
+	 src-table="public.&quot;ivaSRI&quot;"
+	 dst-table="public.categoria"
+	 src-required="false" dst-required="false"/>
+
+<table name="producto" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="420" y="500"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombre">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="descripcion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="unidadMedida">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="precioUnitario">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="stockActual">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="estado">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="producto_pk" type="pk-constr" table="public.producto">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="categoria_has_many_producto" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#e3f216"
+	 src-table="public.categoria"
+	 dst-table="public.producto"
+	 src-required="false" dst-required="false"/>
+
+<table name="cliente" layers="0" collapse-mode="2" max-obj-count="13" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1520" y="440"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombre1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombre2">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="apellido1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="apellido2">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="identificacion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="correo">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="estado">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="tipoIdentificacion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="direccion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="telefono">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="cliente_pk" type="pk-constr" table="public.cliente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="factura" layers="0" collapse-mode="2" max-obj-count="12" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="980" y="400"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="claveAcceso">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="fechaEmision">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="subtotal">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="totalIva">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="importeTotal">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="cabeceraFactura_pk" type="pk-constr" table="public.factura">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_cliente" index="5"/>
+		<object name="id_empresa" index="3"/>
+		<object name="id_puntoEmision" index="4"/>
+		<object name="id_usuario" index="6"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="cliente_fk" index="3"/>
+		<object name="empresa_fk" index="1"/>
+		<object name="puntoEmision_fk" index="2"/>
+		<object name="usuario_fk" index="4"/>
+	</customidxs></table>
+
+<table name="detalleFactura" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1420" y="780"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="cantidad">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="precio_unitario">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="precioTotalSinImpuesto">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="tarifa_iva">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="valorIva">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="detalleFactura_pk" type="pk-constr" table="public.&quot;detalleFactura&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="cabeceraFactura_has_many_detalleFactura" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#1daaae"
+	 src-table="public.factura"
+	 dst-table="public.&quot;detalleFactura&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="empresa_has_many_cabeceraFactura" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#88a0cb"
+	 src-table="public.empresa"
+	 dst-table="public.factura"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="puntoEmision_has_many_cabeceraFactura" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#f4be9f"
+	 src-table="public.&quot;puntoEmision&quot;"
+	 dst-table="public.factura"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="cliente_has_many_cabeceraFactura" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#93b2b5"
+	 src-table="public.cliente"
+	 dst-table="public.factura"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="usuario_has_many_cabeceraFactura" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#b015d4"
+	 src-table="public.usuario"
+	 dst-table="public.factura"
+	 src-required="false" dst-required="false"/>
+
+<table name="movimientos" layers="0" collapse-mode="2" max-obj-count="13" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1460" y="20"/>
+	<column name="id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="nombreProveedor">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="tipoMovimiento">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="cantidad">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="fecha">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="observacion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="stock_anterior">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="stock_posterior">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="inventario_pk" type="pk-constr" table="public.movimientos">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_factura" index="10"/>
+		<object name="id_producto" index="8"/>
+		<object name="id_usuario" index="9"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="factura_fk" index="3"/>
+		<object name="producto_fk" index="1"/>
+		<object name="usuario_fk" index="2"/>
+	</customidxs></table>
+
+<relationship name="producto_has_many_movimientos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#dd5787"
+	 src-table="public.producto"
+	 dst-table="public.movimientos"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="usuario_has_many_movimientos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#c8baa3"
+	 src-table="public.usuario"
+	 dst-table="public.movimientos"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="cabeceraFactura_has_many_movimientos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#e9acd3"
+	 src-table="public.factura"
+	 dst-table="public.movimientos"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

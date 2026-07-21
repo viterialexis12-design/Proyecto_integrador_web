@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Puntos de Emisión</title>
+    <link rel="stylesheet" href="../../css/global.css"> 
+    <link rel="stylesheet" href="css/puntos.css"> 
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+
+    <!-- Encabezado unificado (solo lectura) -->
+    <header class="modulo-header">
+        <div class="header-titles">
+            <h1 class="modulo-titulo">Puntos de Emisión</h1>
+            <p class="modulo-subtitulo">Consulta de puntos de emisión asignados para facturación electrónica</p>
+        </div>
+    </header>
+
+    <!-- Barra de Controles: Búsqueda y Selector de Paginación -->
+    <div class="table-controls">
+        <div class="search-box">
+            <input type="text" id="inputBuscar" placeholder="🔍 Buscar por nombre, código SRI o usuario..." autocomplete="off">
+        </div>
+        <div class="page-size-box">
+            <label for="selectPageSize">Mostrar:</label>
+            <select id="selectPageSize">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal de Tabla -->
+    <div class="card table-card">
+        <table class="main-table" id="tablaPuntos">
+            <thead>
+                <tr>
+                    <th class="col-nombre">Nombre</th>
+                    <th class="col-codigo">Código SRI</th>
+                    <th class="col-secuencial">Secuencial Actual</th>
+                    <th class="col-usuario">Usuario Asignado</th>
+                    <th class="col-estado">Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyPuntosEmision">
+                <tr>
+                    <td colspan="5" class="td-empty">
+                        Cargando puntos de emisión desde el servidor...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer de Paginación -->
+    <footer class="pagination-container">
+        <div class="pagination-info" id="infoPaginacion">
+            Mostrando 0 - 0 de 0 puntos
+        </div>
+        <div class="pagination-buttons" id="btnPaginacion">
+            <!-- Botones generados dinámicamente -->
+        </div>
+    </footer>
+
+</div>
+
+<script src="js/ver_puntos.js"></script>
+</body>
+</html>

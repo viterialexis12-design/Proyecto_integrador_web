@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Punto de Emisión</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/puntos.css">
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+    <div class="modulo-header">
+        <div>
+            <h2>✏️ Modificar Punto de Emisión</h2>
+            <p>Busca un punto de emisión para actualizar sus parámetros normativos, secuencial o estado.</p>
+        </div>
+    </div>
+
+    <!-- Buscador Autocompletado -->
+    <div class="buscador-modulo-container">
+        <label for="txtBuscarParaEditarPunto">Seleccione el punto de emisión a modificar:</label>
+        <input type="text" id="txtBuscarParaEditarPunto" placeholder="🔍 Escribe el nombre o código SRI del punto...">
+        <div id="listaSugerenciasEditarPunto" class="lista-sugerencias" style="display: none;"></div>
+    </div>
+
+    <!-- Formulario de Edición (Oculto hasta seleccionar) -->
+    <div id="contenedorFormEditarPunto" class="contenedor-confirmacion" style="display: none;">
+        <form id="formEditarPunto">
+            <!-- Input oculto para rastrear el ID -->
+            <input type="hidden" id="txtEditIdPunto" name="id">
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="txtEditNombre">🏢 Nombre del Punto *</label>
+                    <input type="text" id="txtEditNombre" name="nombre" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEditCodigoSRI">🆔 Código SRI (3 dígitos) *</label>
+                    <input type="text" id="txtEditCodigoSRI" name="codigoSRI" class="form-control" required maxlength="3" minlength="3">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEditSecuencial">🔢 Secuencial Actual *</label>
+                    <input type="number" id="txtEditSecuencial" name="secuencial" class="form-control" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="selEditEstado">📊 Estado Operativo:</label>
+                    <select id="selEditEstado" name="estado" class="form-control">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo (Dado de baja)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEditIdEmpresa">🏢 ID Empresa Vinculada *</label>
+                    <input type="number" id="txtEditIdEmpresa" name="id_empresa" class="form-control" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEditIdUsuario">👤 ID Usuario Asignado:</label>
+                    <input type="number" id="txtEditIdUsuario" name="id_usuario" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="btnCancelarEditarPunto" class="btn btn-secondary">Cancelar</button>
+                <button type="submit" id="btnGuardar" class="btn btn-primary">💾 Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Enlace al JS Modular -->
+<script src="js/actualizar_punto.js"></script>
+</body>
+</html>

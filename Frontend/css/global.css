@@ -267,7 +267,7 @@ body {
     color: #ffffff;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Clava el perfil arriba y el footer abajo */
+    justify-content: space-between;
     padding: 20px 15px;
 }
 

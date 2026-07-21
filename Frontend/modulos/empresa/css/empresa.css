@@ -1,0 +1,378 @@
+/* ===================================================================================
+   1. VARIABLES DE DISEÑO COHERENTES CON TU PROYECTO
+=================================================================================== */
+:root {
+    --color-primary-dark: #2c3e50;
+    --color-text-dark: #34495e;
+    --color-text-muted: #7f8c8d;
+    --color-border: #ccc;
+    --color-border-light: #e2e8f0;
+    --color-bg-light: #f8fafc;
+    --color-body-bg: #f9f9f9;
+}
+
+/* ===================================================================================
+   2. CUERPO Y CONTENEDOR MÓDULO (Estructura)
+=================================================================================== */
+.modulo-body {
+    background-color: var(--color-body-bg);
+    margin: auto;
+    font-family: sans-serif;
+}
+
+.modulo-container {
+    width: 99%;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    margin: auto;
+}
+
+/* ===================================================================================
+   3. SECCIONES DE ENCABEZADO
+=================================================================================== */
+.modulo-header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 2px solid var(--color-border-light);
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+.modulo-header h2 {
+    margin: 0 0 5px 0;
+    color: var(--color-primary-dark);
+}
+
+.modulo-header p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* ===================================================================================
+   4. TABLAS Y HERRAMIENTAS (Patrón Unificado Avanzado)
+=================================================================================== */
+.table-tools {
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Buscador Estilizado con Icono */
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 280px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 10px 10px 36px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+/* Selector de Límite de Filas */
+.limit-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    font-weight: 500;
+}
+
+.limit-select {
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background-color: #fff;
+    outline: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.limit-select:focus {
+    border-color: var(--color-primary-dark);
+}
+
+/* Contenedor e interfaz de Tabla */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-border-light);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.main-table thead {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+}
+
+.main-table th {
+    padding: 14px 15px;
+    font-weight: 600;
+}
+
+.status-header {
+    text-align: center;
+    width: 100px;
+}
+
+.main-table tbody tr {
+    transition: background-color 0.15s;
+}
+
+.main-table tbody tr:hover {
+    background-color: #f1f5f9 !important;
+}
+
+.main-table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--color-border-light);
+    color: #334155;
+}
+
+/* Clases de utilidad específicas para celdas dinámicas */
+.col-id {
+    font-weight: bold;
+    color: #64748b !important;
+}
+
+.col-name {
+    color: #1e293b !important;
+    font-weight: 500;
+}
+
+.col-mono {
+    font-family: monospace;
+    color: #475569 !important;
+}
+
+.main-table tbody .loading-row {
+    padding: 40px;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* Badges de Estado Limpios */
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    display: inline-block;
+    text-align: center;
+}
+
+.badge-success {
+    color: #22c55e;
+    background-color: #f0fdf4;
+}
+
+.badge-danger {
+    color: #ef4444;
+    background-color: #fef2f2;
+}
+
+/* ===================================================================================
+   5. PAGINACIÓN UNIFICADA (Estilo Botones Planos)
+=================================================================================== */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid var(--color-border-light);
+}
+
+.pagination-info {
+    font-size: 0.9rem;
+    color: #475569;
+    font-weight: 500;
+}
+
+.pagination-buttons {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.pagination-numbers {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-pag-nav {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    background-color: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.btn-pag-nav:hover:not(:disabled) {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    color: #1e293b;
+}
+
+.btn-pag-nav:disabled {
+    background-color: #f1f5f9;
+    color: #cbd5e1;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
+.btn-pag-nav.active {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+    border-color: var(--color-primary-dark);
+    cursor: default;
+}
+
+/* Estilos específicos para el entorno modular de la Empresa */
+.loading-container {
+    text-align: center;
+    padding: 40px;
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    color: #64748b;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Animación opcional para inputs enfocados dentro de las tarjetas */
+.grid-tarjetas input:focus {
+    outline: none;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS PARA EL MÓDULO DE CONFIGURACIÓN DE EMPRESA
+   ========================================================================== */
+
+.loading-container {
+    text-align: center;
+    padding: 30px;
+    font-size: 1.05rem;
+    color: #64748b;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.grid-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.card-atributo {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: border-color 0.2s ease;
+}
+
+.card-atributo:focus-within {
+    border-color: #3b82f6;
+}
+
+.card-atributo-header {
+    background-color: #f8fafc;
+    padding: 10px 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.card-atributo-header span {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-atributo-body {
+    padding: 12px 14px;
+    flex-grow: 1;
+}
+
+.card-atributo-body .form-control {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #0f172a;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-atributo-body .form-control:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+@media (max-width: 640px) {
+    .grid-tarjetas {
+        grid-template-columns: 1fr;
+    }
+}

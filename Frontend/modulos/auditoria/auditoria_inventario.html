@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Auditoría de Inventario</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/auditoria.css">
+</head>
+<body class="modulo-body">
+
+<div class="modulo-container">
+
+    <!-- Encabezado Unificado -->
+    <header class="modulo-header">
+        <div class="header-titles">
+            <h1 class="modulo-titulo">📋 Auditoría de Movimientos de Inventario</h1>
+            <p class="modulo-subtitulo">Historial y trazabilidad total de ingresos, mermas y ventas de productos.</p>
+        </div>
+    </header>
+
+    <!-- Barra de Filtros -->
+    <div class="filter-bar card">
+        <div class="filter-group flex-1">
+            <label for="inputBuscarAuditoria">Buscar Registros</label>
+            <input type="text" id="inputBuscarAuditoria" placeholder="🔍 Buscar por Producto, Responsable, Proveedor/Cliente u Observación..." autocomplete="off">
+        </div>
+        <div class="filter-group">
+            <label for="filterTipo">Tipo de Movimiento</label>
+            <select id="filterTipo">
+                <option value="">-- Todos los tipos --</option>
+                <option value="1">1 - Ingreso</option>
+                <option value="2">2 - Egreso / Merma</option>
+                <option value="3">3 - Venta por Factura</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="fechaInicio">Desde</label>
+            <input type="date" id="fechaInicio">
+        </div>
+        <div class="filter-group">
+            <label for="fechaFin">Hasta</label>
+            <input type="date" id="fechaFin">
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-primary" id="btnFiltrarAuditoria">🔍 Filtrar</button>
+            <button class="btn btn-secondary" id="btnLimpiarAuditoria">🧹 Limpiar</button>
+        </div>
+    </div>
+
+    <!-- Barra de Controles: Selector de Registros -->
+    <div class="table-controls">
+        <div class="page-size-box ml-auto">
+            <label for="selectPageSize">Mostrar:</label>
+            <select id="selectPageSize">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal de Tabla -->
+    <div class="card table-card">
+        <table class="main-table" id="tablaAuditoria">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Producto</th>
+                    <th style="width: 10%;">Tipo Movimiento</th>
+                    <th style="width: 7%; text-align: right;">Stock Ant.</th>
+                    <th style="width: 8%; text-align: right;">Variación</th>
+                    <th style="width: 7%; text-align: right;">Stock Act.</th>
+                    <th style="width: 9%;">Punto Emisión</th>
+                    <th style="width: 13%;">Proveedor / Cliente</th>
+                    <th style="width: 10%;">Responsable</th>
+                    <th style="width: 10%;">Observación</th>
+                    <th style="width: 6%;">Fecha</th>
+                    <th style="width: 5%; text-align: center;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyAuditoria">
+                <tr>
+                    <td colspan="11" class="td-empty">
+                        ⏳ Cargando historial de auditoría...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer de Paginación -->
+    <footer class="pagination-container">
+        <div class="pagination-info" id="infoPaginacion">
+            Mostrando 0 - 0 de 0 movimientos
+        </div>
+        <div class="pagination-buttons" id="btnPaginacion">
+            <!-- Botones generados dinámicamente -->
+        </div>
+    </footer>
+
+</div>
+
+<script src="js/auditoria_inventario.js"></script>
+</body>
+</html>

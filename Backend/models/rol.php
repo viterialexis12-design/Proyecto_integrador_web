@@ -1,9 +1,7 @@
 <?php
 class Rol {
     private $conexion;
-    private $tabla = "rol";
 
-    // Atributos mapeados de la base de datos (Actualizado: id_rol -> id)
     public $id;
     public $nombre;
     public $descripcion;
@@ -14,34 +12,25 @@ class Rol {
     }
 
     /**
-     * Obtiene la lista completa de roles ordenada por ID
+     * Obtiene la lista completa de roles mediante Stored Procedure
      */
     public function obtenerTodos() {
-        // Cambiado id_rol por id
-        $query = "SELECT id, nombre, descripcion, estado 
-                  FROM " . $this->tabla . " 
-                  ORDER BY id DESC";
-                  
+        $query = "CALL sp_ObtenerTodosRoles()";
         $stmt = $this->conexion->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
     /**
-     * Registra un nuevo rol en el sistema
+     * Registra un nuevo rol mediante Stored Procedure
      */
     public function crear() {
-        $query = "INSERT INTO " . $this->tabla . " (nombre, descripcion, estado) 
-                  VALUES (:nombre, :descripcion, 1)";
-
+        $query = "CALL sp_CrearRol(:nombre, :descripcion)";
         $stmt = $this->conexion->prepare($query);
 
-        // Limpieza de datos (Sanitize)
         $this->nombre = htmlspecialchars(strip_tags($this->nombre));
         $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
 
-        // Vinculación segura de parámetros
         $stmt->bindParam(':nombre', $this->nombre);
         $stmt->bindParam(':descripcion', $this->descripcion);
 
@@ -49,37 +38,32 @@ class Rol {
     }
 
     /**
-     * Actualiza los datos de un rol existente
+     * Actualiza los datos de un rol mediante Stored Procedure
      */
     public function actualizar() {
-        // Cambiado id_rol = :id_rol por id = :id
-        $query = "UPDATE " . $this->tabla . " 
-                  SET nombre = :nombre, descripcion = :descripcion, estado = :estado 
-                  WHERE id = :id";
-
+        $query = "CALL sp_ActualizarRol(:id, :nombre, :descripcion, :estado)";
         $stmt = $this->conexion->prepare($query);
 
-        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->id = intval($this->id);
         $this->nombre = htmlspecialchars(strip_tags($this->nombre));
         $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
-        $this->estado = htmlspecialchars(strip_tags($this->estado));
+        $this->estado = intval($this->estado);
 
-        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
         $stmt->bindParam(':nombre', $this->nombre);
         $stmt->bindParam(':descripcion', $this->descripcion);
-        $stmt->bindParam(':estado', $this->estado);
+        $stmt->bindParam(':estado', $this->estado, PDO::PARAM_INT);
 
         return $stmt->execute();
     }
 
     /**
-     * Inactivación lógica del rol (Pasa de 1 a 0)
+     * Inactivación lógica del rol mediante Stored Procedure
      */
     public function desactivarLogico($id) {
-        // Cambiado id_rol = :id por id = :id
-        $query = "UPDATE " . $this->tabla . " SET estado = 0 WHERE id = :id";
+        $query = "CALL sp_DesactivarRol(:id)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindValue(':id', intval($id), PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

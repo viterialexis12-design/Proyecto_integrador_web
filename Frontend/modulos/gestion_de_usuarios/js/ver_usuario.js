@@ -33,24 +33,24 @@ function inicializarVerUsuarios() {
         if (!tbody) return;
         if (txtBuscar) txtBuscar.value = ""; // Limpieza estética del buscador
         
-        tbody.innerHTML = '<tr><td colspan="7" class="loading-row">⏳ Cargando usuarios...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="td-empty">⏳ Cargando usuarios...</td></tr>';
 
         fetch("../../../Backend/controllers/usuario_controller.php")
             .then((res) => res.json())
             .then((response) => {
                 if (response.status === "success") {
-                    usuariosLocales = response.data;
+                    usuariosLocales = response.data || [];
                     usuariosFiltrados = [...usuariosLocales]; // Clon inicial para el filtro
                     paginaActual = 1;                         // Resetear al inicio
                     actualizarVistaPaginada();
                 } else {
-                    tbody.innerHTML = `<tr><td colspan="7" class="loading-row" style="color:#e74c3c; font-weight: bold;">⚠️ ${response.message}</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="7" class="td-empty td-error">⚠️ ${response.message || "No se encontraron registros."}</td></tr>`;
                     deshabilitarPaginacionCompleta();
                 }
             })
             .catch((err) => {
                 console.error("Error al obtener usuarios:", err);
-                tbody.innerHTML = '<tr><td colspan="7" class="loading-row" style="color:#e74c3c; font-weight: bold;">❌ Error al conectar con el servidor.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" class="td-empty td-error">❌ Error al conectar con el servidor.</td></tr>';
                 deshabilitarPaginacionCompleta();
             });
     }
@@ -62,7 +62,7 @@ function inicializarVerUsuarios() {
         tbody.innerHTML = "";
         
         if (usuariosSegmento.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" class="loading-row">No se encontraron usuarios registrados.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="td-empty">No se encontraron usuarios registrados.</td></tr>';
             return;
         }
 
@@ -78,17 +78,17 @@ function inicializarVerUsuarios() {
             const nombreCompleto = [n1, n2, a1, a2].filter(Boolean).join(" ");
 
             const estadoTexto = parseInt(u.estado) === 1
-                ? '<span class="badge badge-success">Activo</span>'
-                : '<span class="badge badge-danger">Inactivo</span>';
+                ? '<span class="badge badge-op-insert">Activo</span>'
+                : '<span class="badge badge-op-delete">Inactivo</span>';
 
             tr.innerHTML = `
-                <td class="col-id">${u.id}</td>
-                <td class="col-name">${nombreCompleto}</td>
-                <td>${u.cedula}</td>
-                <td>${u.correo}</td>
-                <td class="col-mono">${u.username}</td>
-                <td><span class="badge badge-neutral">${u.nombre_rol || "Sin Rol"}</span></td>
-                <td>${estadoTexto}</td>
+                <td><strong class="font-mono">#${u.id}</strong></td>
+                <td><strong>${nombreCompleto || "S/N"}</strong></td>
+                <td><code class="code-tag">${u.cedula || "—"}</code></td>
+                <td>${u.correo || "—"}</td>
+                <td class="font-mono">@${u.username}</td>
+                <td><span class="badge badge-op-default">${u.nombre_rol || "Sin Rol"}</span></td>
+                <td style="text-align: center;">${estadoTexto}</td>
             `;
             tbody.appendChild(tr);
         });
@@ -100,11 +100,11 @@ function inicializarVerUsuarios() {
     function actualizarVistaPaginada() {
         const totalRegistros = usuariosFiltrados.length;
         
-        // Obtener el límite del selector (si está en 'todos' se usa el total de filas filtradas)
+        // Obtener el límite del selector
         const limiteSeleccionado = selectLimites ? selectLimites.value : "10";
         registrosPorPagina = limiteSeleccionado === "todos" ? totalRegistros : parseInt(limiteSeleccionado);
 
-        const totalPaginas = Math.ceil(totalRegistros / registrosPorPagina) || 1;
+        const totalPaginas = Math.ceil(totalRegistros / (registrosPorPagina || 1)) || 1;
 
         // Ajuste preventivo si la página actual excede el límite real
         if (paginaActual > totalPaginas) paginaActual = totalPaginas;
@@ -113,7 +113,7 @@ function inicializarVerUsuarios() {
         // Corte de arreglo en memoria
         const indiceInicio = (paginaActual - 1) * registrosPorPagina;
         const indiceFin = Math.min(indiceInicio + registrosPorPagina, totalRegistros);
-        const segmento = usuariosFiltrados.slice(indiceInicio, indiceFin);
+        const segmento = limiteSeleccionado === "todos" ? usuariosFiltrados : usuariosFiltrados.slice(indiceInicio, indiceFin);
 
         // Renderizado del bloque visible
         renderizarFilas(segmento);
@@ -128,14 +128,14 @@ function inicializarVerUsuarios() {
         }
 
         // Control de estados activos de botones anterior / siguiente
-        if (btnPrev) btnPrev.disabled = (paginaActual === 1);
-        if (btnNext) btnNext.disabled = (paginaActual === totalPaginas);
+        if (btnPrev) btnPrev.disabled = (paginaActual === 1 || limiteSeleccionado === "todos");
+        if (btnNext) btnNext.disabled = (paginaActual === totalPaginas || limiteSeleccionado === "todos");
 
-        generarBotonesNumericos(totalPaginas);
+        generarBotonesNumericos(limiteSeleccionado === "todos" ? 1 : totalPaginas);
     }
 
     /**
-     * Generar botones numéricos simétricos
+     * Genera botones numéricos simétricos
      */
     function generarBotonesNumericos(totalPaginas) {
         if (!contenedorPaginas) return;
@@ -146,16 +146,12 @@ function inicializarVerUsuarios() {
         for (let i = 1; i <= totalPaginas; i++) {
             const btnPagina = document.createElement("button");
             btnPagina.textContent = i;
+            btnPagina.className = `page-btn ${i === paginaActual ? 'active' : ''}`;
             
-            if (i === paginaActual) {
-                btnPagina.className = "btn-pag-nav active";
-            } else {
-                btnPagina.className = "btn-pag-nav";
-                btnPagina.onclick = () => {
-                    paginaActual = i;
-                    actualizarVistaPaginada();
-                };
-            }
+            btnPagina.onclick = () => {
+                paginaActual = i;
+                actualizarVistaPaginada();
+            };
             contenedorPaginas.appendChild(btnPagina);
         }
     }
@@ -174,8 +170,6 @@ function inicializarVerUsuarios() {
     }
 
     if (selectLimites) {
-        // Habilitamos el selector ya que ahora el JS lo procesa
-        selectLimites.disabled = false;
         selectLimites.onchange = () => {
             paginaActual = 1;
             actualizarVistaPaginada();
