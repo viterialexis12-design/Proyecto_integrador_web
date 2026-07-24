@@ -9,12 +9,6 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <div class="modulo-header">
-        <div>
-            <h2 id="tituloFormulario">➕ Registrar Punto de Emisión</h2>
-            <p>Completa los parámetros normativos requeridos por la base de datos y el SRI.</p>
-        </div>
-    </div>
 
     <form id="formPuntoEmision">
         <!-- Input oculto para cuando estemos en modo EDICIÓN -->
@@ -22,22 +16,22 @@
 
         <div class="form-grid">
             <div class="form-group">
-                <label for="txtNombre">🏢 Nombre del Punto:</label>
+                <label for="txtNombre">Nombre del Punto:</label>
                 <input type="text" id="txtNombre" name="nombre" class="form-control" required placeholder="Ej. Ventas Matriz, Caja 1">
             </div>
 
             <div class="form-group">
-                <label for="txtCodigoSRI">🆔 Código SRI (3 dígitos):</label>
+                <label for="txtCodigoSRI">Código SRI (3 dígitos):</label>
                 <input type="text" id="txtCodigoSRI" name="codigoSRI" class="form-control" required maxlength="3" minlength="3" placeholder="Ej. 001">
             </div>
 
             <div class="form-group">
-                <label for="txtSecuencial">🔢 Secuencial Inicial:</label>
+                <label for="txtSecuencial">Secuencial Inicial:</label>
                 <input type="number" id="txtSecuencial" name="secuencial" class="form-control" value="1" min="1" required>
             </div>
 
             <div class="form-group">
-                <label for="selEstado">📊 Estado Operativo:</label>
+                <label for="selEstado">Estado Operativo:</label>
                 <select id="selEstado" name="estado" class="form-control">
                     <option value="1">Activo</option>
                     <option value="0">Inactivo (Dado de baja)</option>
@@ -45,20 +39,20 @@
             </div>
 
             <div class="form-group">
-                <label for="txtIdEmpresa">🏢 ID Empresa Vinculada:</label>
+                <label for="txtIdEmpresa">ID Empresa Vinculada:</label>
                 <!-- Inicializado por defecto en 1 basándonos en tu entidad única de configuración -->
                 <input type="number" id="txtIdEmpresa" name="id_empresa" class="form-control" value="1" required readonly>
             </div>
 
             <div class="form-group">
-                <label for="txtIdUsuario">👤 ID Usuario Asignado (Opcional):</label>
+                <label for="txtIdUsuario">ID Usuario Asignado (Opcional):</label>
                 <input type="number" id="txtIdUsuario" name="id_usuario" class="form-control" placeholder="Ej. 5">
             </div>
         </div>
 
         <div class="form-actions">
             <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" id="btnGuardar" class="btn btn-primary">💾 Guardar Punto de Emisión</button>
+            <button type="submit" id="btnGuardar" class="btn btn-primary">Guardar Punto de Emisión</button>
         </div>
     </form>
 </div>

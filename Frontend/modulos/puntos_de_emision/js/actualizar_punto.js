@@ -72,7 +72,7 @@ function inicializarActualizarPunto() {
         const badgeColor = String(p.estado) === "1" ? "#27ae60" : "#e74c3c";
 
         item.innerHTML = `
-          🏢 <b>${p.nombre}</b> 
+           <b>${p.nombre}</b> 
           <small style="color:#7f8c8d;">[SRI: ${p.codigoSRI}]</small> 
           <span style="float: right; color: ${badgeColor}; font-weight: bold; font-size: 0.85em;">● ${estadoTexto}</span>
         `;
@@ -132,7 +132,7 @@ function inicializarActualizarPunto() {
             // Refrescar lista local
             actualizarDatosLocales();
           } else {
-            alert("⚠️ Error: " + (data.message || "No se pudo actualizar."));
+            alert("Error: " + (data.message || "No se pudo actualizar."));
           }
         })
         .catch((err) => {

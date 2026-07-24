@@ -34,55 +34,6 @@
     box-sizing: border-box;
     margin: auto;
 }
-
-/* ===================================================================================
-   3. SECCIONES DE ENCABEZADO
-=================================================================================== */
-.modulo-header {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    border-bottom: 2px solid var(--color-border-light);
-    padding-bottom: 15px;
-    width: 100%;
-}
-
-.modulo-header .header-titles {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.modulo-titulo, 
-.modulo-header h1, 
-.modulo-header h2 {
-    margin: 0;
-    color: var(--color-primary-dark);
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.modulo-subtitulo, 
-.modulo-header p {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-}
-
-.modulo-header-danger {
-    border-bottom: 2px solid #fecaca;
-    padding-bottom: 15px;
-    margin-bottom: 25px;
-    display: block;
-}
-
-.modulo-header-danger h2 {
-    color: #b91c1c;
-}
-
 /* ===================================================================================
    4. TABLAS Y FILTROS DE VISTA "VER" (Estándar Unificado)
 =================================================================================== */
@@ -229,7 +180,67 @@
     font-family: monospace;
     font-size: 0.85rem;
 }
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    border-top: 1px solid var(--color-border-light);
+}
 
+.pagination-info {
+    font-size: 0.88rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.pagination-buttons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.pagination-numbers-box {
+    display: flex;
+    gap: 4px;
+}
+
+/* Botones Planos de Paginación */
+.page-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    background-color: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.15s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    color: #0f172a;
+}
+
+.page-btn:disabled {
+    background-color: #f1f5f9;
+    color: #cbd5e1;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
+.page-btn.active {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+    border-color: var(--color-primary-dark);
+    cursor: default;
+}
 /* ===================================================================================
    5. FORMULARIOS (Para Vistas de Crear / Editar)
 =================================================================================== */
@@ -407,69 +418,4 @@
     font-size: 0.95rem;
     box-sizing: border-box;
     width: 100%;
-}
-
-/* ===================================================================================
-   8. PAGINACIÓN UNIFICADA (Estilo Botones Planos)
-=================================================================================== */
-.pagination-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    padding-top: 15px;
-    flex-wrap: wrap;
-    gap: 15px;
-    width: 100%;
-    border-top: 1px solid var(--color-border-light);
-}
-
-.pagination-info {
-    font-size: 0.88rem;
-    color: #64748b;
-    font-weight: 500;
-}
-
-.pagination-buttons {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
-
-.pagination-numbers-box {
-    display: flex;
-    gap: 4px;
-}
-
-/* Botones Planos de Paginación */
-.page-btn {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    background-color: #ffffff;
-    color: #475569;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.15s ease;
-}
-
-.page-btn:hover:not(:disabled) {
-    background-color: #f8fafc;
-    border-color: #94a3b8;
-    color: #0f172a;
-}
-
-.page-btn:disabled {
-    background-color: #f1f5f9;
-    color: #cbd5e1;
-    border-color: #e2e8f0;
-    cursor: not-allowed;
-}
-
-.page-btn.active {
-    background-color: var(--color-primary-dark);
-    color: #ffffff;
-    border-color: var(--color-primary-dark);
-    cursor: default;
 }

@@ -8,7 +8,7 @@
 let captchaGenerado = "";
 
 function inicializarLogin() {
-    console.log("🔑 Lógica de login.js iniciada de manera modular...");
+    console.log("Lógica de login.js iniciada de manera modular...");
 
     const formLogin = document.getElementById("formLogin");
     const feedback = document.getElementById("loginFeedback");
@@ -66,7 +66,7 @@ function inicializarLogin() {
             const captchaInput = txtCaptcha ? txtCaptcha.value.trim().toUpperCase() : "";
 
             if (captchaInput !== captchaGenerado) {
-                mostrarFeedback(feedback, "⚠️ El código de validación Captcha es incorrecto.", "error");
+                mostrarFeedback(feedback, "El código de validación Captcha es incorrecto.", "error");
                 generarCaptcha(); // Refrescar por seguridad
                 if (txtCaptcha) {
                     txtCaptcha.value = "";

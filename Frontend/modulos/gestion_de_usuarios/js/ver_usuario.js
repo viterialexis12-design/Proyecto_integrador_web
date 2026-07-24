@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function inicializarVerUsuarios() {
     const tbody = document.getElementById("tbodyUsuarios");
-    const btnRefrescar = document.getElementById("btnRefrescarUsuarios");
     const txtBuscar = document.getElementById("txtBuscarUsuario");
     const selectLimites = document.getElementById("selectLimitesUsuarios");
     
@@ -33,7 +32,7 @@ function inicializarVerUsuarios() {
         if (!tbody) return;
         if (txtBuscar) txtBuscar.value = ""; // Limpieza estética del buscador
         
-        tbody.innerHTML = '<tr><td colspan="7" class="td-empty">⏳ Cargando usuarios...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="td-empty"> Cargando usuarios...</td></tr>';
 
         fetch("../../../Backend/controllers/usuario_controller.php")
             .then((res) => res.json())
@@ -44,7 +43,7 @@ function inicializarVerUsuarios() {
                     paginaActual = 1;                         // Resetear al inicio
                     actualizarVistaPaginada();
                 } else {
-                    tbody.innerHTML = `<tr><td colspan="7" class="td-empty td-error">⚠️ ${response.message || "No se encontraron registros."}</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="7" class="td-empty td-error">${response.message || "No se encontraron registros."}</td></tr>`;
                     deshabilitarPaginacionCompleta();
                 }
             })
@@ -82,7 +81,6 @@ function inicializarVerUsuarios() {
                 : '<span class="badge badge-op-delete">Inactivo</span>';
 
             tr.innerHTML = `
-                <td><strong class="font-mono">#${u.id}</strong></td>
                 <td><strong>${nombreCompleto || "S/N"}</strong></td>
                 <td><code class="code-tag">${u.cedula || "—"}</code></td>
                 <td>${u.correo || "—"}</td>
@@ -163,11 +161,6 @@ function inicializarVerUsuarios() {
         if (contenedorPaginas) contenedorPaginas.innerHTML = "";
     }
 
-    // --- MANEJO DE EVENTOS ---
-
-    if (btnRefrescar) {
-        btnRefrescar.onclick = cargarTabla;
-    }
 
     if (selectLimites) {
         selectLimites.onchange = () => {

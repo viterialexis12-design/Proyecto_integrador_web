@@ -9,24 +9,18 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <div class="modulo-header">
-        <div>
-            <h2>🔑 Matriz de Permisos por Rol</h2>
-            <p>Busca un rol por su nombre para auditar los módulos y accesos jerárquicos que tiene asignados.</p>
-        </div>
-    </div>
 
     <!-- Buscador de Rol para Auditoría -->
     <div class="control-group">
         <label for="txtBuscarRolVerPermiso">Escriba el nombre del Rol a Consultar:</label>
-        <input type="text" id="txtBuscarRolVerPermiso" placeholder="🔍 Escribe para buscar un rol... (Ej: SA, Administrador)" autocomplete="off">
+        <input type="text" id="txtBuscarRolVerPermiso" placeholder="Escribe para buscar un rol... (Ej: SA, Administrador)" autocomplete="off">
         <div id="listaSugerenciasRolVerPermiso" class="lista-sugerencias" style="display: none;"></div>
     </div>
 
     <!-- Contenedor del Árbol de Permisos Autorizados (Controlado por tu JS) -->
     <div id="contenedorArbolPermisos" style="display: none;">
         <h3 class="section-title">
-            📁 Estructura de Menús Autorizados
+            Estructura de Menús Autorizados
         </h3>
         
         <!-- Contenedor del Grid de Tarjetas -->

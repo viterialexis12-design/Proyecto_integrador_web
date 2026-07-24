@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function inicializarVerEmpresa() {
     const loader = document.getElementById("loaderEmpresa");
     const vistaDatos = document.getElementById("vistaDatosEmpresa");
-    const lblEmpresaId = document.getElementById("lblEmpresaId");
     const contenedorCampos = document.getElementById("contenedorCamposEmpresa");
     const btnRefrescar = document.getElementById("btnRefrescarEmpresa");
 
@@ -33,9 +32,6 @@ function inicializarVerEmpresa() {
                 if (response.status === "success" && response.data) {
                     const e = response.data;
                     
-                    // Asignar el ID en la ficha técnica
-                    if (lblEmpresaId) lblEmpresaId.textContent = e.id;
-
                     // Renderizar los campos restantes de la base de datos
                     renderizarCamposLectura(e);
 
@@ -44,7 +40,7 @@ function inicializarVerEmpresa() {
                 } else {
                     contenedorCampos.innerHTML = `
                         <div style="grid-column: 1/-1; color: #ef4444; padding: 20px; text-align: center; font-weight: bold;">
-                            ⚠️ ${response.message || "No se pudo recuperar la información de la empresa."}
+                            ${response.message || "No se pudo recuperar la información de la empresa."}
                         </div>
                     `;
                     loader.style.display = "none";
@@ -69,7 +65,7 @@ function inicializarVerEmpresa() {
     function renderizarCamposLectura(data) {
         // Estructura estricta basada en el esquema de tu base de datos (excluyendo el ID que va arriba)
         const esquemaCampos = [
-            { clave: "razonSocial", etiqueta: "Razón Social", icono: "🏢" },
+            { clave: "razonSocial", etiqueta: "Razón Social", icono: "" },
             { clave: "nombreComercial", etiqueta: "Nombre Comercial", icono: "🏷️" },
             { clave: "ruc", etiqueta: "RUC", icono: "🆔" },
             { clave: "dirMatriz", etiqueta: "Dirección Matriz", icono: "📍" },

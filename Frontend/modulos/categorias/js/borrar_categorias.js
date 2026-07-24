@@ -130,7 +130,7 @@ function inicializarBorrarCategoria() {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
-                        alert("🔴 Categoría desactivada correctamente.");
+                        alert("Categoría desactivada correctamente.");
 
                         // Limpieza
                         txtBuscar.value = "";
@@ -140,7 +140,7 @@ function inicializarBorrarCategoria() {
 
                         actualizarDatosLocales();
                     } else {
-                        alert("⚠️ Error al desactivar: " + data.message);
+                        alert("Error al desactivar: " + data.message);
                     }
                 })
                 .catch(err => {

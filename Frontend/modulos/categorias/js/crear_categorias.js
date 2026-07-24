@@ -22,12 +22,12 @@ function inicializarCrearCategoria() {
 
         // Validaciones básicas del lado del cliente
         if (txtNombre.value.trim() === "") {
-            alert("⚠️ Por favor, ingresa un nombre válido para la categoría.");
+            alert("Por favor, ingresa un nombre válido para la categoría.");
             return;
         }
 
         if (selIvaSRI.value === "") {
-            alert("⚠️ Debes seleccionar una tarifa impositiva del SRI.");
+            alert("Debes seleccionar una tarifa impositiva del SRI.");
             return;
         }
 
@@ -47,7 +47,7 @@ function inicializarCrearCategoria() {
                 alert("✅ Categoría registrada correctamente.");
                 window.location.href = "ver_categorias.html";
             } else {
-                alert("⚠️ No se pudo registrar: " + data.message);
+                alert("No se pudo registrar: " + data.message);
             }
         })
         .catch(err => {

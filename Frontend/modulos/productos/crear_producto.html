@@ -9,25 +9,19 @@
 <body class="modulo-body">
 
 <div class="modulo-container" style="max-width: 700px; margin-top: 30px;">
-    <div class="modulo-header">
-        <div>
-            <h2>📦 Registrar Nuevo Producto</h2>
-            <p>Ingresa las especificaciones, unidad de medida, precio base y asigna su categoría correspondiente.</p>
-        </div>
-    </div>
 
     <form id="formCrearProducto">
         <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
             
             <!-- Nombre del Producto -->
             <div class="form-group" style="grid-column: span 2;">
-                <label for="txtNombre">🏷️ Nombre del Producto:</label>
+                <label for="txtNombre">Nombre del Producto:</label>
                 <input type="text" id="txtNombre" name="nombre" class="form-control" required placeholder="Ej. Cable UTP Categoría 6, Monitor 24 pulgadas">
             </div>
 
             <!-- Descripción -->
             <div class="form-group" style="grid-column: span 2;">
-                <label for="txtDescripcion">📝 Descripción detallada (Opcional):</label>
+                <label for="txtDescripcion"> Descripción detallada (Opcional):</label>
                 <textarea id="txtDescripcion" name="descripcion" class="form-control" rows="2" placeholder="Detalles técnicos, marca o modelo..."></textarea>
             </div>
 
@@ -61,7 +55,7 @@
 
         <div class="form-actions" style="margin-top: 25px;">
             <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" class="btn btn-primary">💾 Guardar Producto</button>
+            <button type="submit" class="btn btn-primary">Guardar Producto</button>
         </div>
     </form>
 </div>

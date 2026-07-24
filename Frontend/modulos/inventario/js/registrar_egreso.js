@@ -47,7 +47,7 @@ function inicializarRegistrarEgreso() {
 
         // Validación en caliente: Evitar que saquen más de lo que hay físicamente
         if (cantidadEgreso > stockDisponible) {
-            alert(`⚠️ Inventario insuficiente. Solo tienes ${stockDisponible.toFixed(2)} unidades disponibles de este producto.`);
+            alert(`Inventario insuficiente. Solo tienes ${stockDisponible.toFixed(2)} unidades disponibles de este producto.`);
             return;
         }
 
@@ -67,7 +67,7 @@ function inicializarRegistrarEgreso() {
                 alert("✅ Egreso registrado correctamente. Ajuste de stock procesado por trigger.");
                 window.location.href = "ver_inventario.html";
             } else {
-                alert("⚠️ Error: " + data.message);
+                alert("Error: " + data.message);
             }
         })
         .catch(err => {

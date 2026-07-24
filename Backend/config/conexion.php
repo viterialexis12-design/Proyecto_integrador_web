@@ -13,8 +13,6 @@ try {
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    // INYECCIÓN PARA LA AUDITORÍA:
-    // Si hay una sesión activa, le pasamos la ID de usuario a MySQL
     if (isset($_SESSION['id'])) {
         $userId = (int)$_SESSION['id'];
         $conexion->exec("SET @usuario_actual_id = {$userId}");

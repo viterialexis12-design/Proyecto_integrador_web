@@ -135,7 +135,7 @@ function inicializarBorrarProducto() {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
-                        alert("🔴 Producto desactivado correctamente.");
+                        alert("Producto desactivado correctamente.");
 
                         // Limpieza
                         txtBuscar.value = "";
@@ -145,7 +145,7 @@ function inicializarBorrarProducto() {
 
                         actualizarDatosLocales();
                     } else {
-                        alert("⚠️ Error al desactivar: " + data.message);
+                        alert("Error al desactivar: " + data.message);
                     }
                 })
                 .catch(err => {

@@ -40,7 +40,7 @@ function inicializarVerAuditoria() {
      */
     function cargarTabla() {
         if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="6" class="td-empty">⏳ Cargando historial de auditoría...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="td-empty"> Cargando historial de auditoría...</td></tr>';
 
         const params = new URLSearchParams();
         if (selectFiltroTabla && selectFiltroTabla.value) {
@@ -139,7 +139,7 @@ function inicializarVerAuditoria() {
                 <td><strong class="font-mono">#${item.registro_id}</strong></td>
                 <td style="text-align: center;">
                     <button class="btn-ver-json" data-id="${item.id}">
-                        🔍 Comparar
+                        Comparar
                     </button>
                 </td>
             `;
@@ -160,13 +160,13 @@ function inicializarVerAuditoria() {
     function obtenerBadgeOperacionHTML(operacion) {
         switch (operacion) {
             case 'INSERT':
-                return '<span class="badge badge-op-insert">➕ INSERT</span>';
+                return '<span class="badge badge-op-insert">INSERT</span>';
             case 'UPDATE':
-                return '<span class="badge badge-op-update">✏️ UPDATE</span>';
+                return '<span class="badge badge-op-update">UPDATE</span>';
             case 'LOGICAL_DELETE':
                 return '<span class="badge badge-op-delete">🚫 DESACTIVADO</span>';
             case 'REACTIVATE':
-                return '<span class="badge badge-op-reactivate">🔄 REACTIVADO</span>';
+                return '<span class="badge badge-op-reactivate">REACTIVADO</span>';
             default:
                 return `<span class="badge badge-op-default">${operacion}</span>`;
         }

@@ -5,63 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Menús</title>
     <link rel="stylesheet" href="../../css/global.css"> 
-    <link rel="stylesheet" href="css/menus.css"> 
 </head>
-<body>
+<body class="modulo-body">
 
 <div class="modulo-container">
-    <!-- Encabezado unificado -->
-    <div class="modulo-header">
-        <div class="modulo-header-title">
-            <h2>📁 Módulos y Menús del Sistema</h2>
-            <p>Lista de secciones principales accesibles en la barra lateral (Sidebar) organizadas por jerarquía.</p>
-        </div>
-        <button id="btnRefrescarMenus" class="btn btn-secondary">🔄 Actualizar</button>
-    </div>
-
-    <!-- Nueva Barra de Herramientas Estilizada -->
-    <div class="table-tools">
-        <div class="search-wrapper">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="txtBuscarMenu" class="search-input" placeholder="Filtrar por nombre, descripción o padre...">
-        </div>
-        <div class="limit-selector-wrapper">
-            <label for="selectLimites">Mostrar</label>
-            <select id="selectLimites" class="limit-select">
-                <option value="5" selected>5 filas</option>
-                <option value="10">10 filas</option>
-                <option value="20">20 filas</option>
-                <option value="todos">Todos</option>
-            </select>
+    <!-- Barra de Filtros y Herramientas (Estándar .filter-bar) -->
+    <div class="card" style="margin-top: 15px;">
+        <div class="filter-bar">
+            <div class="filter-group flex-1">
+                <label for="txtBuscarMenu">Buscar Menú</label>
+                <input type="text" id="txtBuscarMenu" placeholder="Filtrar por nombre, descripción o padre...">
+            </div>
+            <div class="filter-group">
+                <label for="selectLimites">Mostrar Registros</label>
+                <select id="selectLimites">
+                    <option value="5" selected>5 filas</option>
+                    <option value="10">10 filas</option>
+                    <option value="20">20 filas</option>
+                    <option value="todos">Todos</option>
+                </select>
+            </div>
         </div>
     </div>
 
     <!-- Contenedor de la Tabla -->
-    <div class="table-responsive">
-        <table class="main-table">
-            <thead>
-                <tr>
-                    <th>Nombre del Menú</th>
-                    <th>Descripción</th>
-                    <th>Menú Padre</th>
-                    <th class="status-header">Estado</th>
-                </tr>
-            </thead>
-            <tbody id="tbodyMenus">
-                <tr>
-                    <td colspan="4" class="loading-row">Cargando menús...</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="card table-card">
+        <div class="table-responsive">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>Nombre del Menú</th>
+                        <th>Descripción</th>
+                        <th>Menú Padre</th>
+                        <th style="text-align: center;">Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyMenus">
+                    <tr>
+                        <td colspan="4" class="td-empty"> Cargando menús...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Paginación Unificada -->
     <div class="pagination-container">
         <span id="infoPaginacion" class="pagination-info">Mostrando 0 a 0 de 0 registros</span>
         <div class="pagination-buttons">
-            <button id="btnPrevPage" class="btn-pag-nav" disabled>◀ Anterior</button>
-            <div id="contenedorNumerosPagina" class="pagination-numbers"></div>
-            <button id="btnNextPage" class="btn-pag-nav" disabled>Siguiente ▶</button>
+            <button id="btnPrevPage" class="page-btn" disabled>◀</button>
+            <div id="contenedorNumerosPagina" class="pagination-numbers-box"></div>
+            <button id="btnNextPage" class="page-btn" disabled>▶</button>
         </div>
     </div>
 </div>

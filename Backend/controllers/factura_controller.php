@@ -82,7 +82,7 @@ try {
             exit;
         }
 
-        // 4. 📊 CASO: VENTAS GENERALES (Con filtros dinámicos por SP unificados)
+        // 4. CASO: VENTAS GENERALES (Con filtros dinámicos por SP unificados)
         if (isset($_GET['ventas_generales'])) {
             ob_clean();
             $facturaModel = new Factura($conexion);
@@ -100,7 +100,7 @@ try {
         }
     }
 
-    // 📥 Procesar la venta (POST)
+    //  Procesar la venta (POST)
     if ($metodo === 'POST') {
         if (!$puntoEmision) {
             ob_clean();

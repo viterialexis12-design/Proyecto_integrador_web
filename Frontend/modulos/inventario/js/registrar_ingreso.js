@@ -26,7 +26,7 @@ function inicializarRegistrarIngreso() {
                     const activos = response.data.filter(p => p.estado == 1);
 
                     if (activos.length === 0) {
-                        selProducto.innerHTML = '<option value="" disabled>⚠️ No hay productos activos configurados</option>';
+                        selProducto.innerHTML = '<option value="" disabled>No hay productos activos configurados</option>';
                         return;
                     }
 
@@ -37,7 +37,7 @@ function inicializarRegistrarIngreso() {
                         selProducto.appendChild(option);
                     });
                 } else {
-                    alert("⚠️ Error al mapear el catálogo de productos.");
+                    alert("Error al mapear el catálogo de productos.");
                 }
             })
             .catch(err => {
@@ -55,13 +55,13 @@ function inicializarRegistrarIngreso() {
         e.preventDefault();
 
         if (!selProducto.value) {
-            alert("⚠️ Selecciona un producto del catálogo para continuar.");
+            alert("Selecciona un producto del catálogo para continuar.");
             return;
         }
 
         const cantidadIngreso = parseFloat(txtCantidad.value);
         if (isNaN(cantidadIngreso) || cantidadIngreso <= 0) {
-            alert("⚠️ La cantidad a ingresar debe ser estrictamente mayor a cero.");
+            alert("La cantidad a ingresar debe ser estrictamente mayor a cero.");
             return;
         }
 
@@ -82,7 +82,7 @@ function inicializarRegistrarIngreso() {
                 alert("✅ Ingreso de mercadería registrado con éxito. Stock actualizado por trigger.");
                 window.location.href = "ver_inventario.html";
             } else {
-                alert("⚠️ Operación rechazada: " + data.message);
+                alert("Operación rechazada: " + data.message);
             }
         })
         .catch(err => {

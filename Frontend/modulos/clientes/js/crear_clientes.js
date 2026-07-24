@@ -45,11 +45,11 @@ function inicializarCrearCliente() {
         const tipoId = selTipoIdentificacion.value;
 
         if (tipoId === "05" && identificacion.length !== 10) {
-            alert("⚠️ La cédula debe tener exactamente 10 dígitos.");
+            alert("La cédula debe tener exactamente 10 dígitos.");
             return;
         }
         if (tipoId === "04" && identificacion.length !== 13) {
-            alert("⚠️ El RUC debe tener exactamente 13 dígitos.");
+            alert("El RUC debe tener exactamente 13 dígitos.");
             return;
         }
 
@@ -75,7 +75,7 @@ function inicializarCrearCliente() {
                 alert("✅ Cliente registrado exitosamente.");
                 window.location.href = "ver_clientes.html";
             } else {
-                alert("⚠️ No se pudo registrar: " + data.message);
+                alert("No se pudo registrar: " + data.message);
             }
         })
         .catch(err => {

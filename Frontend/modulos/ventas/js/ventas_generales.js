@@ -62,12 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     paginaActual = 1;
                     renderizarTablaPaginada();
                 } else {
-                    mostrarMensajeError("⚠️ " + (res.message || "No se encontraron registros."));
+                    mostrarMensajeError( (res.message || "No se encontraron registros."));
                 }
             })
             .catch(err => {
                 console.error(err);
-                mostrarMensajeError("❌ Error de red al conectar con el servidor.");
+                mostrarMensajeError(" Error de red al conectar con el servidor.");
             });
     }
 
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td><span class="factura-num">${nroComprobante}</span></td>
                 <td>${v.fecha_emision}</td>
                 <td><code class="id-code">${v.punto_emision_nombre || 'Matriz'}</code></td>
-                <td><span class="usuario-tag">👤 ${v.usuario_nombre_completo}</span></td>
+                <td><span class="usuario-tag">${v.usuario_nombre_completo}</span></td>
                 <td>${v.cliente_nombre_completo}</td>
                 <td class="td-total">$${totalFormateado}</td>
                 <td class="td-acciones">

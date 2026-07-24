@@ -9,17 +9,11 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <div class="modulo-header">
-        <div>
-            <h2>✏️ Modificar Punto de Emisión</h2>
-            <p>Busca un punto de emisión para actualizar sus parámetros normativos, secuencial o estado.</p>
-        </div>
-    </div>
 
     <!-- Buscador Autocompletado -->
     <div class="buscador-modulo-container">
         <label for="txtBuscarParaEditarPunto">Seleccione el punto de emisión a modificar:</label>
-        <input type="text" id="txtBuscarParaEditarPunto" placeholder="🔍 Escribe el nombre o código SRI del punto...">
+        <input type="text" id="txtBuscarParaEditarPunto" placeholder="Escribe el nombre o código SRI del punto...">
         <div id="listaSugerenciasEditarPunto" class="lista-sugerencias" style="display: none;"></div>
     </div>
 
@@ -31,22 +25,22 @@
 
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="txtEditNombre">🏢 Nombre del Punto *</label>
+                    <label for="txtEditNombre">Nombre del Punto *</label>
                     <input type="text" id="txtEditNombre" name="nombre" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtEditCodigoSRI">🆔 Código SRI (3 dígitos) *</label>
+                    <label for="txtEditCodigoSRI">Código SRI (3 dígitos) *</label>
                     <input type="text" id="txtEditCodigoSRI" name="codigoSRI" class="form-control" required maxlength="3" minlength="3">
                 </div>
 
                 <div class="form-group">
-                    <label for="txtEditSecuencial">🔢 Secuencial Actual *</label>
+                    <label for="txtEditSecuencial">Secuencial Actual *</label>
                     <input type="number" id="txtEditSecuencial" name="secuencial" class="form-control" min="1" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="selEditEstado">📊 Estado Operativo:</label>
+                    <label for="selEditEstado">Estado Operativo:</label>
                     <select id="selEditEstado" name="estado" class="form-control">
                         <option value="1">Activo</option>
                         <option value="0">Inactivo (Dado de baja)</option>
@@ -54,19 +48,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="txtEditIdEmpresa">🏢 ID Empresa Vinculada *</label>
+                    <label for="txtEditIdEmpresa">ID Empresa Vinculada *</label>
                     <input type="number" id="txtEditIdEmpresa" name="id_empresa" class="form-control" required readonly>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtEditIdUsuario">👤 ID Usuario Asignado:</label>
+                    <label for="txtEditIdUsuario">ID Usuario Asignado:</label>
                     <input type="number" id="txtEditIdUsuario" name="id_usuario" class="form-control">
                 </div>
             </div>
 
             <div class="form-actions">
                 <button type="button" id="btnCancelarEditarPunto" class="btn btn-secondary">Cancelar</button>
-                <button type="submit" id="btnGuardar" class="btn btn-primary">💾 Guardar Cambios</button>
+                <button type="submit" id="btnGuardar" class="btn btn-primary">Guardar Cambios</button>
             </div>
         </form>
     </div>

@@ -5,62 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ver Roles</title>
     <link rel="stylesheet" href="../../css/global.css"> 
-    <link rel="stylesheet" href="css/roles.css"> 
 </head>
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <!-- Encabezado unificado -->
-    <div class="modulo-header">
-        <div class="modulo-header-title">
-            <h2>🔑 Gestión de Roles y Perfiles</h2>
-            <p>Visualiza y administra los niveles de acceso y permisos configurados en el sistema.</p>
-        </div>
-        <button id="btnRefrescarRoles" class="btn btn-secondary">🔄 Actualizar Lista</button>
-    </div>
 
-    <!-- Barra de Herramientas Estilizada -->
-    <div class="table-tools">
-        <div class="search-wrapper">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="txtBuscarRol" class="search-input" placeholder="Buscar por nombre de rol o descripción...">
-        </div>
-        <div class="limit-selector-wrapper">
-            <label for="selectLimitesRoles">Mostrar</label>
-            <select id="selectLimitesRoles" class="limit-select">
-                <option value="5" selected>5 filas</option>
-                <option value="10">10 filas</option>
-                <option value="20">20 filas</option>
-                <option value="todos">Todos</option>
-            </select>
+    <!-- Barra de Filtros y Herramientas (Estándar .filter-bar) -->
+    <div class="card" style="margin-top: 15px;">
+        <div class="filter-bar">
+            <div class="filter-group flex-1">
+                <label for="txtBuscarRol">Buscar Rol</label>
+                <input type="text" id="txtBuscarRol" placeholder="Buscar por nombre de rol o descripción...">
+            </div>
+            <div class="filter-group">
+                <label for="selectLimitesRoles">Mostrar Registros</label>
+                <select id="selectLimitesRoles">
+                    <option value="5" selected>5 filas</option>
+                    <option value="10">10 filas</option>
+                    <option value="20">20 filas</option>
+                    <option value="todos">Todos</option>
+                </select>
+            </div>
         </div>
     </div>
 
     <!-- Contenedor de la Tabla -->
-    <div class="table-responsive">
-        <table class="main-table">
-            <thead>
-                <tr>
-                    <th>Nombre del Rol</th>
-                    <th>Descripción</th>
-                    <th class="status-header">Estado</th>
-                </tr>
-            </thead>
-            <tbody id="tbodyRoles">
-                <tr>
-                    <td colspan="3" class="loading-row">Cargando registros...</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="card table-card">
+        <div class="table-responsive">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>Nombre del Rol</th>
+                        <th>Descripción</th>
+                        <th style="text-align: center;">Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyRoles">
+                    <tr>
+                        <td colspan="3" class="td-empty">Cargando registros...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Paginación Unificada -->
     <div id="paginacionRoles" class="pagination-container">
         <span id="infoPaginacionRoles" class="pagination-info">Mostrando 0 a 0 de 0 registros</span>
         <div class="pagination-buttons">
-            <button id="btnPrevPageRoles" class="btn-pag-nav" disabled>◀ Anterior</button>
-            <div id="botonesPaginacionRoles" class="pagination-numbers"></div>
-            <button id="btnNextPageRoles" class="btn-pag-nav" disabled>Siguiente ▶</button>
+            <button id="btnPrevPageRoles" class="page-btn" disabled>◀</button>
+            <div id="botonesPaginacionRoles" class="pagination-numbers-box"></div>
+            <button id="btnNextPageRoles" class="page-btn" disabled>▶</button>
         </div>
     </div>
 </div>

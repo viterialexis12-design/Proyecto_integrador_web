@@ -70,7 +70,7 @@ function inicializarEditarCategoria() {
         const badgeColor = String(c.estado) === "1" ? "#27ae60" : "#e74c3c";
 
         item.innerHTML = `
-          🏷️ <b>${c.nombre}</b> 
+          <b>${c.nombre}</b> 
           <span style="float: right; color: ${badgeColor}; font-weight: bold; font-size: 0.85em;">● ${estadoTexto}</span>
         `;
 
@@ -117,7 +117,7 @@ function inicializarEditarCategoria() {
       e.preventDefault();
 
       if (txtNombre.value.trim() === "") {
-        alert("⚠️ El nombre de la categoría no puede quedar vacío.");
+        alert("El nombre de la categoría no puede quedar vacío.");
         return;
       }
 
@@ -146,7 +146,7 @@ function inicializarEditarCategoria() {
             // Refrescar lista local para búsquedas consecutivas
             cargarCategoriasLocales();
           } else {
-            alert("⚠️ Error al actualizar: " + (data.message || "Operación fallida."));
+            alert("Error al actualizar: " + (data.message || "Operación fallida."));
           }
         })
         .catch((err) => {

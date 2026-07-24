@@ -88,7 +88,7 @@ function inicializarBorrarRoles() {
                             btnConfirmar.disabled = false;
                             btnConfirmar.style.backgroundColor = "#e74c3c";
                             btnConfirmar.style.cursor = "pointer";
-                            btnConfirmar.textContent = "🔴 Confirmar Inactivación";
+                            btnConfirmar.textContent = "Confirmar Inactivación";
                         }
                     }
                     
@@ -128,7 +128,7 @@ function inicializarBorrarRoles() {
 
             // Bloqueo visual de controles
             btnConfirmar.disabled = true;
-            btnConfirmar.textContent = "⏳ Desactivando...";
+            btnConfirmar.textContent = " Desactivando...";
             if (btnCancelar) btnCancelar.disabled = true;
 
             const formData = new FormData();
@@ -142,14 +142,14 @@ function inicializarBorrarRoles() {
             .then((res) => res.json())
             .then((data) => {
                 if (data.status === "success") {
-                    alert("🔴 Rol inhabilitado correctamente del sistema.");
+                    alert("Rol inhabilitado correctamente del sistema.");
                     limpiarFormulario();
                     
                     // Sincronizar memoria y alertar al resto del ecosistema SPA
                     actualizarMemoriaRoles();
                     document.dispatchEvent(new CustomEvent("cambioRoles"));
                 } else {
-                    alert("⚠️ Error: " + data.message);
+                    alert("Error: " + data.message);
                 }
             })
             .catch(error => {
@@ -160,7 +160,7 @@ function inicializarBorrarRoles() {
                 // Restaurar estado de los botones si ocurre un fallo o se limpia la acción
                 btnConfirmar.disabled = false;
                 btnConfirmar.style.backgroundColor = "#e74c3c";
-                btnConfirmar.textContent = "🔴 Confirmar Inactivación";
+                btnConfirmar.textContent = "Confirmar Inactivación";
                 if (btnCancelar) btnCancelar.disabled = false;
             });
         };

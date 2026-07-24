@@ -58,7 +58,7 @@ function inicializarActualizarMenu() {
       alertaHijosUpdate.style.backgroundColor = "#f8d7da";
       alertaHijosUpdate.style.borderLeftColor = "#dc3545";
       alertaHijosUpdate.style.color = "#721c24";
-      alertaHijosUpdate.innerHTML = "⚠️ <b>¡Atención!</b> Si cambias el estado a 'Inactivo', todos los submenús dependientes de este módulo principal también se desactivarán en cascada.";
+      alertaHijosUpdate.innerHTML = "<b>¡Atención!</b> Si cambias el estado a 'Inactivo', todos los submenús dependientes de este módulo principal también se desactivarán en cascada.";
       alertaHijosUpdate.style.display = "block";
     } else {
       alertaHijosUpdate.style.display = "none";
@@ -133,7 +133,7 @@ function inicializarActualizarMenu() {
             alertaHijosUpdate.style.borderLeftColor = "#2196f3";
             alertaHijosUpdate.style.color = "#0d47a1";
             alertaHijosUpdate.innerHTML =
-              "🛡️ <b>Módulo Protegido:</b> Este menú es vital para la administración del sistema. Su estado no puede ser desactivado.";
+              "<b>Módulo Protegido:</b> Este menú es vital para la administración del sistema. Su estado no puede ser desactivado.";
             alertaHijosUpdate.style.display = "block";
           } else {
             // Si es un menú normal, habilitamos el combo y ocultamos la alerta
@@ -244,7 +244,7 @@ function inicializarActualizarMenu() {
               window.parent.postMessage("refrescarMenuLateral", "*");
             }
           } else {
-            alert("⚠️ Error: " + data.message);
+            alert("Error: " + data.message);
             // Si hubo error y era un padre, volver a deshabilitar visualmente el select
             if (!form.id_menuPadre.value) cmbPadre.disabled = true;
           }

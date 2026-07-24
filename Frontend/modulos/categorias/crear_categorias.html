@@ -9,31 +9,25 @@
 <body class="modulo-body">
 
 <div class="modulo-container" style="max-width: 600px; margin-top: 30px;">
-    <div class="modulo-header">
-        <div>
-            <h2>➕ Registrar Nueva Categoría</h2>
-            <p>Define una nueva agrupación para clasificar los productos y asigna su impuesto base.</p>
-        </div>
-    </div>
 
     <form id="formCrearCategoria">
         <div class="form-grid" style="grid-template-columns: 1fr;">
             
             <!-- Nombre de Categoría -->
             <div class="form-group">
-                <label for="txtNombre">🏷️ Nombre de la Categoría:</label>
+                <label for="txtNombre">Nombre de la Categoría:</label>
                 <input type="text" id="txtNombre" name="nombre" class="form-control" required placeholder="Ej. Lácteos, Electrónicos, Repuestos">
             </div>
 
             <!-- Descripción -->
             <div class="form-group">
-                <label for="txtDescripcion">📝 Descripción / Notas (Opcional):</label>
+                <label for="txtDescripcion"> Descripción / Notas (Opcional):</label>
                 <textarea id="txtDescripcion" name="descripcion" class="form-control" rows="3" placeholder="Breve detalle sobre el uso de esta categoría..."></textarea>
             </div>
 
             <!-- Código IVA SRI -->
             <div class="form-group">
-                <label for="selIvaSRI">📊 Tipo de Impuesto IVA (Tarifa SRI):</label>
+                <label for="selIvaSRI">Tipo de Impuesto IVA (Tarifa SRI):</label>
                 <select id="selIvaSRI" name="id_ivaSRI" class="form-control" required>
                     <option value="" disabled selected>Seleccione la tarifa impositiva...</option>
                     <option value="2">Con IVA (Tarifa General)</option>
@@ -50,7 +44,7 @@
 
         <div class="form-actions" style="margin-top: 25px;">
             <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" class="btn btn-primary">💾 Guardar Categoría</button>
+            <button type="submit" class="btn btn-primary">Guardar Categoría</button>
         </div>
     </form>
 </div>

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tbody.innerHTML = `
             <tr>
                 <td colspan="5" class="td-empty">
-                    ⏳ Cargando categorías desde el servidor...
+                     Cargando categorías desde el servidor...
                 </td>
             </tr>`;
 
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     paginaActual = 1;
                     renderizarTablaPaginada();
                 } else {
-                    mostrarMensajeError("⚠️ " + (response.message || "No se encontraron categorías."));
+                    mostrarMensajeError("" + (response.message || "No se encontraron categorías."));
                 }
             })
             .catch(err => {

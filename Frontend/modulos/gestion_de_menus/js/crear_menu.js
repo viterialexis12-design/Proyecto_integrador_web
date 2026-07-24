@@ -116,7 +116,7 @@ function inicializarCrearMenu() {
               window.parent.postMessage("refrescarMenuLateral", "*");
             }
           } else {
-            alert("⚠️ Error al guardar: " + data.message);
+            alert("Error al guardar: " + data.message);
           }
         })
         .catch((err) => {

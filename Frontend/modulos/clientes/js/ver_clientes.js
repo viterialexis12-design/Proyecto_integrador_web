@@ -46,7 +46,7 @@ function inicializarConsultaClientes() {
         tbody.innerHTML = `
             <tr>
                 <td colspan="7" class="td-empty">
-                    ⏳ Cargando registros de la base de datos...
+                     Cargando registros de la base de datos...
                 </td>
             </tr>`;
 
@@ -59,7 +59,7 @@ function inicializarConsultaClientes() {
                     paginaActual = 1;
                     renderizarTablaPaginada();
                 } else {
-                    mostrarMensajeError("⚠️ " + (response.message || "No se encontraron clientes."));
+                    mostrarMensajeError("" + (response.message || "No se encontraron clientes."));
                 }
             })
             .catch(err => {

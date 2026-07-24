@@ -8,17 +8,10 @@
 </head>
 <body class="modulo-body">
 <div class="modulo-container">
-    <div class="modulo-header modulo-header-danger">
-        <div>
-            <h2>🔴 Desactivar Módulo del Sistema</h2>
-            <p>Busca un menú para inhabilitarlo. Esto ocultará el módulo y sus submódulos de forma global.</p>
-        </div>
-    </div>
-
     <!-- Buscador de menús para dar de baja -->
     <div class="buscador-modulo-container">
         <label>Seleccione el menú a dar de baja:</label>
-        <input type="text" id="txtBuscarParaEliminarMenu" placeholder="🔍 Escribe el nombre del menú...">
+        <input type="text" id="txtBuscarParaEliminarMenu" placeholder="Escribe el nombre del menú...">
         <!-- Se conserva style="display: none;" ya que tu JS modifica este display directamente en tiempo de ejecución -->
         <div id="listaSugerenciasEliminarMenu" class="lista-sugerencias" style="display: none;"></div>
     </div>
@@ -44,7 +37,7 @@
         <!-- Acciones de control -->
         <div class="form-actions-simple">
             <button type="button" id="btnCancelarEliminarMenu" class="btn btn-secondary">Cancelar</button>
-            <button type="button" id="btnConfirmarEliminarMenu" class="btn btn-danger-action">🔴 Confirmar Inactivación</button>
+            <button type="button" id="btnConfirmarEliminarMenu" class="btn btn-danger-action">Confirmar Inactivación</button>
         </div>
     </div>
 </div>

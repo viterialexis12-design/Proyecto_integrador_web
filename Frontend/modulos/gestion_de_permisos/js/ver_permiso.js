@@ -83,7 +83,7 @@ function inicializarVerPermiso() {
                     item.style.padding = "10px 15px";
                     item.style.cursor = "pointer";
                     item.style.borderBottom = "1px solid #f1f5f9";
-                    item.innerHTML = `👤 <b>${rol.nombre}</b> <br> <small style="color:#64748b;">${rol.descripcion || "Sin descripción"}</small>`;
+                    item.innerHTML = `<b>${rol.nombre}</b> <br> <small style="color:#64748b;">${rol.descripcion || "Sin descripción"}</small>`;
 
                     item.onclick = () => {
                         txtBuscarRol.value = rol.nombre;
@@ -113,7 +113,7 @@ function inicializarVerPermiso() {
      */
     function cargarPermisosPorRol(idRol) {
         listaJerarquia.innerHTML =
-            '<div style="grid-column: 1 / -1; text-align:center; color:#64748b; font-style:italic; padding: 20px;">⏳ Organizando estructura de accesos...</div>';
+            '<div style="grid-column: 1 / -1; text-align:center; color:#64748b; font-style:italic; padding: 20px;">Organizando estructura de accesos...</div>';
         contenedorPaginacion.innerHTML = "";
         contenedorArbol.style.display = "block";
 
@@ -126,12 +126,12 @@ function inicializarVerPermiso() {
                     // Renderizamos la página actual
                     renderizarPaginaActual();
                 } else {
-                    listaJerarquia.innerHTML = `<div style="grid-column: 1 / -1; color:#ef4444; font-weight:bold; padding: 20px;">⚠️ ${response.message}</div>`;
+                    listaJerarquia.innerHTML = `<div style="grid-column: 1 / -1; color:#ef4444; font-weight:bold; padding: 20px;">${response.message}</div>`;
                 }
             })
             .catch(() => {
                 listaJerarquia.innerHTML =
-                    '<div style="grid-column: 1 / -1; color:#ef4444; padding: 20px;">❌ Error al conectar con el servidor de permisos.</div>';
+                    '<div style="grid-column: 1 / -1; color:#ef4444; padding: 20px;">Error al conectar con el servidor de permisos.</div>';
             });
     }
 
@@ -279,7 +279,6 @@ function inicializarVerPermiso() {
                     itemSub.style.fontSize = "0.9rem";
                     itemSub.innerHTML = `
                         <span style="color: #334155; font-weight: 500;">🔹 ${sub.nombre_menu}</span>
-                        <span style="font-size: 0.75rem; color: #94a3b8; font-family: monospace;">ID: ${sub.id_final}</span>
                     `;
                     cuerpoSubmenus.appendChild(itemSub);
                 });
@@ -293,7 +292,7 @@ function inicializarVerPermiso() {
         if (totalPaginas > 1) {
             // Botón Anterior
             const btnPrev = document.createElement("button");
-            btnPrev.innerText = "◀ Anterior";
+            btnPrev.innerText = "◀";
             btnPrev.disabled = paginaActual === 1;
             btnPrev.style.padding = "8px 16px";
             btnPrev.style.border = "1px solid #cbd5e1";
@@ -319,7 +318,7 @@ function inicializarVerPermiso() {
 
             // Botón Siguiente
             const btnNext = document.createElement("button");
-            btnNext.innerText = "Siguiente ▶";
+            btnNext.innerText = "▶";
             btnNext.disabled = paginaActual === totalPaginas;
             btnNext.style.padding = "8px 16px";
             btnNext.style.border = "1px solid #cbd5e1";

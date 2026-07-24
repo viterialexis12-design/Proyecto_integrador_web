@@ -10,20 +10,11 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-
-    <!-- Encabezado Unificado -->
-    <header class="modulo-header">
-        <div class="header-titles">
-            <h1 class="modulo-titulo">🛡️ Historial de Auditoría de Cambios</h1>
-            <p class="modulo-subtitulo">Registro detallado de operaciones de trazabilidad sobre los datos del sistema.</p>
-        </div>
-    </header>
-
     <!-- Barra de Filtros -->
     <div class="filter-bar card">
         <div class="filter-group flex-1">
             <label for="txtBuscarAuditoria">Buscar Registros</label>
-            <input type="text" id="txtBuscarAuditoria" placeholder="🔍 Buscar por usuario, tabla o ID registro..." autocomplete="off">
+            <input type="text" id="txtBuscarAuditoria" placeholder="Buscar por usuario, tabla o ID registro..." autocomplete="off">
         </div>
 
         <div class="filter-group">
@@ -52,7 +43,7 @@
         </div>
 
         <div class="filter-actions">
-            <button class="btn btn-secondary" id="btnRefrescarAuditoria">🔄 Actualizar</button>
+            <button class="btn btn-secondary" id="btnRefrescarAuditoria">Actualizar</button>
         </div>
     </div>
 
@@ -85,7 +76,7 @@
             </thead>
             <tbody id="tbodyAuditorias">
                 <tr>
-                    <td colspan="6" class="td-empty">⏳ Cargando historial de auditoría...</td>
+                    <td colspan="6" class="td-empty">Cargando historial de auditoría...</td>
                 </tr>
             </tbody>
         </table>
@@ -109,7 +100,7 @@
 <div id="modalDetalleAuditoria" class="modal-overlay" style="display: none;">
     <div class="modal-card-lg">
         <div class="modal-header">
-            <h3>🔍 Comparativo de Cambios en Registro</h3>
+            <h3>Comparativo de Cambios en Registro</h3>
             <button id="btnCerrarModal" class="btn-close">&times;</button>
         </div>
         <div class="modal-body modal-grid-json">

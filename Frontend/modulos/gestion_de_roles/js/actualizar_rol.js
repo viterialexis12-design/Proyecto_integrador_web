@@ -61,7 +61,7 @@ function inicializarActualizarRoles() {
         item.style.cursor = "pointer";
         item.style.borderBottom = "1px solid #f1f5f9";
         item.style.fontSize = "0.95rem";
-        item.innerHTML = `🔑 <b>${r.nombre}</b>`;
+        item.innerHTML = `<b>${r.nombre}</b>`;
 
         item.onclick = () => {
           txtBuscar.value = r.nombre;
@@ -121,7 +121,7 @@ function inicializarActualizarRoles() {
 
       if (btnGuardar) {
         btnGuardar.disabled = true;
-        btnGuardar.textContent = "⏳ Guardando...";
+        btnGuardar.textContent = " Guardando...";
       }
 
       const formData = new FormData(form);
@@ -151,7 +151,7 @@ function inicializarActualizarRoles() {
             document.dispatchEvent(new CustomEvent("cambioRoles"));
             actualizarMemoriaRoles();
           } else {
-            alert("⚠️ Error: " + data.message);
+            alert("Error: " + data.message);
           }
         })
         .catch((error) => {
@@ -161,7 +161,7 @@ function inicializarActualizarRoles() {
         .finally(() => {
           if (btnGuardar) {
             btnGuardar.disabled = false;
-            btnGuardar.innerHTML = "💾 Guardar Cambios";
+            btnGuardar.innerHTML = "Guardar Cambios";
           }
         });
     };

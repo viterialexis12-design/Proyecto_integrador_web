@@ -9,19 +9,12 @@
 <body class="modulo-body">
 
 <div class="modulo-container" style="max-width: 650px; margin-top: 30px;">
-    <div class="modulo-header" style="background-color: #fef2f2; border-bottom: 1px solid #fecaca;">
-        <div>
-            <h2 style="color: #991b1b;">🔴 Desactivar Punto de Emisión</h2>
-            <p>Busca un punto de emisión para inhabilitarlo. El registro se mantendrá en el historial para no afectar reportes previos.</p>
-        </div>
-    </div>
-
     <!-- Buscador de Puntos de Emisión -->
     <div class="buscador-modulo-container" style="margin-top: 20px; position: relative;">
         <label for="txtBuscarParaEliminarPunto" style="font-weight: 600; font-size: 0.85rem; color: #475569; display: block; margin-bottom: 6px;">
             Seleccione el punto de emisión a dar de baja:
         </label>
-        <input type="text" id="txtBuscarParaEliminarPunto" class="form-control" placeholder="🔍 Escribe el nombre o código SRI...">
+        <input type="text" id="txtBuscarParaEliminarPunto" class="form-control" placeholder="Escribe el nombre o código SRI...">
         <div id="listaSugerenciasEliminarPunto" class="lista-sugerencias" style="display: none; background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px; max-height: 200px; overflow-y: auto; position: absolute; z-index: 1000; width: 100%; box-sizing: border-box;"></div>
     </div>
 
@@ -40,7 +33,7 @@
         <!-- Acciones de Control -->
         <div class="form-actions-simple" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #e2e8f0;">
             <button type="button" id="btnCancelarEliminarPunto" class="btn btn-secondary">Cancelar</button>
-            <button type="button" id="btnConfirmarEliminarPunto" class="btn" style="background-color: #dc2626; color: white;">🔴 Confirmar Inactivación</button>
+            <button type="button" id="btnConfirmarEliminarPunto" class="btn" style="background-color: #dc2626; color: white;">Confirmar Inactivación</button>
         </div>
     </div>
 </div>

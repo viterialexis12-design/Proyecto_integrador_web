@@ -9,17 +9,11 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <div class="modulo-header">
-        <div>
-            <h2>✏️ Administrar Matriz de Permisos</h2>
-            <p>Busca un rol por su nombre para modificar masivamente sus accesos modulares.</p>
-        </div>
-    </div>
 
     <!-- Buscador de Rol -->
     <div class="control-group">
         <label for="txtBuscarRolPermiso">Escriba el nombre del Rol a Consultar:</label>
-        <input type="text" id="txtBuscarRolPermiso" placeholder="🔍 Escribe para buscar un rol... (Ej: SA, Administrador)" autocomplete="off">
+        <input type="text" id="txtBuscarRolPermiso" placeholder="Escribe para buscar un rol... (Ej: SA, Administrador)" autocomplete="off">
         <div id="listaSugerenciasRol" class="lista-sugerencias" style="display: none;"></div>
     </div>
 
@@ -28,7 +22,7 @@
         <input type="hidden" id="txtRolSeleccionadoId" name="id_rol">
         
         <h3 class="section-title">
-            🛡️ Configuración de Accesos Jerárquicos
+            Configuración de Accesos Jerárquicos
         </h3>
         
         <!-- Grid de Tarjetas de Módulos -->
@@ -42,7 +36,7 @@
         <!-- Acciones del Formulario -->
         <div class="form-actions">
             <button type="button" id="btnCancelarMatriz" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" class="btn btn-primary">💾 Guardar Matriz de Permisos</button>
+            <button type="submit" class="btn btn-primary">Guardar Matriz de Permisos</button>
         </div>
     </form>
 </div>

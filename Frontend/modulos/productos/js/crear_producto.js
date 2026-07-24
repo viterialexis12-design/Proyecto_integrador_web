@@ -29,7 +29,7 @@ function inicializarCrearProducto() {
                     const activas = response.data.filter(c => c.estado == 1);
 
                     if (activas.length === 0) {
-                        selCategoria.innerHTML = '<option value="" disabled>⚠️ No hay categorías activas disponibles</option>';
+                        selCategoria.innerHTML = '<option value="" disabled>No hay categorías activas disponibles</option>';
                         return;
                     }
 
@@ -40,7 +40,7 @@ function inicializarCrearProducto() {
                         selCategoria.appendChild(option);
                     });
                 } else {
-                    alert("⚠️ Error al mapear el catálogo de categorías.");
+                    alert("Error al mapear el catálogo de categorías.");
                 }
             })
             .catch(err => {
@@ -58,17 +58,17 @@ function inicializarCrearProducto() {
 
         // Validaciones en el cliente
         if (txtNombre.value.trim() === "") {
-            alert("⚠️ Proporciona un nombre válido para el producto.");
+            alert("Proporciona un nombre válido para el producto.");
             return;
         }
 
         if (!selCategoria.value) {
-            alert("⚠️ Selecciona una categoría obligatoriamente.");
+            alert("Selecciona una categoría obligatoriamente.");
             return;
         }
 
         if (parseFloat(txtPrecioUnitario.value) < 0) {
-            alert("⚠️ El precio unitario no puede ser un valor negativo.");
+            alert("El precio unitario no puede ser un valor negativo.");
             return;
         }
 
@@ -95,7 +95,7 @@ function inicializarCrearProducto() {
                 txtDescripcion.value = "";
                 txtNombre.value = "";
             } else {
-                alert("⚠️ Error del sistema: " + data.message);
+                alert("Error del sistema: " + data.message);
             }
         })
         .catch(err => {

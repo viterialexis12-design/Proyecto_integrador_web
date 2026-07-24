@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tbody.innerHTML = `
             <tr>
                 <td colspan="11" class="td-empty">
-                    ⏳ Cargando historial de auditoría...
+                    Cargando historial de auditoría...
                 </td>
             </tr>`;
 
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         auditoriaTodas = res.data;
                         filtrarEnMemoria();
                     } else {
-                        mostrarMensajeError("⚠️ " + (res.message || "No se encontraron movimientos registrado."));
+                        mostrarMensajeError("" + (res.message || "No se encontraron movimientos registrado."));
                     }
                 } catch (err) {
                     console.error(err);

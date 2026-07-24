@@ -9,17 +9,13 @@
 <body class="modulo-body">
 
 <div class="form-modulo-container">
-    <div class="form-modulo-header">
-        <h2>📤 Registrar Egreso / Merma de Inventario</h2>
-        <p>Reporta pérdidas, roturas, caducidades o consumos internos. El stock se restará automáticamente por trigger.</p>
-    </div>
 
     <form id="formRegistrarEgreso">
         <div style="display: flex; flex-direction: column; gap: 15px;">
             
             <!-- Selección de Producto -->
             <div class="form-modulo-group">
-                <label for="selProducto">📦 Seleccionar Producto:</label>
+                <label for="selProducto"> Seleccionar Producto:</label>
                 <select id="selProducto" name="id_producto" class="form-modulo-control" required>
                     <option value="" disabled selected>Cargando catálogo...</option>
                 </select>
@@ -27,13 +23,13 @@
 
             <!-- Cantidad a Retirar -->
             <div class="form-modulo-group">
-                <label for="txtCantidad">🔢 Cantidad a Retirar:</label>
+                <label for="txtCantidad"> Cantidad a Retirar:</label>
                 <input type="number" id="txtCantidad" name="cantidad" class="form-modulo-control" step="0.01" min="0.01" required placeholder="0.00">
             </div>
 
             <!-- Motivo del Egreso -->
             <div class="form-modulo-group">
-                <label for="txtObservacion">📝 Motivo del Egreso (Obligatorio):</label>
+                <label for="txtObservacion"> Motivo del Egreso (Obligatorio):</label>
                 <textarea id="txtObservacion" name="observacion" class="form-modulo-control" rows="3" required placeholder="Ej. Producto roto en percha / Item caducado / Consumo interno de oficina."></textarea>
             </div>
 
@@ -41,7 +37,7 @@
 
         <div class="form-modulo-actions">
             <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" class="btn btn-danger">📤 Procesar Egreso</button>
+            <button type="submit" class="btn btn-danger"> Procesar Egreso</button>
         </div>
     </form>
 </div>

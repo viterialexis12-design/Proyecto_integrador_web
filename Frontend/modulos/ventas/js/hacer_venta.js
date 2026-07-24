@@ -28,13 +28,13 @@ function inicializarPuntoDeVenta() {
       .then((res) => {
         if (res.status === "success" && !res.tiene_punto) {
           alert(
-            `🚫 ACCESO RESTRINGIDO:\n${res.message}\nNo podrá procesar transacciones hasta que un administrador le asigne un punto de emisión.`
+            ` ACCESO RESTRINGIDO:\n${res.message}\nNo podrá procesar transacciones hasta que un administrador le asigne un punto de emisión.`
           );
 
           txtBuscarProducto.disabled = true;
           btnFinalizarVenta.disabled = true;
           btnFinalizarVenta.style.backgroundColor = "#9ca3af";
-          btnFinalizarVenta.textContent = "🔒 Sin Punto de Emisión";
+          btnFinalizarVenta.textContent = "Sin Punto de Emisión";
         } else if (res.status === "success" && res.tiene_punto) {
           console.log(
             `Punto de emisión autorizado: ${res.datos.nombre} [SRI: ${res.datos.codigoSRI}]`
@@ -44,7 +44,7 @@ function inicializarPuntoDeVenta() {
       })
       .catch((err) => {
         console.error(err);
-        alert("❌ Error al verificar las credenciales de facturación.");
+        alert(" Error al verificar las credenciales de facturación.");
       });
   }
 
@@ -130,13 +130,13 @@ function inicializarPuntoDeVenta() {
 
     if (existente) {
       if (existente.cantidad + 1 > stockMaximo) {
-        alert("⚠️ No puedes superar el stock disponible.");
+        alert(" No puedes superar el stock disponible.");
         return;
       }
       existente.cantidad++;
     } else {
       if (stockMaximo <= 0) {
-        alert("⚠️ El producto seleccionado no tiene unidades en stock.");
+        alert("El producto seleccionado no tiene unidades en stock.");
         return;
       }
       carrito.push({
@@ -188,7 +188,7 @@ function inicializarPuntoDeVenta() {
         <td style="text-align: center;"><small class="badge">${item.porcentajeIva}%</small></td>
         <td style="text-align: right; font-weight:bold;">$${itemSubtotal.toFixed(2)}</td>
         <td style="text-align: center;">
-          <button class="btn btn-danger btn-sm btn-eliminar-item" data-index="${index}">🗑️</button>
+          <button class="btn btn-danger btn-sm btn-eliminar-item" data-index="${index}">Eliminar</button>
         </td>
       `;
       tbodyCarrito.appendChild(tr);
@@ -201,7 +201,7 @@ function inicializarPuntoDeVenta() {
         let nuevaCant = parseFloat(e.target.value) || 1;
 
         if (nuevaCant > carrito[idx].stockMaximo) {
-          alert(`⚠️ Cantidad excede el stock disponible (${carrito[idx].stockMaximo}).`);
+          alert(` Cantidad excede el stock disponible (${carrito[idx].stockMaximo}).`);
           nuevaCant = carrito[idx].stockMaximo;
         } else if (nuevaCant < 1) {
           nuevaCant = 1;
@@ -248,18 +248,18 @@ function inicializarPuntoDeVenta() {
   // 6. Procesar Venta / Enviar al Backend
   btnFinalizarVenta.onclick = () => {
     if (!selCliente.value) {
-      alert("⚠️ Es obligatorio seleccionar un cliente para emitir la factura.");
+      alert(" Es obligatorio seleccionar un cliente para emitir la factura.");
       return;
     }
     if (carrito.length === 0) {
-      alert("⚠️ Agrega al menos un producto al carrito para continuar.");
+      alert(" Agrega al menos un producto al carrito para continuar.");
       return;
     }
 
     if (!confirm("¿Confirmar cobro y emisión de factura?")) return;
 
     btnFinalizarVenta.disabled = true;
-    btnFinalizarVenta.textContent = "⏳ Procesando...";
+    btnFinalizarVenta.textContent = " Procesando...";
 
     const payload = {
       id_cliente: parseInt(selCliente.value),
@@ -277,7 +277,7 @@ function inicializarPuntoDeVenta() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
-          alert(`✅ Venta procesada exitosamente.\nFactura Nº: ${data.id_factura}`);
+          alert(` Venta procesada exitosamente.\nFactura Nº: ${data.id_factura}`);
 
           // Abrir PDF de la factura
           const urlPdf = `/ProyectoV3/Backend/controllers/reporte_factura_pdf.php?id=${data.id_factura}`;
@@ -288,16 +288,16 @@ function inicializarPuntoDeVenta() {
           renderizarCarrito();
           cargarDatosIniciales();
         } else {
-          alert("❌ Error: " + data.message);
+          alert(" Error: " + data.message);
         }
       })
       .catch((err) => {
         console.error("Error al procesar la venta:", err);
-        alert("❌ Ocurrió un error inesperado al conectar con el servidor.");
+        alert(" Ocurrió un error inesperado al conectar con el servidor.");
       })
       .finally(() => {
         btnFinalizarVenta.disabled = false;
-        btnFinalizarVenta.textContent = "💳 Guardar Venta";
+        btnFinalizarVenta.textContent = " Guardar Venta";
       });
   };
 

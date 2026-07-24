@@ -20,7 +20,7 @@ function inicializarCrearRol() {
             // Bloquear botón para evitar duplicados accidentales
             if (btnGuardar) {
                 btnGuardar.disabled = true;
-                btnGuardar.textContent = "⏳ Guardando...";
+                btnGuardar.textContent = " Guardando...";
             }
 
             const formData = new FormData(form);
@@ -41,7 +41,7 @@ function inicializarCrearRol() {
                     // Disparamos el evento global para que la tabla de ver_roles se auto-actualice si está activa
                     document.dispatchEvent(new CustomEvent("cambioRoles"));
                 } else {
-                    alert("⚠️ Error: " + data.message);
+                    alert("Error: " + data.message);
                 }
             })
             .catch((error) => {
@@ -52,7 +52,7 @@ function inicializarCrearRol() {
                 // Restaurar estado original del botón de guardado
                 if (btnGuardar) {
                     btnGuardar.disabled = false;
-                    btnGuardar.innerHTML = "💾 Guardar Rol";
+                    btnGuardar.innerHTML = "Guardar Rol";
                 }
             });
         };

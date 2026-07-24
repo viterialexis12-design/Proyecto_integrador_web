@@ -44,11 +44,11 @@ function router() {
                 ejecutarScriptsDeVista(view);
             })
             .catch(error => {
-                contentView.innerHTML = `<h2>⚠️ Error 404</h2><p>No se pudo cargar la vista.</p>`;
+                contentView.innerHTML = `<h2>Error 404</h2><p>No se pudo cargar la vista.</p>`;
                 console.error("Error en Fetch:", error);
             });
     } else {
-        contentView.innerHTML = `<h2>⚠️ Vista no válida</h2>`;
+        contentView.innerHTML = `<h2>Vista no válida</h2>`;
     }
 }
 

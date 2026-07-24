@@ -139,7 +139,7 @@ function inicializarCrearUsuario() {
             const esValida = validarCedulaEcuatoriana(cedula);
 
             if (!esValida) {
-                alert("⚠️ Por favor, ingresa una cédula de identidad ecuatoriana válida antes de registrar el usuario.");
+                alert("Por favor, ingresa una cédula de identidad ecuatoriana válida antes de registrar el usuario.");
                 if (txtCedula) {
                     txtCedula.focus();
                     txtCedula.style.borderColor = "#e74c3c";
@@ -150,7 +150,7 @@ function inicializarCrearUsuario() {
             // Desactivar botones para evitar reenvíos múltiples
             if (btnGuardar) {
                 btnGuardar.disabled = true;
-                btnGuardar.textContent = "⏳ Registrando...";
+                btnGuardar.textContent = " Registrando...";
             }
             if (btnCancelar) btnCancelar.disabled = true;
 
@@ -171,7 +171,7 @@ function inicializarCrearUsuario() {
                     // Emitir evento global para que las listas o dashboards se actualicen reactivamente
                     document.dispatchEvent(new CustomEvent("cambioUsuarios"));
                 } else {
-                    alert("⚠️ Error: " + data.message);
+                    alert("Error: " + data.message);
                 }
             })
             .catch((err) => {
@@ -182,7 +182,7 @@ function inicializarCrearUsuario() {
                 // Habilitar controles tras finalizar el ciclo de red
                 if (btnGuardar) {
                     btnGuardar.disabled = false;
-                    btnGuardar.textContent = "💾 Guardar Usuario";
+                    btnGuardar.textContent = "Guardar Usuario";
                 }
                 if (btnCancelar) btnCancelar.disabled = false;
             });

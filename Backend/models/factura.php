@@ -95,7 +95,7 @@ class Factura {
             // Recuperamos todos los registros mapeados en un arreglo asociativo
             $ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
-            // 🧹 IMPORTANTE PARA PDO + MARIADB PROCEDURES:
+            //  IMPORTANTE PARA PDO + MARIADB PROCEDURES:
             // Cerramos el cursor para liberar la conexión y evitar errores "Row count" o buffers bloqueados
             $stmt->closeCursor();
             

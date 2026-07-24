@@ -163,7 +163,7 @@ function inicializarActualizarUsuario() {
                     item.style.cursor = "pointer";
                     item.style.borderBottom = "1px solid #f1f5f9";
                     item.style.fontSize = "0.95rem";
-                    item.innerHTML = `👤 <b>${u.nombre1} ${u.apellido1}</b> <small style="color:#64748b;">(${u.cedula} - ${u.username})</small>`;
+                    item.innerHTML = `<b>${u.nombre1} ${u.apellido1}</b> <small style="color:#64748b;">(${u.cedula} - ${u.username})</small>`;
 
                     item.onclick = () => {
                         txtBuscar.value = `${u.nombre1} ${u.apellido1} (${u.username})`;
@@ -248,7 +248,7 @@ function inicializarActualizarUsuario() {
 
             const cedulaVal = txtCedula ? txtCedula.value : "";
             if (!validarCedulaEcuatoriana(cedulaVal)) {
-                alert("⚠️ Por favor, ingresa una cédula ecuatoriana válida antes de registrar las modificaciones.");
+                alert("Por favor, ingresa una cédula ecuatoriana válida antes de registrar las modificaciones.");
                 if (txtCedula) {
                     txtCedula.focus();
                     txtCedula.style.borderColor = "#e74c3c";
@@ -259,7 +259,7 @@ function inicializarActualizarUsuario() {
             // Deshabilitar temporalmente para evitar peticiones redundantes
             if (btnGuardar) {
                 btnGuardar.disabled = true;
-                btnGuardar.textContent = "⏳ Guardando...";
+                btnGuardar.textContent = " Guardando...";
             }
             if (btnCancelar) btnCancelar.disabled = true;
 
@@ -295,7 +295,7 @@ function inicializarActualizarUsuario() {
                     // Emitir evento para refrescar componentes dependientes en la SPA
                     document.dispatchEvent(new CustomEvent("cambioUsuarios"));
                 } else {
-                    alert("⚠️ Error: " + data.message);
+                    alert("Error: " + data.message);
                 }
             })
             .catch((err) => {
@@ -305,7 +305,7 @@ function inicializarActualizarUsuario() {
             .finally(() => {
                 if (btnGuardar) {
                     btnGuardar.disabled = false;
-                    btnGuardar.textContent = "💾 Guardar Cambios";
+                    btnGuardar.textContent = "Guardar Cambios";
                 }
                 if (btnCancelar) btnCancelar.disabled = false;
             });

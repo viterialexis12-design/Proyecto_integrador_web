@@ -11,8 +11,17 @@
     --text-dark: #1b263b;
     --blue-accent: #2a6f97;
     --blue-hover: #1a4f70;
+    --color-primary-dark: #2c3e50;
+    --color-text-dark: #34495e;
+    --color-text-muted: #7f8c8d;
+    --color-border: #ccc;
+    --color-border-light: #e2e8f0;
+    --color-bg-light: #f8fafc;
+    --color-body-bg: #f9f9f9;
+    --color-danger: #ef4444;
+    --color-danger-border: #fca5a5;
+    --color-danger-bg: #fee2e2;
 }
-
 * {
     margin: 0;
     padding: 0;
@@ -326,6 +335,7 @@ body {
     width: 100%;
 }
 #btnCerrarSesion {
+    text-align: center;
     background-color: var(--secondary-color);
     color: #ffffff;
 }
@@ -585,4 +595,448 @@ iframe {
     .dashboard-content {
         padding: 15px;
     }
+}
+
+/* ===================================================================================
+   SHELL / SIDEBAR PRINCIPAL & HEADER FLEX
+=================================================================================== */
+.dashboard-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #f4f6f9;
+}
+
+/* Sidebar con transición suave al colapsar */
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+    height: 100%;
+    background-color: var(--dark-bg);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+    z-index: 100;
+}
+
+.sidebar.collapsed {
+    margin-left: -260px; /* Desplaza el menú hacia la izquierda para ocultarlo */
+}
+
+.sidebar-header {
+    padding: 10px 5px;
+    border-bottom: 1px solid var(--dark-menu);
+    text-align: center;
+}
+
+/* Header Superior Unificado */
+.content-header {
+    height: 65px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--dark-bg);
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-toggle:hover {
+    background-color: #f1f5f9;
+}
+
+.header-left h2 {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* Perfil en la parte derecha de la barra superior */
+.user-profile-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-menu-top {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--blue-accent);
+}
+
+.user-info-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-info-top h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.user-info-top .role-badge {
+    margin-top: 2px;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+}
+/* ===================================================================================
+   PROFILE DROPDOWN MENU
+=================================================================================== */
+.user-profile-wrapper {
+    position: relative;
+}
+
+.user-profile-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    user-select: none;
+}
+
+.user-profile-top:hover {
+    background-color: #f1f5f9;
+}
+
+/* Menú flotante */
+.profile-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    padding: 2px;
+    display: none;
+    z-index: 1000;
+    animation: fadeInDropdown 0.2s ease-out;
+}
+
+.profile-dropdown.show {
+    display: block;
+}
+
+/* Ítems del menú desplegable */
+.dropdown-item {
+    width: 100%;
+    padding: 10px 14px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #e74c3c;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #fef2f2;
+}
+
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+/* Estilos de ver */
+
+.modulo-body {
+    background-color: var(--color-body-bg);
+    margin: 0;
+    padding: 20px 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.modulo-container {
+    width: 98%;
+    max-width: 1400px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    margin: auto;
+}
+/* ===================================================================================
+   4. TABLAS Y FILTROS DE VISTA "VER" (Estándar Unificado)
+=================================================================================== */
+
+/* Tarjetas contenedor */
+.card {
+    background: #ffffff;
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.table-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Barra de Filtros y Herramientas */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-group.flex-1 {
+    flex: 1;
+    min-width: 260px;
+}
+
+.filter-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.filter-group input[type="text"],
+.filter-group select {
+    padding: 9px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-group input[type="text"]:focus,
+.filter-group select:focus {
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+/* Tabla Principal */
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.main-table thead {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+}
+
+.main-table th {
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+}
+
+.main-table tbody tr {
+    border-bottom: 1px solid var(--color-border-light);
+    transition: background-color 0.15s;
+}
+
+.main-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.main-table td {
+    padding: 12px 16px;
+    color: #334155;
+    vertical-align: middle;
+}
+
+/* Estados Vacíos / Carga / Error */
+.td-empty {
+    padding: 35px !important;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.td-error {
+    color: var(--color-danger) !important;
+    font-weight: 600;
+}
+
+/* Badges y Etiquetas de Estado Unificadas */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.badge-op-insert, .badge-success {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-op-delete, .badge-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-op-default, .badge-neutral {
+    background-color: #f1f5f9;
+    color: #475569;
+}
+
+/* Clases de Utilidad Monospaciadas/Etiquetas */
+.font-mono {
+    font-family: monospace;
+}
+
+.code-tag {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    border-top: 1px solid var(--color-border-light);
+}
+
+.pagination-info {
+    font-size: 0.88rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.pagination-buttons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.pagination-numbers-box {
+    display: flex;
+    gap: 4px;
+}
+
+/* Botones Planos de Paginación */
+.page-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    background-color: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.15s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    color: #0f172a;
+}
+
+.page-btn:disabled {
+    background-color: #f1f5f9;
+    color: #cbd5e1;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
+.page-btn.active {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+    border-color: var(--color-primary-dark);
+    cursor: default;
+}
+/* Estilos específicos para la jerarquía de Menús */
+.td-nombre.es-hijo {
+    padding-left: 28px !important;
+}
+
+.simbolo-hijo {
+    color: #94a3b8;
+    margin-right: 6px;
+    font-weight: bold;
+}
+
+.nombre-padre-span {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.nombre-hijo-span {
+    color: #475569;
+}
+
+.td-descripcion-vacio {
+    color: #94a3b8;
+    font-style: italic;
+}
+
+.row-padre {
+    background-color: #ffffff;
+}
+
+.row-hijo {
+    background-color: #fafafa;
 }

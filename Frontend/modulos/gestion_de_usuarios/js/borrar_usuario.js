@@ -132,7 +132,7 @@ function inicializarEliminarUsuario() {
 
             // Bloquear temporalmente el botón para prevenir spamming de clicks
             btnConfirmar.disabled = true;
-            btnConfirmar.textContent = "⏳ Desactivando...";
+            btnConfirmar.textContent = " Desactivando...";
 
             const formData = new FormData();
             formData.append("id", idSeleccionado);
@@ -153,7 +153,7 @@ function inicializarEliminarUsuario() {
                     // Disparar evento para actualizar las vistas y catálogos de otros componentes de la SPA
                     document.dispatchEvent(new CustomEvent("cambioUsuarios"));
                 } else {
-                    alert("⚠️ Error: " + data.message);
+                    alert("Error: " + data.message);
                 }
             })
             .catch((err) => {
@@ -162,7 +162,7 @@ function inicializarEliminarUsuario() {
             })
             .finally(() => {
                 btnConfirmar.disabled = false;
-                btnConfirmar.textContent = "🔴 Confirmar Inactivación";
+                btnConfirmar.textContent = "Confirmar Inactivación";
             });
         };
     }

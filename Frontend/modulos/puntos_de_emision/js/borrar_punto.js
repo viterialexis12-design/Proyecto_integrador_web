@@ -128,7 +128,7 @@ function inicializarBorrarPunto() {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
-                        alert("🔴 Punto de emisión desactivado correctamente.");
+                        alert("Punto de emisión desactivado correctamente.");
 
                         // Limpieza del formulario
                         txtBuscar.value = "";
@@ -138,7 +138,7 @@ function inicializarBorrarPunto() {
 
                         actualizarDatosLocales();
                     } else {
-                        alert("⚠️ Error del sistema: " + data.message);
+                        alert("Error del sistema: " + data.message);
                     }
                 })
                 .catch(err => {

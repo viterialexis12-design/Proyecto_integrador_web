@@ -62,12 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     paginaActual = 1;
                     renderizarTablaPaginada();
                 } else {
-                    mostrarMensajeError("⚠️ " + (res.message || "No se encontraron ventas."));
+                    mostrarMensajeError((res.message || "No se encontraron ventas."));
                 }
             })
             .catch(err => {
                 console.error(err);
-                mostrarMensajeError("❌ Error de red al conectar con el servidor.");
+                mostrarMensajeError(" Error de red al conectar con el servidor.");
             });
     }
 

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     puntosFiltrados = [...puntosTodos];
                     renderizarTablaPaginada();
                 } else {
-                    mostrarMensajeError("⚠️ " + (response.message || "No se encontraron puntos de emisión."));
+                    mostrarMensajeError("" + (response.message || "No se encontraron puntos de emisión."));
                 }
             })
             .catch(err => {

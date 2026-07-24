@@ -9,17 +9,11 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <div class="modulo-header">
-        <div>
-            <h2>✏️ Modificar Módulo o Menú</h2>
-            <p>Busca un menú para actualizar sus propiedades visuales, jerarquía o estado.</p>
-        </div>
-    </div>
 
     <!-- Buscador Autocompletado -->
     <div class="buscador-modulo-container">
         <label>Seleccione el menú a modificar:</label>
-        <input type="text" id="txtBuscarParaEditarMenu" placeholder="🔍 Escribe el nombre del menú...">
+        <input type="text" id="txtBuscarParaEditarMenu" placeholder="Escribe el nombre del menú...">
         <div id="listaSugerenciasEditarMenu" class="lista-sugerencias" style="display: none;"></div>
     </div>
 
@@ -58,13 +52,13 @@
                 </select>
 
                 <div id="alertaHijosUpdateMenu" class="alerta-hijos-danger" style="display: none;">
-                    ⚠️ ¡Atención! Si cambias el estado a 'Inactivo', todos los submenús dependientes de este módulo principal también se desactivarán en cascada.
+                    ¡Atención! Si cambias el estado a 'Inactivo', todos los submenús dependientes de este módulo principal también se desactivarán en cascada.
                 </div>
             </div>
 
             <div class="form-actions">
                 <button type="button" id="btnCancelarEditarMenu" class="btn btn-secondary">Cancelar</button>
-                <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </div>
         </form>
     </div>

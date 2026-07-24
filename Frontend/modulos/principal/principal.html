@@ -1,27 +1,47 @@
 <div class="dashboard-container">
-    <aside class="sidebar">
-        <div class="user-profile">
-            <!-- La ruta de la imagen ahora es consistente con la raíz index.html -->
-            <img src="Frontend/img/Foto_perfil.png" alt="Perfil" class="avatar-menu">
-            <h3 id="dashNombreUsuario">Cargando...</h3>
-            <span class="role-badge" id="dashRolUsuario">Rol</span>
+    <!-- Sidebar / Menú Lateral -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>MENU</h3>
         </div>
         
         <nav class="sidebar-menu" id="menuDinamico">
             <!-- Los menús y submenús dinámicos se inyectarán aquí -->
         </nav>
-
-        <div class="sidebar-footer">
-            <button id="btnCerrarSesion" class="btn btn-secondary">Cerrar Sesión</button>
-        </div>
     </aside>
 
+    <!-- Área Principal -->
     <main class="dashboard-content">
+        <!-- Barra Superior Unificada -->
         <header class="content-header">
-            <h2 id="seccionActualTitle">Panel de Control General</h2>
+            <div class="header-left">
+                <button id="btnToggleSidebar" class="btn-toggle" title="Contraer/Expandir menú">
+                    ☰
+                </button>
+                <h2 id="seccionActualTitle">Panel de Control General</h2>
+            </div>
+            
+            <!-- Perfil en la parte derecha con Menú Desplegable -->
+            <div class="user-profile-wrapper" id="userProfileWrapper">
+                <div class="user-profile-top" id="btnToggleProfileMenu">
+                    <img src="Frontend/img/Foto_perfil.png" alt="Perfil" class="avatar-menu-top" id="dashFotoUsuario">
+                    <div class="user-info-top">
+                        <h4 id="dashNombreUsuario">Cargando...</h4>
+                        <span class="role-badge" id="dashRolUsuario">Rol</span>
+                    </div>
+                </div>
+
+                <!-- Dropdown Oculto -->
+                <div class="profile-dropdown" id="profileDropdown">
+                    <button id="btnCerrarSesion" class="dropdown-item btn-logout">
+                        Salir
+                    </button>
+                </div>
+            </div>
         </header>
+
+        <!-- Contenido Central -->
         <section class="content-body">
-            <!-- IFRAME MODULAR: Aquí dentro se cargará la interfaz y el JS local de cada submódulo -->
             <iframe 
                 id="moduloIframe" 
                 name="moduloIframe"
@@ -30,6 +50,8 @@
             </iframe>
         </section>
     </main>
+
+    <!-- Template de Bienvenida -->
     <template id="Carta_bienvenida">
         <div class="bienvenido-container">
             <div class="bienvenido-card">

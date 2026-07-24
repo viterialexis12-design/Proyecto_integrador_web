@@ -10,36 +10,25 @@
 
 <div class="modulo-container">
 
-    <!-- Encabezado Unificado -->
-    <header class="modulo-header">
-        <div class="header-titles">
-            <h1 class="modulo-titulo">📦 Inventario y Existencias</h1>
-            <p class="modulo-subtitulo">Monitoreo de stock real y alertas automáticas de reposición (Tasa crítica: ≤ 5 unidades)</p>
-        </div>
-        <div class="header-actions">
-            <!-- Switch de filtro rápido de alertas -->
-            <label class="alert-switch-label">
-                <input type="checkbox" id="chkSoloAlertas">
-                <span>⚠️ Ver solo productos por agotarse</span>
-            </label>
-        </div>
-    </header>
-
     <!-- Fila resumen de alertas rápidas -->
     <div id="panelContadorAlertas" class="card alert-banner" style="display: none;">
-        <span id="txtContadorMensaje">⚠️ Atención: Hay productos que requieren reposición inmediata.</span>
+        <span id="txtContadorMensaje">Atención: Hay productos que requieren reposición inmediata.</span>
     </div>
 
     <!-- Barra de Búsqueda -->
     <div class="filter-bar card">
         <div class="filter-group flex-1">
             <label for="inputBuscarInventario">Buscar Producto</label>
-            <input type="text" id="inputBuscarInventario" placeholder="🔍 Buscar por ID, Nombre, Descripción o Categoría..." autocomplete="off">
+            <input type="text" id="inputBuscarInventario" placeholder="Buscar por ID, Nombre, Descripción o Categoría..." autocomplete="off">
         </div>
         <div class="filter-actions">
-            <button class="btn btn-secondary" id="btnLimpiarInventario">🧹 Limpiar</button>
+            <button class="btn btn-secondary" id="btnLimpiarInventario">Limpiar</button>
         </div>
     </div>
+    <label class="alert-switch-label">
+                <input type="checkbox" id="chkSoloAlertas">
+                <span>Ver solo productos por agotarse</span>
+            </label>
 
     <!-- Barra de Controles: Selector de Registros -->
     <div class="table-controls">
@@ -71,7 +60,7 @@
             <tbody id="tbodyInventario">
                 <tr>
                     <td colspan="7" class="td-empty">
-                        ⏳ Consultando existencias en bodega...
+                        Consultando existencias en bodega...
                     </td>
                 </tr>
             </tbody>

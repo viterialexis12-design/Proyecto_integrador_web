@@ -9,17 +9,13 @@
 <body class="modulo-body">
 
 <div class="form-ingreso-container">
-    <div class="form-ingreso-header">
-        <h2>📥 Registrar Ingreso a Bodega</h2>
-        <p>Aumenta las existencias de un producto. El stock actual se recalculará automáticamente mediante un trigger.</p>
-    </div>
 
     <form id="formRegistrarIngreso">
         <div style="display: flex; flex-direction: column; gap: 15px;">
             
             <!-- Selección de Producto -->
             <div class="form-ingreso-group">
-                <label for="selProducto">📦 Seleccionar Producto:</label>
+                <label for="selProducto"> Seleccionar Producto:</label>
                 <select id="selProducto" name="id_producto" class="form-ingreso-control" required>
                     <option value="" disabled selected>Cargando catálogo de productos...</option>
                 </select>
@@ -28,20 +24,20 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <!-- Cantidad a Ingresar -->
                 <div class="form-ingreso-group">
-                    <label for="txtCantidad">🔢 Cantidad a Ingresar:</label>
+                    <label for="txtCantidad"> Cantidad a Ingresar:</label>
                     <input type="number" id="txtCantidad" name="cantidad" class="form-ingreso-control" step="0.01" min="0.01" required placeholder="0.00">
                 </div>
 
                 <!-- Proveedor -->
                 <div class="form-ingreso-group">
-                    <label for="txtProveedor">🏢 Nombre del Proveedor (Opcional):</label>
+                    <label for="txtProveedor"> Nombre del Proveedor (Opcional):</label>
                     <input type="text" id="txtProveedor" name="nombreProveedor" class="form-ingreso-control" placeholder="Ej. Importadora S.A.">
                 </div>
             </div>
 
             <!-- Observaciones -->
             <div class="form-ingreso-group">
-                <label for="txtObservacion">📝 Observación / Justificación:</label>
+                <label for="txtObservacion"> Observación / Justificación:</label>
                 <textarea id="txtObservacion" name="observacion" class="form-ingreso-control" rows="3" placeholder="Ej. Ingreso por compra según factura N.- XXX / Ajuste de inventario inicial."></textarea>
             </div>
 
@@ -49,7 +45,7 @@
 
         <div class="form-ingreso-actions">
             <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" class="btn btn-primary">📥 Procesar Ingreso</button>
+            <button type="submit" class="btn btn-primary"> Procesar Ingreso</button>
         </div>
     </form>
 </div>

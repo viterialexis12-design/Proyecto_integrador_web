@@ -138,7 +138,7 @@ function inicializarBorrarCliente() {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
-                        alert("🔴 Cliente desactivado correctamente.");
+                        alert("Cliente desactivado correctamente.");
 
                         // Limpieza
                         txtBuscar.value = "";
@@ -148,7 +148,7 @@ function inicializarBorrarCliente() {
 
                         actualizarDatosLocales();
                     } else {
-                        alert("⚠️ Error al desactivar: " + data.message);
+                        alert("Error al desactivar: " + data.message);
                     }
                 })
                 .catch(err => {

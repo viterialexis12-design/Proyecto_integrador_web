@@ -104,7 +104,7 @@ function inicializarEditarProducto() {
         item.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <b>📦 ${p.nombre}</b>
+              <b> ${p.nombre}</b>
               <small style="display: block; color: #64748b;">$${precio} | Stock: ${p.stockActual || 0} ${p.unidadMedida || ''}</small>
             </div>
             <span style="color: ${badgeColor}; font-weight: bold; font-size: 0.85em;">● ${estadoTexto}</span>
@@ -157,12 +157,12 @@ function inicializarEditarProducto() {
       e.preventDefault();
 
       if (txtNombre.value.trim() === "") {
-        alert("⚠️ El nombre del producto es obligatorio.");
+        alert("El nombre del producto es obligatorio.");
         return;
       }
 
       if (parseFloat(txtPrecioUnitario.value) < 0) {
-        alert("⚠️ El precio unitario no puede ser negativo.");
+        alert("El precio unitario no puede ser negativo.");
         return;
       }
 
@@ -194,7 +194,7 @@ function inicializarEditarProducto() {
             // Refrescar caché local de productos
             cargarProductosLocales();
           } else {
-            alert("⚠️ Error al guardar los cambios: " + (data.message || "Fallo en el backend."));
+            alert("Error al guardar los cambios: " + (data.message || "Fallo en el backend."));
           }
         })
         .catch((err) => {

@@ -9,13 +9,7 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <div class="modulo-header">
-        <div>
-            <h2>👤 Registrar Nuevo Usuario</h2>
-            <p>Completa el siguiente formulario para dar de alta una nueva cuenta en el sistema.</p>
-        </div>
-    </div>
-
+    
     <form id="formCrearUsuario" autocomplete="off" class="form-grid">
         
         <div class="form-section-title">Datos Personales</div>
@@ -43,7 +37,7 @@
         <div class="form-group">
             <label for="txtCedula">Cédula / Identificación *</label>
             <input type="text" id="txtCedula" name="cedula" required maxlength="10" placeholder="Ej. 1712345678">
-            <span id="errorCedula" class="error-validacion">⚠️ Cédula inválida. Debe contener 10 dígitos y pasar el algoritmo de validación.</span>
+            <span id="errorCedula" class="error-validacion">Cédula inválida. Debe contener 10 dígitos y pasar el algoritmo de validación.</span>
         </div>
 
         <div class="form-group">
@@ -90,7 +84,7 @@
 
         <div class="form-actions span-all-columns">
             <button type="button" id="btnCancelarUsuario" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" id="btnGuardarUsuario" class="btn btn-primary">💾 Guardar Usuario</button>
+            <button type="submit" id="btnGuardarUsuario" class="btn btn-primary">Guardar Usuario</button>
         </div>
     </form>
 </div>

@@ -9,17 +9,11 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <div class="modulo-header">
-        <div>
-            <h2>📝 Modificar Categoría</h2>
-            <p>Busca una categoría para actualizar sus datos, estado operativo o tarifa impositiva de IVA.</p>
-        </div>
-    </div>
 
     <!-- Buscador Autocompletado -->
     <div class="buscador-modulo-container">
         <label for="txtBuscarParaEditarCategoria">Seleccione la categoría a modificar:</label>
-        <input type="text" id="txtBuscarParaEditarCategoria" placeholder="🔍 Escribe el nombre de la categoría...">
+        <input type="text" id="txtBuscarParaEditarCategoria" placeholder="Escribe el nombre de la categoría...">
         <div id="listaSugerenciasEditarCategoria" class="lista-sugerencias" style="display: none;"></div>
     </div>
 
@@ -33,19 +27,19 @@
                 
                 <!-- Nombre de Categoría -->
                 <div class="form-group">
-                    <label for="txtNombre">🏷️ Nombre de la Categoría *</label>
+                    <label for="txtNombre">Nombre de la Categoría *</label>
                     <input type="text" id="txtNombre" name="nombre" class="form-control" required>
                 </div>
 
                 <!-- Descripción -->
                 <div class="form-group">
-                    <label for="txtDescripcion">📝 Descripción / Notas (Opcional):</label>
+                    <label for="txtDescripcion"> Descripción / Notas (Opcional):</label>
                     <textarea id="txtDescripcion" name="descripcion" class="form-control" rows="3"></textarea>
                 </div>
 
                 <!-- Código IVA SRI -->
                 <div class="form-group">
-                    <label for="selIvaSRI">📊 Tipo de Impuesto IVA (Tarifa SRI) *</label>
+                    <label for="selIvaSRI">Tipo de Impuesto IVA (Tarifa SRI) *</label>
                     <select id="selIvaSRI" name="id_ivaSRI" class="form-control" required>
                         <option value="2">Con IVA (Tarifa General)</option>
                         <option value="0">Tarifa 0%</option>
@@ -56,7 +50,7 @@
 
                 <!-- Estado de la Categoría -->
                 <div class="form-group">
-                    <label for="selEstado">⚡ Estado Operativo *</label>
+                    <label for="selEstado">Estado Operativo *</label>
                     <select id="selEstado" name="estado" class="form-control" required>
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
@@ -67,7 +61,7 @@
 
             <div class="form-actions" style="margin-top: 25px;">
                 <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
-                <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </div>
         </form>
     </div>

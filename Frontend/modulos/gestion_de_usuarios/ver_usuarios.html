@@ -5,26 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ver Usuarios</title>
     <link rel="stylesheet" href="../../css/global.css"> 
-    <link rel="stylesheet" href="css/usuarios.css"> 
 </head>
 <body class="modulo-body">
 
 <div class="modulo-container">
 
-    <!-- Encabezado Unificado -->
-    <header class="modulo-header">
-        <div class="header-titles">
-            <h1 class="modulo-titulo">👥 Gestión de Usuarios</h1>
-            <p class="modulo-subtitulo">Visualiza, busca y administra el personal registrado en la plataforma.</p>
-        </div>
-        <button id="btnRefrescarUsuarios" class="btn btn-secondary">🔄 Actualizar Lista</button>
-    </header>
-
     <!-- Barra de Herramientas y Filtros -->
     <div class="filter-bar card">
         <div class="filter-group flex-1">
             <label for="txtBuscarUsuario">Buscar Usuario</label>
-            <input type="text" id="txtBuscarUsuario" placeholder="🔍 Buscar por nombre, apellido, cédula, correo o usuario..." autocomplete="off">
+            <input type="text" id="txtBuscarUsuario" placeholder="Buscar por nombre, apellido, cédula, correo o usuario..." autocomplete="off">
         </div>
         <div class="filter-group">
             <label for="selectLimitesUsuarios">Mostrar</label>
@@ -43,7 +33,6 @@
         <table id="tablaUsuarios" class="main-table">
             <thead>
                 <tr>
-                    <th style="width: 8%;">ID</th>
                     <th style="width: 25%;">Nombre Completo</th>
                     <th style="width: 14%;">Cédula</th>
                     <th style="width: 23%;">Correo</th>
@@ -54,7 +43,7 @@
             </thead>
             <tbody id="tbodyUsuarios">
                 <tr>
-                    <td colspan="7" class="td-empty">⏳ Cargando usuarios...</td>
+                    <td colspan="7" class="td-empty">Cargando usuarios...</td>
                 </tr>
             </tbody>
         </table>
@@ -66,9 +55,9 @@
             Mostrando 0 a 0 de 0 registros
         </div>
         <div class="pagination-buttons">
-            <button id="btnPrevUsuarios" class="page-btn" disabled>«</button>
+            <button id="btnPrevUsuarios" class="page-btn" disabled>◀</button>
             <div id="contenedorPaginasUsuarios" class="pagination-numbers-box"></div>
-            <button id="btnNextUsuarios" class="page-btn" disabled>»</button>
+            <button id="btnNextUsuarios" class="page-btn" disabled>▶</button>
         </div>
     </footer>
 

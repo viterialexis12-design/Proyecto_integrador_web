@@ -42,7 +42,7 @@ function inicializarActualizarEmpresa() {
           formEmpresa.style.display = "block";
         } else {
           loader.style.display = "none";
-          contenedorCampos.innerHTML = `<div style="grid-column: 1 / -1; color: #ef4444; padding: 20px;">⚠️ ${response.message || "No se pudo recuperar la información de la empresa."}</div>`;
+          contenedorCampos.innerHTML = `<div style="grid-column: 1 / -1; color: #ef4444; padding: 20px;">${response.message || "No se pudo recuperar la información de la empresa."}</div>`;
           formEmpresa.style.display = "block";
         }
       })
@@ -62,7 +62,7 @@ function inicializarActualizarEmpresa() {
 
     // Mapeo estricto basado en la estructura fiscal/comercial
     const esquemaCampos = [
-      { clave: "razonSocial", etiqueta: "Razón Social", tipo: "text", icono: "🏢" },
+      { clave: "razonSocial", etiqueta: "Razón Social", tipo: "text", icono: "" },
       { clave: "nombreComercial", etiqueta: "Nombre Comercial", tipo: "text", icono: "🏷️" },
       { clave: "ruc", etiqueta: "RUC", tipo: "text", icono: "🆔" },
       { clave: "dirMatriz", etiqueta: "Dirección Matriz", tipo: "text", icono: "📍" },
@@ -149,7 +149,7 @@ function inicializarActualizarEmpresa() {
             alert("✅ Información de la empresa actualizada con éxito.");
             cargarDatosEmpresa();
           } else {
-            alert("⚠️ No se pudo guardar: " + (data.message || "Fallo en el servidor."));
+            alert("No se pudo guardar: " + (data.message || "Fallo en el servidor."));
           }
         })
         .catch((err) => {

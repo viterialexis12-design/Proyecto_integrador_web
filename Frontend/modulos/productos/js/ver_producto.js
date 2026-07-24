@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     productosFiltrados = [...productosTodos];
                     renderizarTablaPaginada();
                 } else {
-                    mostrarMensajeError("⚠️ No se pudo cargar el inventario: " + response.message);
+                    mostrarMensajeError("No se pudo cargar el inventario: " + response.message);
                 }
             })
             .catch(err => {

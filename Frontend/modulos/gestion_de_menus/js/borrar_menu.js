@@ -92,7 +92,7 @@ function inicializarBorrarMenu() {
                         alertaHijos.style.backgroundColor = "#e8f4fd";
                         alertaHijos.style.borderLeftColor = "#2196f3";
                         alertaHijos.style.color = "#0d47a1";
-                        alertaHijos.innerHTML = "🛡️ <b>Módulo Protegido:</b> Este menú es crucial para la administración del sistema. Por seguridad, no se permite dar de baja ni desactivar este módulo.";
+                        alertaHijos.innerHTML = "<b>Módulo Protegido:</b> Este menú es crucial para la administración del sistema. Por seguridad, no se permite dar de baja ni desactivar este módulo.";
                         alertaHijos.style.display = "block";
 
                     } else {
@@ -112,7 +112,7 @@ function inicializarBorrarMenu() {
                             alertaHijos.style.backgroundColor = "#f8d7da";
                             alertaHijos.style.borderLeftColor = "#dc3545";
                             alertaHijos.style.color = "#721c24";
-                            alertaHijos.innerHTML = "⚠️ <b>¡Atención!</b> Este es un menú principal. Al desactivarlo, también se darán de baja de forma automática todos sus menús hijos vinculados.";
+                            alertaHijos.innerHTML = "<b>¡Atención!</b> Este es un menú principal. Al desactivarlo, también se darán de baja de forma automática todos sus menús hijos vinculados.";
                             alertaHijos.style.display = "block";
                         } else {
                             alertaHijos.style.display = "none";
@@ -148,7 +148,7 @@ function inicializarBorrarMenu() {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
-                        alert("🔴 Módulo inhabilitado con éxito.");
+                        alert("Módulo inhabilitado con éxito.");
                         
                         // Resetear la interfaz
                         txtBuscar.value = ""; 
@@ -164,7 +164,7 @@ function inicializarBorrarMenu() {
                             window.parent.postMessage("refrescarMenuLateral", "*");
                         }
                     } else { 
-                        alert("⚠️ Error del sistema: " + data.message); 
+                        alert("Error del sistema: " + data.message); 
                     }
                 })
                 .catch(err => {

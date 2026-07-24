@@ -25,7 +25,7 @@ function inicializarFormularioPunto() {
 
     if (idPuntoEdicion) {
         modoEdicion = true;
-        tituloFormulario.textContent = "✏️ Editar Punto de Emisión";
+        tituloFormulario.textContent = "Editar Punto de Emisión";
         cargarDatosParaEditar(idPuntoEdicion);
     }
 
@@ -47,7 +47,7 @@ function inicializarFormularioPunto() {
                     txtIdEmpresa.value = p.id_empresa;
                     txtIdUsuario.value = p.id_usuario || "";
                 } else {
-                    alert("⚠️ No se pudieron cargar los datos del punto de emisión.");
+                    alert("No se pudieron cargar los datos del punto de emisión.");
                     window.location.href = "ver_puntos.html";
                 }
             })
@@ -59,7 +59,7 @@ function inicializarFormularioPunto() {
 
         // Validación manual rápida de la regla de longitud del código SRI
         if (txtCodigoSRI.value.trim().length !== 3) {
-            alert("⚠️ El código SRI debe contener exactamente 3 caracteres numéricos.");
+            alert("El código SRI debe contener exactamente 3 caracteres numéricos.");
             return;
         }
 
@@ -90,7 +90,7 @@ function inicializarFormularioPunto() {
                 alert(`✅ Punto de emisión ${modoEdicion ? 'actualizado' : 'registrado'} correctamente.`);
                 window.location.href = "ver_puntos.html";
             } else {
-                alert("⚠️ Error en el proceso: " + data.message);
+                alert("Error en el proceso: " + data.message);
             }
         })
         .catch(() => alert("❌ Error crítico en el canal de red al procesar el formulario."));

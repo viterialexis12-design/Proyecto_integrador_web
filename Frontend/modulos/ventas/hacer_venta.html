@@ -10,14 +10,6 @@
 </head>
 <body class="modulo-body">
 
-<div class="modulo-container">
-    <!-- Cabecera Estandarizada del Módulo -->
-    <div class="modulo-header">
-        <div>
-            <h2>🛒 Registrar Nueva Venta</h2>
-            <p>Selecciona el cliente y agrega productos al carrito para emitir la factura.</p>
-        </div>
-    </div>
 
     <form id="formHacerVenta" onsubmit="return false;">
         
@@ -27,7 +19,7 @@
                 
                 <!-- Selección de Cliente -->
                 <div class="filter-group flex-1">
-                    <label for="selCliente">👤 Cliente / Comprador *</label>
+                    <label for="selCliente"> Cliente / Comprador *</label>
                     <select id="selCliente" name="selCliente" class="form-control" required>
                         <option value="" disabled selected>Cargando lista de clientes...</option>
                     </select>
@@ -35,7 +27,7 @@
 
                 <!-- Buscador Dinámico de Producto -->
                 <div class="filter-group flex-1 pos-search-container">
-                    <label for="txtBuscarProducto">🔍 Buscar Producto *</label>
+                    <label for="txtBuscarProducto"> Buscar Producto *</label>
                     <input type="text" 
                            id="txtBuscarProducto" 
                            name="txtBuscarProducto"
@@ -64,7 +56,7 @@
                 <tbody id="tbodyCarrito">
                     <tr>
                         <td colspan="6" class="td-empty">
-                            🛒 El carrito está vacío. Utiliza el buscador superior para agregar productos.
+                            El carrito está vacío. Utiliza el buscador superior para agregar productos.
                         </td>
                     </tr>
                 </tbody>
@@ -88,10 +80,10 @@
 
                 <div class="form-actions">
                     <button type="button" id="btnCancelarVenta" class="btn btn-secondary">
-                        ❌ Cancelar
+                        Cancelar
                     </button>
                     <button type="button" id="btnFinalizarVenta" class="btn btn-primary">
-                        💳 Guardar Venta
+                        Guardar Venta
                     </button>
                 </div>
 

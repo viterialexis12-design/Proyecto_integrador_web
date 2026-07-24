@@ -9,17 +9,10 @@
 <body class="modulo-body">
 
 <div class="modulo-container">
-    <div class="modulo-header">
-        <div>
-            <h2>✏️ Modificar Cuenta de Usuario</h2>
-            <p>Busca un usuario por nombre, cédula o username para actualizar su información.</p>
-        </div>
-    </div>
-
     <!-- Buscador de Usuario -->
     <div class="buscador-modulo-container">
         <label for="txtBuscarParaEditar">Seleccione el usuario a modificar:</label>
-        <input type="text" id="txtBuscarParaEditar" placeholder="🔍 Escribe cédula, nombre o username...">
+        <input type="text" id="txtBuscarParaEditar" placeholder="Escribe cédula, nombre o username...">
         <div id="listaSugerenciasEditar" class="lista-sugerencias"></div>
     </div>
 
@@ -49,7 +42,7 @@
             <div class="form-group">
                 <label for="txtEditCedula">Cédula *</label>
                 <input type="text" id="txtEditCedula" name="cedula" required maxlength="10">
-                <span id="errorEditCedula" class="error-validacion">⚠️ Cédula inválida. Debe contener 10 dígitos y pasar el algoritmo de validación.</span>
+                <span id="errorEditCedula" class="error-validacion">Cédula inválida. Debe contener 10 dígitos y pasar el algoritmo de validación.</span>
             </div>
             <div class="form-group">
                 <label for="txtEditFechaNac">Fecha de Nacimiento *</label>
@@ -90,7 +83,7 @@
 
             <div class="form-actions span-all-columns">
                 <button type="button" id="btnCancelarEditarUsuario" class="btn btn-secondary">Limpiar / Cancelar</button>
-                <button type="submit" id="btnGuardarEditarUsuario" class="btn btn-primary">💾 Guardar Cambios</button>
+                <button type="submit" id="btnGuardarEditarUsuario" class="btn btn-primary">Guardar Cambios</button>
             </div>
         </form>
     </div>

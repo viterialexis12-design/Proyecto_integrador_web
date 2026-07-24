@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tbody.innerHTML = `
             <tr>
                 <td colspan="7" class="td-empty">
-                    ⏳ Consultando existencias en bodega...
+                     Consultando existencias en bodega...
                 </td>
             </tr>`;
 
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     evaluarAlertasGlobales(inventarioTodos, soloAlertas);
                     filtrarEnMemoria();
                 } else {
-                    mostrarMensajeError("⚠️ " + (response.message || "Error al obtener existencias."));
+                    mostrarMensajeError("" + (response.message || "Error al obtener existencias."));
                 }
             })
             .catch(err => {
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!filtradoAlertasActivo) {
             if (contadorCriticos > 0) {
-                txtContadorMensaje.innerHTML = `⚠️ ¡Atención! Hay <strong>${contadorCriticos}</strong> producto(s) con stock crítico por debajo del límite de reposición (5 unidades).`;
+                txtContadorMensaje.innerHTML = `¡Atención! Hay <strong>${contadorCriticos}</strong> producto(s) con stock crítico por debajo del límite de reposición (5 unidades).`;
                 panelContadorAlertas.style.display = "block";
             } else {
                 panelContadorAlertas.style.display = "none";

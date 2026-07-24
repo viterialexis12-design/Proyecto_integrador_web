@@ -52,7 +52,7 @@ function inicializarEditarPermiso() {
                 item.style.padding = "10px 15px";
                 item.style.cursor = "pointer";
                 item.style.borderBottom = "1px solid #f1f5f9";
-                item.innerHTML = `👤 <b>${rol.nombre}</b> <br> <small style="color:#64748b;">${rol.descripcion || "Sin descripción"}</small>`;
+                item.innerHTML = `<b>${rol.nombre}</b> <br> <small style="color:#64748b;">${rol.descripcion || "Sin descripción"}</small>`;
 
                 item.onclick = () => {
                     txtBuscarRol.value = rol.nombre;
@@ -80,7 +80,7 @@ function inicializarEditarPermiso() {
     // 3. Obtener combinatoria completa de Menús
     function cargarEstructuraYPermisos(idRol) {
         listaModulos.innerHTML =
-            '<div style="grid-column:1/-1; text-align:center; color:#64748b; padding:20px;">⏳ Cargando matriz interactiva...</div>';
+            '<div style="grid-column:1/-1; text-align:center; color:#64748b; padding:20px;"> Cargando matriz interactiva...</div>';
         contenedorPaginacion.innerHTML = "";
         formMatriz.style.display = "block";
 
@@ -97,7 +97,7 @@ function inicializarEditarPermiso() {
                     procesarEstructuraJerarquica(response.data);
                     renderizarMatrizCheckboxes(parseInt(idRol, 10));
                 } else {
-                    listaModulos.innerHTML = `<div style="grid-column:1/-1; color:#ef4444; padding:20px;">⚠️ ${response.message}</div>`;
+                    listaModulos.innerHTML = `<div style="grid-column:1/-1; color:#ef4444; padding:20px;">${response.message}</div>`;
                 }
             })
             .catch(() => {
@@ -337,7 +337,7 @@ function inicializarEditarPermiso() {
         });
 
         if (!tieneAlgúnPermiso) {
-            if (!confirm("⚠️ Has desmarcado todos los menús. El rol se quedará sin accesos. ¿Deseas continuar?")) {
+            if (!confirm("Has desmarcado todos los menús. El rol se quedará sin accesos. ¿Deseas continuar?")) {
                 return;
             }
         }
@@ -358,7 +358,7 @@ function inicializarEditarPermiso() {
 
                     cargarEstructuraYPermisos(txtRolId.value);
                 } else {
-                    alert("⚠️ Error: " + data.message);
+                    alert("Error: " + data.message);
                 }
             })
             .catch(() => alert("❌ Hubo un fallo al intentar actualizar la matriz de permisos."));

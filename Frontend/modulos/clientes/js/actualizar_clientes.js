@@ -102,7 +102,7 @@ function inicializarActualizarCliente() {
         const nombreMostrar = `${c.nombre1 || ""} ${c.apellido1 || ""}`.trim();
 
         item.innerHTML = `
-          👤 <b>${nombreMostrar}</b> 
+          <b>${nombreMostrar}</b> 
           <small style="color:#7f8c8d;">[${c.identificacion || "S/I"}]</small> 
           <span style="float: right; color: ${badgeColor}; font-weight: bold; font-size: 0.85em;">● ${estadoTexto}</span>
         `;
@@ -150,11 +150,11 @@ function inicializarActualizarCliente() {
 
       // Validaciones rápidas en cliente
       if (tipoId === "05" && identificacion.length !== 10) {
-        alert("⚠️ Formato incorrecto. La cédula requiere 10 dígitos.");
+        alert("Formato incorrecto. La cédula requiere 10 dígitos.");
         return;
       }
       if (tipoId === "04" && identificacion.length !== 13) {
-        alert("⚠️ Formato incorrecto. El RUC requiere 13 dígitos.");
+        alert("Formato incorrecto. El RUC requiere 13 dígitos.");
         return;
       }
 
@@ -178,7 +178,7 @@ function inicializarActualizarCliente() {
             // Recargar datos para búsquedas posteriores
             actualizarDatosLocales();
           } else {
-            alert("⚠️ Error al guardar: " + (data.message || "Operación no completada."));
+            alert("Error al guardar: " + (data.message || "Operación no completada."));
           }
         })
         .catch((err) => {

@@ -1,6 +1,6 @@
 /**
  * ==========================================================================
- * LÓGICA DE VISUALIZACIÓN Y PAGINACIÓN DE ROLES (ver_roles.js)
+ * LÓGICA DE VISUALIZACIÓN Y PAGINACIÓN DE ROLES (ver_rol.js)
  * ==========================================================================
  */
 
@@ -32,7 +32,7 @@ function inicializarVerRoles() {
     function cargarTabla() {
         if (!tbody) return;
         
-        tbody.innerHTML = '<tr><td colspan="3" class="loading-row">⏳ Cargando roles...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="3" class="td-empty"> Cargando roles...</td></tr>';
         if (txtBuscar) txtBuscar.value = ""; 
 
         fetch("../../../Backend/controllers/rol_controller.php")
@@ -44,13 +44,13 @@ function inicializarVerRoles() {
                     paginaActual = 1;
                     actualizarVistaTabla();
                 } else {
-                    tbody.innerHTML = `<tr><td colspan="3" style="color:#e74c3c; text-align:center; padding: 20px; font-weight:bold;">⚠️ ${response.message}</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="3" class="td-empty td-error">${response.message}</td></tr>`;
                     limpiarControlesPaginacion();
                 }
             })
             .catch((err) => {
                 console.error(err);
-                tbody.innerHTML = '<tr><td colspan="3" style="color:#e74c3c; text-align:center; padding: 20px; font-weight:bold;">❌ Error de conexión con el servidor.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="3" class="td-empty td-error">❌ Error de conexión con el servidor.</td></tr>';
                 limpiarControlesPaginacion();
             });
     }
@@ -91,7 +91,7 @@ function inicializarVerRoles() {
         tbody.innerHTML = "";
 
         if (roles.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="3" class="loading-row">No se encontraron roles.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="3" class="td-empty">No se encontraron roles.</td></tr>';
             return;
         }
 
@@ -100,8 +100,8 @@ function inicializarVerRoles() {
 
             const estadoActivo = parseInt(r.estado) === 1;
             const estadoBadge = estadoActivo
-                ? '<span class="badge-activo">Activo</span>'
-                : '<span class="badge-inactivo">Inactivo</span>';
+                ? '<span class="badge badge-success">Activo</span>'
+                : '<span class="badge badge-danger">Inactivo</span>';
 
             tr.innerHTML = `
                 <td><b>${r.nombre}</b></td>
@@ -114,7 +114,7 @@ function inicializarVerRoles() {
     }
 
     /**
-     * Genera la botonera de navegación limpia
+     * Genera la botonera de navegación limpia conforme a los estilos .page-btn
      */
     function renderizarBotonera(totalPaginas) {
         if (!contenedorBotones) return;
@@ -143,12 +143,7 @@ function inicializarVerRoles() {
         for (let i = 1; i <= totalPaginas; i++) {
             const btnPagina = document.createElement("button");
             btnPagina.textContent = i;
-            
-            if (i === paginaActual) {
-                btnPagina.className = "btn-pagina-activo";
-            } else {
-                btnPagina.className = "btn-pagina-comun";
-            }
+            btnPagina.className = "page-btn" + (i === paginaActual ? " active" : "");
 
             btnPagina.onclick = () => {
                 paginaActual = i;
@@ -165,7 +160,7 @@ function inicializarVerRoles() {
         if (btnNextPage) btnNextPage.disabled = true;
     }
 
-    // Eventores de controles reactivos
+    // Eventos de controles reactivos
     if (btnRefrescar) {
         btnRefrescar.onclick = () => cargarTabla();
     }
